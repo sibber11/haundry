@@ -17,7 +17,8 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'longitude' => $this->faker->longitude,
+            'latitude' => $this->faker->latitude
         ];
     }
 }

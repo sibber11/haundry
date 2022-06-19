@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+//            $table->json('location')->nullable();
+            $table->foreignId('area_id')->nullable();
+            //here we are storing longitude as int
+            // actual_longitude * 10000 = upto_five_place_precision
+            $table->mediumInteger('longitude');
+            $table->mediumInteger('latitude');
             $table->timestamps();
         });
     }
