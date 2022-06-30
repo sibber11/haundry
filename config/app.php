@@ -210,6 +210,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'SMS' => \Xenon\LaravelBDSms\Facades\SMS::class
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
