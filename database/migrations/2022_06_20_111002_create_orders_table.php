@@ -15,7 +15,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id');
+            $table->integer('total');
+            $table->dateTime('deadline');
             $table->timestamps();
+        });
+
+        Schema::create('laundry_order', function (Blueprint $table){
+            $table->bigInteger('order_id');
+            $table->bigInteger('laundry_id');
         });
     }
 

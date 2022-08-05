@@ -16,6 +16,9 @@ class TwoFactor
      */
     public function handle(Request $request, Closure $next)
     {
+        /**
+         * @var App\Models\User $user
+         */
         $user = auth()->user();
 
         if(auth()->check() && $user->two_factor_code)

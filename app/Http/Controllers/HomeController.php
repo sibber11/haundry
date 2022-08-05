@@ -15,6 +15,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('twofactor');
+        $this->middleware('verified');
     }
 
     /**

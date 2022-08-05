@@ -17,7 +17,8 @@ class LaundryTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->unique->randomElement(['shirt', 't-shirt', 'pant', 'panjabi']),
+            'price' => $this->faker->randomNumber(3)
         ];
     }
 }

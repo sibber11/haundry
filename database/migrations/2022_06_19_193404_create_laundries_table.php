@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('laundries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('laundry_type_id');
+            $table->tinyInteger('amount');
             $table->timestamps();
         });
     }

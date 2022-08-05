@@ -15,6 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    @if (request()->session()->get('verified', 'default'))
+                        {{ request()->session()->get('verified', 'default') }}
+                    @endif
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Interfaces\MustVerifyPhone;
+use App\Traits\MustVerifyPhone as MustVerifyPhoneTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,9 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -50,20 +52,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'two_factor_expires_at',
     ];
-
-    public function generateTwoFactorCode()
-    {
-        $this->timestamps = false;
-        $this->two_factor_code = rand(100000, 999999);
-        $this->two_factor_expires_at = now()->addMinutes(10);
-        $this->save();
-    }
-
-    public function resetTwoFactorCode()
-    {
-        $this->timestamps = false;
-        $this->two_factor_code = null;
-        $this->two_factor_expires_at = null;
-        $this->save();
-    }
 }
