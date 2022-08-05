@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TwoFactorCode extends Notification
+class TwoFactorCode extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -29,8 +29,9 @@ class TwoFactorCode extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
-//        return [SMSChannel::class];
+        return [$notifiable->two_factor_via];
+//      return ['mail', 'database'];
+//      return [SMSChannel::class];
     }
 
     /**

@@ -18,3 +18,9 @@ yarn-error.log
 haundry.code-workspace
 _ide_helper.php
 /storage/*
+_ide_helper_models.php
+public/mix-manifest.json
+public/css/app.css
+public/css/bootstrap.min.css
+public/js/app.js
+public/js/bootstrap.bundle.min.js

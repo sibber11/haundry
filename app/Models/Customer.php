@@ -5,15 +5,14 @@ namespace App\Models;
 use App\Models\Order;
 use App\Traits\HasTwoFactorGuard;
 use Laravel\Sanctum\HasApiTokens;
-use App\Interfaces\MustVerifyPhone;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\MustVerifyPhone as MustVerifyPhoneTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
+class Customer extends Authenticatable
+//implements MustVerifyEmail, MustVerifyPhone
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait, HasTwoFactorGuard;
 
