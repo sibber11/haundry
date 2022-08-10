@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 
 use App\Models\Customer;
+use App\Models\Laundry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -23,12 +24,24 @@ class Order extends Model
 
     public static $rules = [
         'customer_id' => 'required',
-        'total' => 'required',
-        'deadline' => 'required',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'deadline' => 'required|date',
+        'items' => 'required|array'
     ];
+    protected $attributes = [
+        'total' => 0,
+    ];
+    public function add_items(array $input): void
+    {
+        foreach ($input as $laundry) {
+            $laundries[] = Laundry::make($laundry);
+        }
+        $this->laundries()->saveMany($laundries);
+    }
 
+    public function laundries()
+    {
+        return $this->hasMany(Laundry::class);
+    }
     /**
      * Get the customer that owns the Order
      *

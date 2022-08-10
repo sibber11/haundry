@@ -205,7 +205,7 @@ return [
 
     'from_table' => [
 
-        'doctrine_mappings' => [],
+        'doctrine_mappings' => ['enum' => 'string', 'json' => 'text'],
     ],
 
 ];

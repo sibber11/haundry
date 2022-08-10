@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Orders
+                        Edit Laundry
                     </h1>
                 </div>
             </div>
@@ -19,23 +19,17 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'admin.orders.store', 'id' => 'main_form']) !!}
+            {!! Form::model($laundry, ['route' => ['admin.laundries.update', $laundry->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-
                 <div class="row">
-                    @include('admin.orders.fields')
-
-                </div>
-                <div class="row adder">
                     @include('admin.laundries.fields')
                 </div>
-
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('admin.laundries.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

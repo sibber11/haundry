@@ -38,9 +38,9 @@ class OrderController extends AppBaseController
     public function store(CreateOrderRequest $request)
     {
         $input = $request->all();
-
         /** @var  Order $order */
         $order = Order::create($input);
+        $order->add_items($input['items']);
 
         Flash::success('Order saved successfully.');
 
