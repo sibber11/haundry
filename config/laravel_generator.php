@@ -142,7 +142,7 @@ return [
 
         'factory' => true,
 
-        'seeder' => true,
+        'seeder' => false,
 
         'swagger' => false, // generate swagger for your APIs
 
@@ -162,7 +162,7 @@ return [
 
         'route' => 'admin',  // e.g. admin or admin.shipping or admin.shipping.logistics
 
-        'namespace' => 'Admin',  // e.g. Admin or Admin\Shipping or Admin\Shipping\Logistics
+        'namespace' => '',  // e.g. Admin or Admin\Shipping or Admin\Shipping\Logistics
 
         'view' => 'admin',  // e.g. admin or admin/shipping or admin/shipping/logistics
     ],

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('laundries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id');
             $table->foreignId('laundry_type_id');
+            $table->enum('service_type',['dry_wash', 'wash', 'iron'])->default('iron');
             $table->tinyInteger('amount');
-            $table->timestamps();
         });
     }
 

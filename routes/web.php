@@ -12,7 +12,7 @@ use App\Http\Controllers\OrderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+Route::middleware('auth')->get('/', function () {
     return view('home');
 });
 
@@ -26,5 +26,3 @@ Route::get('phpinfo', function () {
 Route::resource('order', OrderController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();

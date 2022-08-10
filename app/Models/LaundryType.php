@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LaundryType extends Model
 {
+    use HasFactory;
     public $table = 'laundry_types';
+    public $timestamps = false;
 
     public $fillable = [
         'category',
@@ -29,5 +32,5 @@ class LaundryType extends Model
         'iron_price' => 'nullable'
     ];
 
-    
+
 }

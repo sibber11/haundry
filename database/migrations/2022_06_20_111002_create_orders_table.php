@@ -20,11 +20,6 @@ return new class extends Migration
             $table->dateTime('deadline');
             $table->timestamps();
         });
-
-        Schema::create('laundry_order', function (Blueprint $table){
-            $table->bigInteger('order_id');
-            $table->bigInteger('laundry_id');
-        });
     }
 
     /**

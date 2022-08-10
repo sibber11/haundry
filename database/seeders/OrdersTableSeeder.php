@@ -4,7 +4,7 @@ namespace Database\Seeders\Admin;
 
 use Illuminate\Database\Seeder;
 
-class LaundryTypesTableSeeder extends Seeder
+class OrdersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

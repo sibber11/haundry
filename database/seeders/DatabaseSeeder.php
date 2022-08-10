@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Address;
-use App\Models\User;
-use GuzzleHttp\Promise\Create;
+use App\Models\Customer;
+use Database\Seeders\LaundryTypesTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,15 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'name' => 'Customer',
-            'email' => 'customer@haundry.test',
-            'password' => '$2y$10$3HKpFT7YLLy6LwAnHebEVOnQvoE/BBV.cw/DZOQ2Eh90cKYF8FMja', //password
-            'phone' => '+8801735974411',
-        ]);
-        
+        try {
+            Customer::factory()->create([
+                'name' => 'Customer',
+                'email' => 'customer@haundry.test',
+            ]);
+        } catch (\Throwable $th) {
+            echo 'customer exists!';
+        }
+
         $this->call([
-            LaundryTypeSeeder::class,
+            LaundryTypesTableSeeder::class,
         ]);
     }
 }

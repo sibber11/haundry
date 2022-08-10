@@ -12,3 +12,17 @@
         <p>Laundry Types</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.customers.index') }}" class="nav-link {{ Request::is('admin.customers*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Customers</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin.orders*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Orders</p>
+    </a>
+</li>
