@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateLaundryTypeRequest;
-use App\Http\Requests\UpdateLaundryTypeRequest;
-use App\Http\Controllers\AppBaseController;
+use Laracasts\Flash\Flash;
 use App\Models\LaundryType;
 use Illuminate\Http\Request;
-use Flash;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\CreateLaundryTypeRequest;
+use App\Http\Requests\UpdateLaundryTypeRequest;
 
 class LaundryTypeController extends AppBaseController
 {

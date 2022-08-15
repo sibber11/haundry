@@ -1,13 +1,13 @@
-<!-- Category Field -->
-<div class="col-sm-12">
-    {!! Form::label('category', 'Category:') !!}
-    <p>{{ $laundryType->category }}</p>
-</div>
-
 <!-- Name Field -->
 <div class="col-sm-12">
     {!! Form::label('name', 'Name:') !!}
     <p>{{ $laundryType->name }}</p>
+</div>
+
+<!-- Category Field -->
+<div class="col-sm-12">
+    {!! Form::label('category', 'Category:') !!}
+    <p>{{ $laundryType->category->name}}</p>
 </div>
 
 <!-- Wash Price Field -->

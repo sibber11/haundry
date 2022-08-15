@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Admin\Customer;
+use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCustomerRequest extends FormRequest
@@ -24,6 +24,6 @@ class CreateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        return Customer::$rules;
+        return Customer::$rules ?? [];
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id');
             $table->foreignId('laundry_type_id');
-            $table->enum('service_type',['dry_wash', 'wash', 'iron', 'wash_iron'])->default('iron');
+            $table->foreignId('service_id');
             $table->tinyInteger('amount');
         });
     }

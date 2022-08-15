@@ -3,21 +3,23 @@
         <table class="table" id="laundries-table">
             <thead>
             <tr>
-                <th>Order Id</th>
+                {{-- <th>Order Id</th> --}}
                 <th>Laundry Type Id</th>
-                <th>Service Type</th>
+                <th>Service Type (Price)</th>
                 <th>Amount</th>
-                <th colspan="3">Action</th>
+                <th>Sub Total</th>
+                {{-- <th colspan="3">Action</th> --}}
             </tr>
             </thead>
             <tbody>
             @foreach($laundries as $laundry)
                 <tr>
-                    <td>{{ $laundry->order_id }}</td>
-                    <td>{{ $laundry->laundry_type_id }}</td>
-                    <td>{{ $laundry->service_type }}</td>
+                    {{-- <td>{{ $laundry->order_id }}</td> --}}
+                    <td>{{ $laundry->laundry_type->name }}</td>
+                    <td>{{ $laundry->service->name.' ('. $laundry->laundry_type->{$laundry->service->name.'_price'}.')' }}</td>
                     <td>{{ $laundry->amount }}</td>
-                    <td  style="width: 120px">
+                    <td>{{ $laundry->laundry_type->{$laundry->service->name.'_price'} * $laundry->amount }}</td>
+                    {{-- <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.laundries.destroy', $laundry->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             <a href="{{ route('admin.laundries.show', [$laundry->id]) }}"
@@ -31,16 +33,16 @@
                             {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         </div>
                         {!! Form::close() !!}
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
 
-    <div class="card-footer clearfix">
+    {{-- <div class="card-footer clearfix">
         <div class="float-right">
             @include('adminlte-templates::common.paginate', ['records' => $laundries])
         </div>
-    </div>
+    </div> --}}
 </div>

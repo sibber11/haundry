@@ -6,14 +6,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                    @lang('models/orders.singular') @lang('crud.detail')
+                        @lang('models/orders.singular') @lang('crud.detail')
                     </h1>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-default float-right"
-                       href="{{ route('admin.orders.index') }}">
-                                                    @lang('crud.back')
-                                            </a>
+                    <a class="btn btn-default float-right" href="{{ route('admin.orders.index') }}">
+                        @lang('crud.back')
+                    </a>
                 </div>
             </div>
         </div>
@@ -26,7 +25,7 @@
                     @include('admin.orders.show_fields')
                 </div>
                 <div class="row">
-                    @include('admin.laundries.show_fields')
+                    @include('admin.laundries.table', ['laundries' => $order->laundries])
                 </div>
             </div>
         </div>

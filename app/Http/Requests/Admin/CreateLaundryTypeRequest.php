@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Admin\LaundryType;
+use App\Models\LaundryType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateLaundryTypeRequest extends FormRequest

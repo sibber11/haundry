@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Admin\Order;
+
+use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateOrderRequest extends FormRequest

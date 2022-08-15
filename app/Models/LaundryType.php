@@ -12,7 +12,7 @@ class LaundryType extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'category',
+        'category_id',
         'name',
         'wash_price',
         'dry_wash_price',
@@ -20,17 +20,22 @@ class LaundryType extends Model
     ];
 
     protected $casts = [
-        'category' => 'string',
         'name' => 'string'
     ];
 
     public static $rules = [
-        'category' => 'required|string',
+        'category_id' => 'required|numeric|exists:categories,id',
         'name' => 'required|string',
         'wash_price' => 'nullable',
         'dry_wash_price' => 'nullable',
         'iron_price' => 'nullable'
     ];
 
-
+    public $with = [
+        'category'
+    ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('laundry_types', function (Blueprint $table) {
             $table->id();
-            $table->enum('category', ['men', 'women', 'child', 'household'])->default('men');
+            $table->foreignId('category_id');
             $table->string('name');
             $table->integer('wash_price')->nullable();
             $table->integer('dry_wash_price')->nullable();

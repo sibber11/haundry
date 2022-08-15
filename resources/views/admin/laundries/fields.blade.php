@@ -1,6 +1,6 @@
-
 @php
 $laundry_types = App\Models\LaundryType::all()->pluck('name', 'id');
+$services = App\Models\Service::all()->pluck('name', 'id');
 @endphp
 <div class="form-group col-sm-12">
 
@@ -8,7 +8,7 @@ $laundry_types = App\Models\LaundryType::all()->pluck('name', 'id');
 <!-- Laundry Type Id Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('laundry_type_id', 'Laundry Type:') !!}
-    {!! Form::select('', $laundry_types, null, [
+    {!! Form::select('', [], null, [
         'class' => 'form-control pop',
         'id' => 'laundry_type',
         'placeholder' => 'Select Laundry...',
@@ -18,7 +18,7 @@ $laundry_types = App\Models\LaundryType::all()->pluck('name', 'id');
 <!-- Service Type Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('service_type', 'Service Type:') !!}
-    {!! Form::select('', ['iron', 'dry_wash', 'wash', 'wash_iron'], null, ['class' => 'form-control', 'id' => 'service_type']) !!}
+    {!! Form::select('', $services, null, ['class' => 'form-control', 'id' => 'service_type']) !!}
 </div>
 
 <!-- Amount Field -->
@@ -49,20 +49,43 @@ $laundry_types = App\Models\LaundryType::all()->pluck('name', 'id');
 
 @push('page_scripts')
     <script type="text/javascript">
-
         $('.pop').popover({
             content: 'This field is required!',
             placement: 'top',
             contianer: 'body',
             trigger: 'manual'
         })
-        $('#laundry_type').focus(function(){
+        $('#laundry_type').select2({
+            ajax: {
+                url: "?type",
+                data: function(params) {
+                    var query = {
+                        q: params.term,
+                    }
+                    return query;
+                },
+                processResults: function(data) {
+                    let r = $.map(data.results, function(obj) {
+                        obj.text = obj.text || obj.name; // replace pk with your identifier
+
+                        return obj;
+                    })
+                    return {
+                        results: r
+                    };
+                },
+            },
+            delay: 250,
+            dataType: 'json',
+            cache: true,
+        });
+        $('#laundry_type').focus(function() {
             $('.pop').popover('hide');
-        })
+        });
         let num = 0;
         $('.rmv').click(function() {
             $(this).parent().parent().remove();
-        })
+        });
         $('#add').click(function() {
             let laundry_id = $('#laundry_type').val();
             if (laundry_id == '') {
@@ -80,7 +103,7 @@ $laundry_types = App\Models\LaundryType::all()->pluck('name', 'id');
                     ${laundry_type}
                 </td>
                 <td>
-                    <input type="hidden" name="items[${num}][service_type]" value="${service_id}">
+                    <input type="hidden" name="items[${num}][service_id]" value="${service_id}">
                     ${service_type}
                 </td>
                 <td>

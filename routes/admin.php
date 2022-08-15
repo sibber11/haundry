@@ -41,3 +41,24 @@ Route::resource('admin/laundry-types', App\Http\Controllers\LaundryTypeControlle
         'create' => 'admin.laundryTypes.create',
         'edit' => 'admin.laundryTypes.edit'
     ]);
+
+Route::resource('admin/categories', App\Http\Controllers\CategoryController::class)
+    ->names([
+        'index' => 'admin.categories.index',
+        'store' => 'admin.categories.store',
+        'show' => 'admin.categories.show',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+        'create' => 'admin.categories.create',
+        'edit' => 'admin.categories.edit'
+    ]);
+Route::resource('admin/services', App\Http\Controllers\ServiceController::class)
+    ->names([
+        'index' => 'admin.services.index',
+        'store' => 'admin.services.store',
+        'show' => 'admin.services.show',
+        'update' => 'admin.services.update',
+        'destroy' => 'admin.services.destroy',
+        'create' => 'admin.services.create',
+        'edit' => 'admin.services.edit'
+    ]);

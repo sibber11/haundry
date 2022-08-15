@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Admin;
-
-use App\Models\Admin\LaundryType;
+use App\Models\LaundryType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateLaundryTypeRequest extends FormRequest
@@ -25,7 +24,7 @@ class UpdateLaundryTypeRequest extends FormRequest
     public function rules()
     {
         $rules = LaundryType::$rules;
-        
+
         return $rules;
     }
 }

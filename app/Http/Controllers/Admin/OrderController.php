@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Order;
+use App\Models\Customer;
+use Laracasts\Flash\Flash;
+use App\Models\LaundryType;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateOrderRequest;
 use App\Http\Requests\Admin\UpdateOrderRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Admin\Order;
-use Illuminate\Http\Request;
-use Flash;
 
 class OrderController extends AppBaseController
 {
@@ -27,8 +29,22 @@ class OrderController extends AppBaseController
     /**
      * Show the form for creating a new Order.
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->ajax() || $request->wantsJson()) {
+            $request->validate([
+                'q' => 'nullable|string',
+            ]);
+            if ($request->has('q')) {
+                # code...
+            }
+            if ($request->has('customer')) {
+                return ['results' => Customer::all()];
+            }elseif($request->has('type')){
+                return ['results' => LaundryType::all()];
+            }
+            return 'Error!';
+        }
         return view('admin.orders.create');
     }
 

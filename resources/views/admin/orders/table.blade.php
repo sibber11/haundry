@@ -3,6 +3,7 @@
         <table class="table" id="orders-table">
             <thead>
             <tr>
+                <th>Order Id</th>
                 <th>Customer Name</th>
                 <th>Total</th>
                 <th>Deadline</th>
@@ -12,6 +13,7 @@
             <tbody>
             @foreach($orders as $order)
                 <tr>
+                    <td>{{ $order->id }}</td>
                     <td>{{ $order->customer->name }}</td>
                     <td>{{ $order->total }}</td>
                     <td>{{ $order->deadline }}</td>

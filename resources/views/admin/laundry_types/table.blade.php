@@ -3,8 +3,8 @@
         <table class="table" id="laundry-types-table">
             <thead>
             <tr>
-                <th>Category</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Wash Price</th>
                 <th>Dry Wash Price</th>
                 <th>Iron Price</th>
@@ -14,8 +14,8 @@
             <tbody>
             @foreach($laundryTypes as $laundryType)
                 <tr>
-                    <td>{{ $laundryType->category }}</td>
                     <td>{{ $laundryType->name }}</td>
+                    <td>{{ $laundryType->category->name }}</td>
                     <td>{{ $laundryType->wash_price }}</td>
                     <td>{{ $laundryType->dry_wash_price }}</td>
                     <td>{{ $laundryType->iron_price }}</td>

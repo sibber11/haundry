@@ -8,10 +8,10 @@ $customers = App\Models\Customer::all()->pluck('name', 'id');
 </div>
 
 <!-- Total Field -->
-<div class="form-group col-sm-4">
+{{-- <div class="form-group col-sm-4">
     {!! Form::label('total', 'Total:') !!}
     {!! Form::number('total', null, ['class' => 'form-control', 'required', 'disabled']) !!}
-</div>
+</div> --}}
 
 <!-- Deadline Field -->
 <div class="form-group col-sm-4">
@@ -21,6 +21,30 @@ $customers = App\Models\Customer::all()->pluck('name', 'id');
 
 @push('page_scripts')
     <script type="text/javascript">
+    $('#customer_id').select2({
+            ajax: {
+                url: "?customer",
+                data: function(params) {
+                    var query = {
+                        q: params.term,
+                    }
+                    return query;
+                },
+                processResults: function(data) {
+                    let r = $.map(data.results, function(obj) {
+                        obj.text = obj.text || obj.name; // replace pk with your identifier
+
+                        return obj;
+                    })
+                    return {
+                        results: r
+                    };
+                },
+            },
+            delay: 250,
+            dataType: 'json',
+            cache: true,
+        });
         $('#deadline').datepicker({
             todayHighlight: true,
             todayBtn: true,

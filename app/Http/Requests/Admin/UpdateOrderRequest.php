@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Admin\Order;
+
+use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateOrderRequest extends FormRequest
@@ -25,7 +26,7 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         $rules = Order::$rules;
-        
+
         return $rules;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\Category;
 use App\Models\LaundryType;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +24,7 @@ class LaundryTypeSeeder extends Seeder
         foreach ($this->inputs as $input => $array) {
             foreach ($array as $value) {
                 LaundryType::factory()->create([
-                    'category' => $input,
+                    'category_id' => Category::whereName($input)->first(),
                     'name' => $value,
                 ]);
             }

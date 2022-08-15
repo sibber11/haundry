@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
-use Database\Seeders\LaundryTypesTableSeeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\LaundryTypeSeeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            LaundryTypesTableSeeder::class,
+            LaundryTypeSeeder::class,
         ]);
     }
 }

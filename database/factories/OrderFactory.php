@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin\Order;
+use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -22,13 +23,11 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-
+        $customer = Customer::first() ?? Customer::factory();
         return [
-            'customer_id' => $this->faker->word,
-            'total' => $this->faker->word,
+            'customer_id' => $customer,
+            'total' => 0,
             'deadline' => $this->faker->date('Y-m-d H:i:s'),
-            'created_at' => $this->faker->date('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }
