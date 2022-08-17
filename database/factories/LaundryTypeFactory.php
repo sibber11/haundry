@@ -27,9 +27,9 @@ class LaundryTypeFactory extends Factory
         return [
             'category_id' => Category::inRandomOrder()->first() ?? Category::factory(),
             'name' => $this->faker->name,
-            'wash_price' => $this->faker->numberBetween(10,200),
-            'dry_wash_price' => $this->faker->numberBetween(10,200),
-            'iron_price' => $this->faker->numberBetween(10,200)
+            // 'wash_price' => $this->faker->numberBetween(10,200),
+            // 'dry_wash_price' => $this->faker->numberBetween(10,200),
+            // 'iron_price' => $this->faker->numberBetween(10,200)
         ];
     }
 }

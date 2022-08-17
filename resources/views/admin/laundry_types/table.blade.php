@@ -5,9 +5,7 @@
             <tr>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Wash Price</th>
-                <th>Dry Wash Price</th>
-                <th>Iron Price</th>
+                <th>Service Price</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -16,9 +14,11 @@
                 <tr>
                     <td>{{ $laundryType->name }}</td>
                     <td>{{ $laundryType->category->name }}</td>
-                    <td>{{ $laundryType->wash_price }}</td>
-                    <td>{{ $laundryType->dry_wash_price }}</td>
-                    <td>{{ $laundryType->iron_price }}</td>
+                    <td>
+                        @foreach ($laundryType->services as $service)
+                            <span class="text-capitalize">{{$service->name}}</span> : {{$service->pivot->price}},
+                        @endforeach
+                    </td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.laundryTypes.destroy', $laundryType->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

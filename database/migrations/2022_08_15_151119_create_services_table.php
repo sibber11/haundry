@@ -17,7 +17,14 @@ return new class extends Migration
             $table->id('id');
             $table->text('name');
         });
-        DB::table('services')->insert([['name' => 'wash'], ['name'=>'iron'], ['name'=>'dry_wash'], ['name'=>'wash_iron']]);
+
+        DB::table('services')->insert([['name' => 'wash'], ['name'=>'iron'], ['name'=>'dry wash'], ['name'=>'wash iron']]);
+
+        Schema::create('laundry_type_service', function (Blueprint $table) {
+            $table->foreignId('laundry_type_id');
+            $table->foreignId('service_id');
+            $table->integer('price');
+        });
     }
 
     /**
@@ -28,5 +35,7 @@ return new class extends Migration
     public function down()
     {
         Schema::drop('services');
+        Schema::drop('laundry_type_service');
     }
 };
+

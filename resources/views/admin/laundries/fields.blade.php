@@ -9,7 +9,7 @@ $services = App\Models\Service::all()->pluck('name', 'id');
 <div class="form-group col-sm-4">
     {!! Form::label('laundry_type_id', 'Laundry Type:') !!}
     {!! Form::select('', [], null, [
-        'class' => 'form-control pop',
+        'class' => 'form-control',
         'id' => 'laundry_type',
         'placeholder' => 'Select Laundry...',
     ]) !!}
@@ -18,7 +18,7 @@ $services = App\Models\Service::all()->pluck('name', 'id');
 <!-- Service Type Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('service_type', 'Service Type:') !!}
-    {!! Form::select('', $services, null, ['class' => 'form-control', 'id' => 'service_type']) !!}
+    {!! Form::select('', $services, null, ['class' => 'form-control', 'id' => 'service_type', 'disabled']) !!}
 </div>
 
 <!-- Amount Field -->
@@ -66,8 +66,7 @@ $services = App\Models\Service::all()->pluck('name', 'id');
                 },
                 processResults: function(data) {
                     let r = $.map(data.results, function(obj) {
-                        obj.text = obj.text || obj.name; // replace pk with your identifier
-
+                        obj.text = obj.text || obj.name;
                         return obj;
                     })
                     return {
@@ -78,9 +77,8 @@ $services = App\Models\Service::all()->pluck('name', 'id');
             delay: 250,
             dataType: 'json',
             cache: true,
-        });
-        $('#laundry_type').focus(function() {
-            $('.pop').popover('hide');
+            // dropdownCssClass: 'text-capitalize',
+            // selectionCssClass: 'text-capitalize',
         });
         let num = 0;
         $('.rmv').click(function() {
@@ -89,7 +87,7 @@ $services = App\Models\Service::all()->pluck('name', 'id');
         $('#add').click(function() {
             let laundry_id = $('#laundry_type').val();
             if (laundry_id == '') {
-                $('.pop').popover('show');
+                // $('.pop').popover('show');
                 return;
             }
             let laundry_type = $('#laundry_type option:selected').text();

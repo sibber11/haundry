@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Laracasts\Flash\Flash;
 use App\Models\LaundryType;
@@ -41,6 +41,7 @@ class LaundryTypeController extends AppBaseController
 
         /** @var  LaundryType $laundryType */
         $laundryType = LaundryType::create($input);
+        $laundryType->add_services($input['services']);
 
         Flash::success('Laundry Type saved successfully.');
 
@@ -94,9 +95,11 @@ class LaundryTypeController extends AppBaseController
 
             return redirect(route('admin.laundryTypes.index'));
         }
-
+        // dd($request->input('services'));
         $laundryType->fill($request->all());
         $laundryType->save();
+
+        $laundryType->update_services($request->input('services'));
 
         Flash::success('Laundry Type updated successfully.');
 

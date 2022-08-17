@@ -14,9 +14,6 @@ class LaundryType extends Model
     public $fillable = [
         'category_id',
         'name',
-        'wash_price',
-        'dry_wash_price',
-        'iron_price'
     ];
 
     protected $casts = [
@@ -26,16 +23,27 @@ class LaundryType extends Model
     public static $rules = [
         'category_id' => 'required|numeric|exists:categories,id',
         'name' => 'required|string',
-        'wash_price' => 'nullable',
-        'dry_wash_price' => 'nullable',
-        'iron_price' => 'nullable'
+        'services' => 'required|array'
     ];
 
     public $with = [
-        'category'
+        'category','services'
     ];
+
+    public function add_services($services_array){
+        $this->services()->attach($services_array);
+    }
+    public function update_services($services_array)
+    {
+        $this->services()->sync($services_array);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class)->withPivot('price');
     }
 }

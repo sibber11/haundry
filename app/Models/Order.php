@@ -32,12 +32,24 @@ class Order extends Model
     protected $attributes = [
         'total' => 0,
     ];
+
+    public function calculate_total()
+    {
+        $total = 0;
+        foreach ($this->laundries as $laundry) {
+            $total += $laundry->service->price;
+            dump($laundry->service->price);
+        }
+        dump($total);
+    }
+
     public function add_items(array $input): void
     {
         foreach ($input as $laundry) {
             $laundries[] = Laundry::make($laundry);
         }
         $this->laundries()->saveMany($laundries);
+        $this->calculate_total();
     }
 
     public function laundries()

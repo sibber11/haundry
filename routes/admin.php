@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 
 Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
     ->names([
@@ -31,7 +32,7 @@ Route::resource('admin/orders', App\Http\Controllers\Admin\OrderController::clas
         'create' => 'admin.orders.create',
         'edit' => 'admin.orders.edit'
     ]);
-Route::resource('admin/laundry-types', App\Http\Controllers\LaundryTypeController::class)
+Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
     ->names([
         'index' => 'admin.laundryTypes.index',
         'store' => 'admin.laundryTypes.store',
@@ -42,7 +43,7 @@ Route::resource('admin/laundry-types', App\Http\Controllers\LaundryTypeControlle
         'edit' => 'admin.laundryTypes.edit'
     ]);
 
-Route::resource('admin/categories', App\Http\Controllers\CategoryController::class)
+Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class)
     ->names([
         'index' => 'admin.categories.index',
         'store' => 'admin.categories.store',
@@ -52,7 +53,7 @@ Route::resource('admin/categories', App\Http\Controllers\CategoryController::cla
         'create' => 'admin.categories.create',
         'edit' => 'admin.categories.edit'
     ]);
-Route::resource('admin/services', App\Http\Controllers\ServiceController::class)
+Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::class)
     ->names([
         'index' => 'admin.services.index',
         'store' => 'admin.services.store',

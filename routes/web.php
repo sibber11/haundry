@@ -12,8 +12,8 @@ use App\Http\Controllers\OrderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->get('/', function () {
-    return view('home');
+Route::get('/', function () {
+    return view('index');
 });
 
 Route::get('phpinfo', function () {

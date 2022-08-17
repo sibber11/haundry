@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id');
             $table->string('name');
-            $table->integer('wash_price')->nullable();
-            $table->integer('dry_wash_price')->nullable();
-            $table->integer('iron_price')->nullable();
+            // $table->integer('wash_price')->nullable();
+            // $table->integer('dry_wash_price')->nullable();
+            // $table->integer('iron_price')->nullable();
         });
     }
 

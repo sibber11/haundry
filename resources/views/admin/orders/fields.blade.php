@@ -16,7 +16,7 @@ $customers = App\Models\Customer::all()->pluck('name', 'id');
 <!-- Deadline Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('deadline', 'Deadline:') !!}
-    {!! Form::text('deadline', Carbon\Carbon::tomorrow(), ['class' => 'form-control', 'id' => 'deadline']) !!}
+    {!! Form::text('deadline', Carbon\Carbon::now()->add('days', 1), ['class' => 'form-control', 'id' => 'deadline']) !!}
 </div>
 
 @push('page_scripts')
@@ -32,8 +32,7 @@ $customers = App\Models\Customer::all()->pluck('name', 'id');
                 },
                 processResults: function(data) {
                     let r = $.map(data.results, function(obj) {
-                        obj.text = obj.text || obj.name; // replace pk with your identifier
-
+                        obj.text = obj.text || obj.name;
                         return obj;
                     })
                     return {
@@ -45,10 +44,10 @@ $customers = App\Models\Customer::all()->pluck('name', 'id');
             dataType: 'json',
             cache: true,
         });
-        $('#deadline').datepicker({
+        $('#deadline').datetimepicker({
             todayHighlight: true,
             todayBtn: true,
-            time: true,
+            startDate: "{{Carbon\Carbon::today()}}",
         })
     </script>
 @endpush

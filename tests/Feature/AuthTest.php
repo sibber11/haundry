@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,7 +12,7 @@ class AuthTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(UserSeeder::class);
+        $this->seed();
     }
 
     /**
@@ -24,7 +22,7 @@ class AuthTest extends TestCase
      */
     public function test_user_can_login_using_email()
     {
-        $user = \App\Models\User::first();
+        $user = \App\Models\Customer::first();
         $this->withoutExceptionHandling();
         $response = $this->post(route('login'), [
             'email_or_phone' => $user->email,
@@ -35,7 +33,7 @@ class AuthTest extends TestCase
 
     public function test_user_can_login_using_phone()
     {
-        $user = \App\Models\User::first();
+        $user = \App\Models\Customer::first();
         $response = $this->post(route('login'), [
             'email_or_phone' => $user->phone,
             'password' => 'password'

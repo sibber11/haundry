@@ -22,6 +22,6 @@ class Service extends Model
 
     public function laundry_type()
     {
-        return $this->belongsTo(LaundryType::class);
+        return $this->belongsToMany(LaundryType::class);
     }
 }

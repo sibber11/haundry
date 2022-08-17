@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Flash;
 
 class CategoryController extends AppBaseController
 {

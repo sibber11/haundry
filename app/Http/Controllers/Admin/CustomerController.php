@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Customer;
+use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateCustomerRequest;
 use App\Http\Requests\Admin\UpdateCustomerRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Customer;
-use Illuminate\Http\Request;
-use Flash;
 
 class CustomerController extends AppBaseController
 {

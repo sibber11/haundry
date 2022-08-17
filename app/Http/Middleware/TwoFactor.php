@@ -17,7 +17,7 @@ class TwoFactor
     public function handle(Request $request, Closure $next)
     {
         /**
-         * @var App\Models\User $user
+         * @var \App\Models\Customer $user
          */
         $user = auth()->user();
 

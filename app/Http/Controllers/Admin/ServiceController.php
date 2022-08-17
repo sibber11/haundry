@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Models\Service;
+use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Service;
-use Illuminate\Http\Request;
-use Flash;
 
 class ServiceController extends AppBaseController
 {
