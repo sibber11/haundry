@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @php
 $laundry_types = App\Models\LaundryType::all();
 @endphp
