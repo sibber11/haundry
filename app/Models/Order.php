@@ -26,7 +26,8 @@ class Order extends Model
 
     public static $rules = [
         'customer_id' => 'required',
-        'deadline' => 'required|date',
+        'deadline_date' => 'required|date',
+        'deadline_time' => 'required|date_format:H:i',
         'items' => 'required|array'
     ];
     protected $attributes = [
