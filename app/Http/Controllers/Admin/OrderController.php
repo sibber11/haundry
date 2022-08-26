@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateOrderRequest;
 use App\Http\Requests\Admin\UpdateOrderRequest;
+use Illuminate\Support\Carbon;
 
 class OrderController extends AppBaseController
 {
@@ -55,6 +56,7 @@ class OrderController extends AppBaseController
     {
         $input = $request->all();
         /** @var  Order $order */
+        $input['deadline'] = Carbon::make($input['deadline_date'].$input['deadline_time']);
         $order = Order::create($input);
         $order->add_items($input['items']);
 
