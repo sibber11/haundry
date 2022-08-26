@@ -16,7 +16,7 @@
                 <tr>
                     {{-- <td>{{ $laundry->order_id }}</td> --}}
                     <td>{{ $laundry->laundry_type->name }}</td>
-                    <td>{{ $laundry->service->name.' ('. $laundry->laundry_type->{$laundry->service->name.'_price'}.')' }}</td>
+                    <td>{{ $laundry->service->name.' ('. $laundry->price .')' }}</td>
                     <td>{{ $laundry->amount }}</td>
                     <td>{{ $laundry->laundry_type->{$laundry->service->name.'_price'} * $laundry->amount }}</td>
                     {{-- <td  style="width: 120px">

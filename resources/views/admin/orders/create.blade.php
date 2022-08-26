@@ -27,9 +27,9 @@
                     @include('admin.orders.fields')
 
                 </div>
-                <div class="row adder">
-                    @include('admin.laundries.fields')
-                </div>
+{{--                <div class="row adder">--}}
+{{--                    @include('admin.laundries.fields')--}}
+{{--                </div>--}}
 
             </div>
 
