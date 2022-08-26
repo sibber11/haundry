@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\LaundryType;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -23,13 +24,22 @@ class LaundryTypeFactory extends Factory
      */
     public function definition()
     {
-
         return [
             'category_id' => Category::inRandomOrder()->first() ?? Category::factory(),
             'name' => $this->faker->name,
-            // 'wash_price' => $this->faker->numberBetween(10,200),
-            // 'dry_wash_price' => $this->faker->numberBetween(10,200),
-            // 'iron_price' => $this->faker->numberBetween(10,200)
         ];
+    }
+
+    public function configure()
+    {
+        $services = Service::inRandomOrder()->limit(random_int(1,4))->get();
+        $service_array = [];
+        foreach ($services as $service)
+        {
+            $service_array[$service->id] = ['price' => random_int(10,100)];
+        }
+        return $this->afterCreating(function (LaundryType $laundryType) use ($service_array) {
+            $laundryType->services()->attach($service_array);
+        });
     }
 }
