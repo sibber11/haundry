@@ -30,6 +30,7 @@ class Order extends Model
     ];
     protected $attributes = [
         'total' => 0,
+        'status' => 'placed',
     ];
 
     public function calculate_total()
