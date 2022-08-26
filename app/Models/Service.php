@@ -24,4 +24,8 @@ class Service extends Model
     {
         return $this->belongsToMany(LaundryType::class);
     }
+    public function laundry()
+    {
+        return $this->belongsToMany(Laundry::class);
+    }
 }
