@@ -30,4 +30,10 @@ class LaundryTypeTest extends TestCase
         ]));
         $this->assertDatabaseCount(LaundryType::class, 1);
     }
+
+    public function test_laundry_types_has_services()
+    {
+        $laundry = LaundryType::factory()->create();
+        $this->assertGreaterThan(0,$laundry->services()->count());
+    }
 }
