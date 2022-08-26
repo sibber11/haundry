@@ -3,7 +3,7 @@
     <div class="form-group col-sm-4">
         <label for="customer_id">Customer Name:</label>
         <select class="form-control" required="" id="customer_id" name="customer_id">
-            <option value="">Select Customer...</option>
+            <option disabled value="">Select Customer...</option>
             <option :value="customer.id" v-for="customer in customers">{{ customer.name }}</option>
         </select>
     </div>
@@ -19,15 +19,18 @@
     <div class="form-group col-sm-12"></div><!-- Laundry Type Id Field -->
     <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
         <select class="form-control" id="laundry_type" v-model="input.type">
-            <option value="">Select Type...</option>
-            <option :value="item" v-for="item in types">{{ item.name }}</option>
+            <option disabled value="">Select Type...</option>
+            <optgroup :label="category.name" v-for="category in categories">
+                <option :value="laundry" v-for="laundry in category.laundry_types">{{ laundry.name }}</option>
+            </optgroup>
+
         </select>
     </div><!-- Service Type Field -->
     <div class="form-group col-sm-4">
         <label for="service_type">Service Type (Price):</label>
         <select class="form-control" id="service_type" :disabled="input.type === ''"
                 v-model="input.service">
-            <option value="">Select Type...</option>
+            <option disabled value="">Select Service...</option>
             <option :value="item" v-for="item in input.type.services">{{ item.name }}({{ item.pivot.price }})</option>
         </select>
     </div><!-- Amount Field -->
@@ -81,7 +84,7 @@ t
 <script>
 export default {
     name: 'AdminOrderCreate',
-    props: ['model', 'types', 'initialCart', 'customers'],
+    props: ['model', 'categories', 'initialCart', 'customers'],
     data() {
         return {
             cart: [],

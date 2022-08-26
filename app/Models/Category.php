@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -20,8 +21,14 @@ class Category extends Model
     public static $rules = [
         'name' => 'string'
     ];
-    public function laundry_type()
+
+    protected function name(): Attribute
     {
-        return $this->belongsTo(LaundryType::class);
+        return Attribute::make(get:fn($value) => ucfirst($value));
+    }
+
+    public function laundry_types()
+    {
+        return $this->hasMany(LaundryType::class);
     }
 }
