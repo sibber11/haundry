@@ -3,8 +3,6 @@
 namespace App\Models;
 
 
-use App\Models\Customer;
-use App\Models\Laundry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,10 +36,10 @@ class Order extends Model
     {
         $total = 0;
         foreach ($this->laundries as $laundry) {
-            $total += $laundry->service->price;
-            dump($laundry->service->price);
+            $total += $laundry->price * $laundry->amount;
         }
-        dump($total);
+        $this->total = $total;
+        $this->save();
     }
 
     public function add_items(array $input): void
@@ -57,11 +55,6 @@ class Order extends Model
     {
         return $this->hasMany(Laundry::class);
     }
-    /**
-     * Get the customer that owns the Order
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
