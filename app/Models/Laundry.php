@@ -38,4 +38,9 @@ class Laundry extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function getPriceAttribute()
+    {
+        return $this->laundry_type->services()->find($this->service_id)->pivot->price;
+    }
+
 }
