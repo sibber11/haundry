@@ -35,7 +35,12 @@ class LaundryType extends Model
         return Attribute::make(get:fn($value) => ucfirst($value));
     }
 
-    public function add_services($services_array){
+    /**
+     * @param $services_array
+     * [service_id=>['price'=>service_price]]
+     */
+    public function add_services($services_array)
+    {
         $this->services()->attach($services_array);
     }
     public function update_services($services_array)
