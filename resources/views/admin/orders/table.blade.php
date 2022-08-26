@@ -5,7 +5,7 @@
             <tr>
                 <th>Order Id</th>
                 <th>Customer Name</th>
-                <th>Total</th>
+                <th>Order Status</th>
                 <th>Deadline</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->customer->name }}</td>
-                    <td>{{ $order->total }}</td>
+                    <td>{{ ucfirst($order->status) }}</td>
                     <td>{{ $order->deadline }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.orders.destroy', $order->id], 'method' => 'delete']) !!}
