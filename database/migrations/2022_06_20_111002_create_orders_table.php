@@ -18,6 +18,16 @@ return new class extends Migration
             $table->foreignId('customer_id');
             $table->integer('total');
             $table->dateTime('deadline');
+            $table->enum('status', [
+                'placed',
+                'confirmed',
+                'onpickup',
+                'picked',
+                'onoperation',
+                'operated',
+                'ondelivery',
+                'delivered',
+            ]);
             $table->timestamps();
         });
     }
