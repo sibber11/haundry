@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Order extends Model
 {
     use HasFactory;
+
     public $table = 'orders';
 
     public $fillable = [
@@ -23,7 +24,6 @@ class Order extends Model
     ];
 
     public static $rules = [
-        'customer_id' => 'required',
         'deadline_date' => 'required|date',
         'deadline_time' => 'required|date_format:H:i',
         'items' => 'required|array'
@@ -32,6 +32,40 @@ class Order extends Model
         'total' => 0,
         'status' => 'placed',
     ];
+
+    static array $status = [
+        'placed',
+        'confirmed',
+        'onpickup',
+        'picked',
+        'onoperation',
+        'operated',
+        'ondelivery',
+        'delivered',
+    ];
+
+    public function scopeRequiresPickup($query)
+    {
+        $query->orWhere('status', 'confirmed');
+    }
+
+    public function scopeOnPickup($query)
+    {
+        $query->orWhere('status', 'onpickup');
+    }
+    public function scopeOnDelivery($query)
+    {
+        $query->orWhere('status', 'ondelivery');
+    }
+
+    public function change_status($status)
+    {
+        if (is_integer($status)) {
+            $status = $this->status[$status];
+        }
+        $this->status = $status;
+        $this->save();
+    }
 
     public function calculate_total()
     {
