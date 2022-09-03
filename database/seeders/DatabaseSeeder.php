@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LaundryTypeSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,6 +21,11 @@ class DatabaseSeeder extends Seeder
             Customer::factory()->create([
                 'name' => 'Customer',
                 'email' => 'customer@haundry.test',
+            ]);
+            User::factory()->create([
+                'name' => 'Super Admin',
+                'email' => 'super_admin@haundry.test',
+                'is_super' => true,
             ]);
         } catch (\Throwable $th) {
             echo 'customer exists!';
