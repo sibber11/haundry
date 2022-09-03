@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
@@ -32,6 +33,7 @@ Route::resource('admin/orders', App\Http\Controllers\Admin\OrderController::clas
         'create' => 'admin.orders.create',
         'edit' => 'admin.orders.edit'
     ]);
+Route::post('admin/orders/{id}/update_status', [\App\Http\Controllers\Admin\OrderController::class, 'update_status'])->name('admin.orders.update_status');
 Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
     ->names([
         'index' => 'admin.laundryTypes.index',
@@ -63,3 +65,18 @@ Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::
         'create' => 'admin.services.create',
         'edit' => 'admin.services.edit'
     ]);
+
+Route::get('markdone/{call}', [\App\Http\Controllers\RequestCallController::class, 'markdone'])->name('admin.markdone');
+
+Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController::class)
+    ->names([
+        'index' => 'admin.missions.index',
+        'store' => 'admin.missions.store',
+        'show' => 'admin.missions.show',
+        'update' => 'admin.missions.update',
+        'destroy' => 'admin.missions.destroy',
+        'create' => 'admin.missions.create',
+        'edit' => 'admin.missions.edit'
+    ]);
+
+Route::post('admin/missions/assign_orders', [\App\Http\Controllers\Admin\MissionController::class, 'assign_orders'])->name('admin.missions.assign_orders');
