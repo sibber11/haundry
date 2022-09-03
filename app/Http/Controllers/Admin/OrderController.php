@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\DeadlineSolver;
 use App\Models\Order;
 use App\Models\Customer;
 use Laracasts\Flash\Flash;
@@ -56,7 +57,7 @@ class OrderController extends AppBaseController
     {
         $input = $request->all();
         /** @var  Order $order */
-        $input['deadline'] = Carbon::make($input['deadline_date'].$input['deadline_time']);
+        $input['deadline'] = DeadlineSolver::solve($input);
         $order = Order::create($input);
         $order->add_items($input['items']);
 
@@ -142,5 +143,24 @@ class OrderController extends AppBaseController
         Flash::success('Order deleted successfully.');
 
         return redirect(route('admin.orders.index'));
+    }
+
+    public function update_status($id, Request $request)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+        /** @var  Order $order */
+        $order = Order::find($id);
+
+        if (empty($order)) {
+            Flash::error('Order not found');
+
+            return redirect(route('admin.orders.index'));
+        }
+
+        $status = $request->input('status');
+        $order->change_status($status);
+        return redirect()->route('admin.orders.show', $order);
     }
 }
