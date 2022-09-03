@@ -32,7 +32,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+//    protected $redirectTo = RouteServiceProvider::HOME;
+//    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -79,7 +80,7 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        if (request()->routeIs('admin.')) {
+        if (request()->routeIs('admin.attempt')) {
             return Auth::guard('admin')->attempt(
                 $this->credentials($request),
                 $request->boolean('remember')
@@ -111,19 +112,24 @@ class LoginController extends Controller
     protected function sendLoginResponse(Request $request)
     {
         $guard_name = null;
-        if (request()->routeIs('admin.')) {
+//        dd(request()->route()->getName());
+        if (request()->routeIs('admin.attempt')) {
             $guard_name = 'admin';
         }
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
+        if ($response = $this->authenticated($request, $this->guard($guard_name)->user())) {
             return $response;
         }
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect()->intended($this->redirectPath());
+    }
+
+    public function redirectTo()
+    {
+        return '/home';
     }
 }
