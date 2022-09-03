@@ -52,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
         'email_verified_at',
         'two_factor_expires_at',
     ];
+
+    public function missions()
+    {
+        return $this->hasMany(Mission::class);
+    }
 }
