@@ -13,11 +13,20 @@
                     <a class="btn btn-default float-right" href="{{ route('admin.orders.index') }}">
                         @lang('crud.back')
                     </a>
+                    @if($order->status == 'placed')
+
+                        <form action="{{route('admin.orders.update_status', $order)}}" method="post" class="d-inline float-right mr-2" id="status">
+                            @csrf
+                            <button class="btn btn-default" name="status" value="confirmed">Confirm Order</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
-
+    @error('status')
+        {{$message}}
+    @enderror
     <div class="content px-3">
         <div class="card">
             <div class="card-body">

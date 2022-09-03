@@ -9,6 +9,11 @@
     <p>{{ $order->customer->name }}</p>
 </div>
 
+<div class="col-sm-6">
+    {!! Form::label('order_status', 'Order Status:') !!}
+    <p>{{ ucfirst($order->status) }}</p>
+</div>
+
 <!-- Total Field -->
 <div class="col-sm-6">
     {!! Form::label('total', 'Total:') !!}

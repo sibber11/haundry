@@ -3,6 +3,11 @@
         <table class="table" id="orders-table">
             <thead>
             <tr>
+                @if(request()->routeIs('admin.orders.index'))
+                    <th>
+                        #
+                    </th>
+                @endif
                 <th>Order Id</th>
                 <th>Customer Name</th>
                 <th>Order Status</th>
@@ -13,6 +18,11 @@
             <tbody>
             @foreach($orders as $order)
                 <tr>
+                    @if(request()->routeIs('admin.orders.index'))
+                        <th>
+                            <input type="checkbox" name="order_id[]" form="assign-form" value="{{$order->id}}">
+                        </th>
+                    @endif
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->customer->name }}</td>
                     <td>{{ ucfirst($order->status) }}</td>

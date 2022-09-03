@@ -28,8 +28,8 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-
-                <form method="post" action="{{ url('/login') }}">
+{{--                @dd(request()->routeIs('admin.login'))--}}
+                <form method="post" action="{{ request()->routeIs('admin.login')? url('admin/login'):url('login') }}">
                     @csrf
 
                     <div class="input-group mb-3">
