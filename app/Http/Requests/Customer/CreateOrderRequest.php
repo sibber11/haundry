@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
-
+namespace App\Http\Requests\Customer;
 
 use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,7 +10,7 @@ class CreateOrderRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return  bool
+     * @return bool
      */
     public function authorize()
     {
@@ -21,12 +20,10 @@ class CreateOrderRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return  array
+     * @return array<string, mixed>
      */
     public function rules()
     {
-        return array_merge([
-            'customer_id' => 'required'
-        ], Order::$rules);
+        return Order::$rules;
     }
 }
