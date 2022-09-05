@@ -68,6 +68,9 @@ Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::
 
 Route::get('markdone/{call}', [\App\Http\Controllers\RequestCallController::class, 'markdone'])->name('admin.markdone');
 
+Route::get('admin/missions/start', [\App\Http\Controllers\Admin\MissionController::class, 'start'])->name('admin.missions.start');
+Route::get('admin/missions/end', [\App\Http\Controllers\Admin\MissionController::class, 'end'])->name('admin.missions.end');
+
 Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController::class)
     ->names([
         'index' => 'admin.missions.index',
