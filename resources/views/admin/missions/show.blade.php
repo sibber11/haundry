@@ -10,10 +10,22 @@
                     </h1>
                 </div>
                 <div class="col-sm-6">
+
                     <a class="btn btn-default float-right"
                        href="{{ route('admin.missions.index') }}">
                         @lang('crud.back')
                     </a>
+                    @if(auth()->user()->mission?->status == 'pending')
+                        <a class="btn btn-default float-right"
+                           href="{{ route('admin.missions.start') }}">
+                            Start
+                        </a>
+                    @elseif(auth()->user()->mission?->status == 'running')
+                        <a class="btn btn-default float-right"
+                           href="{{ route('admin.missions.end') }}">
+                            End
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
