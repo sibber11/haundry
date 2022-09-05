@@ -3,7 +3,7 @@
         <table class="table" id="orders-table">
             <thead>
             <tr>
-                @if(request()->routeIs('admin.orders.index'))
+                @if(request()->routeIs('admin.orders.index') && Request::has('filter'))
                     <th>
                         #
                     </th>
@@ -18,14 +18,14 @@
             <tbody>
             @foreach($orders as $order)
                 <tr>
-                    @if(request()->routeIs('admin.orders.index'))
+                    @if(request()->routeIs('admin.orders.index') && Request::has('filter'))
                         <th>
                             <input type="checkbox" name="order_id[]" form="assign-form" value="{{$order->id}}">
                         </th>
                     @endif
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->customer->name }}</td>
-                    <td>{{ ucfirst($order->status) }}</td>
+                    <td>{{ $order->status }}</td>
                     <td>{{ $order->deadline }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.orders.destroy', $order->id], 'method' => 'delete']) !!}
