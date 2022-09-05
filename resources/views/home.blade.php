@@ -5,8 +5,7 @@
     $new_users = \App\Models\Customer::where('created_at', '>=', now()->subDays(7))->count();
     $new_orders = \App\Models\Order::where('created_at', '>=', now()->subDays(7))->count();
     $request_call = \App\Models\RequestCall::pending()->get();
-    $orders = \App\Models\Order::with('mission.user')->onPickup()->onDelivery()->get();
-
+    $missions = \App\Models\Mission::running()->orWhere->pending()->get();
 @endphp
 @section('content')
     <div class="container-fluid">
@@ -95,24 +94,24 @@
 
     <div class="m-4 card">
         <div class="card-header">
-            <h1>Orders On Mission</h1>
+            <h1>Running Missions</h1>
         </div>
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Order ID</th>
+                    <th>Mission ID</th>
                     <th>Rider Name</th>
-                    <th>Order Deadline</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($orders as $order)
+                @foreach($missions as $mission)
                     <tr>
-                        <td>{{$order->id}}</td>
-                        <td>{{$order->mission->user->name}}</td>
+                        <td>{{$mission->id}}</td>
+                        <td>{{$mission->missions}}</td>
                         <td>
-                            {{$order->deadline}}
+                            {{$mission->deadline}}
                             {{--                        <a href="{{route('admin.markdone', $call)}}">Mark Done</a>--}}
                         </td>
                     </tr>
