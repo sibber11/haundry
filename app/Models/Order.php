@@ -46,18 +46,25 @@ class Order extends Model
 
     public function scopeRequiresPickup($query)
     {
-        $query->orWhere('status', 'confirmed');
+        $query->where('status', 'confirmed');
     }
 
-    public function scopeOnPickup($query)
+    public function scopePickable($query)
     {
-        $query->orWhere('status', 'onpickup');
+        $query->where('status', 'confirmed');
     }
-    public function scopeOnDelivery($query)
+    public function scopeOperable($query)
     {
-        $query->orWhere('status', 'ondelivery');
+        $query->where('status', 'picked');
     }
-
+    public function scopeDeliverable($query)
+    {
+        $query->where('status', 'operated');
+    }
+    public function scopeRunning($query)
+    {
+        $query->where('status', 'like', 'on%');
+    }
     public function change_status($status)
     {
         if (is_integer($status)) {
@@ -65,6 +72,52 @@ class Order extends Model
         }
         $this->status = $status;
         $this->save();
+    }
+
+    public function update_status()
+    {
+        switch ($this->status)
+        {
+            case 'placed':
+                break;
+            case 'confirmed':
+                $this->change_status('onpickup');
+                break;
+            case 'onpickup':
+                $this->change_status('picked');
+                break;
+            case 'picked':
+                $this->change_status('onoperation');
+                break;
+            case 'onoperation':
+                $this->change_status('operated');
+                break;
+            case 'operated':
+                $this->change_status('ondelivery');
+                break;
+            case 'ondelivery':
+                $this->change_status('delivered');
+                break;
+            case 'delevered':
+                $this->change_status('completed');
+                break;
+        }
+    }
+
+    public function rollback_status()
+    {
+        switch ($this->status)
+        {
+            case 'onpickup':
+                $this->change_status('confirmed');
+                break;
+            case 'onoperation':
+                $this->change_status('picked');
+                break;
+            case 'ondelivery':
+                $this->change_status('operated');
+                break;
+        }
     }
 
     public function calculate_total()

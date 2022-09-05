@@ -29,6 +29,14 @@ class Mission extends Model
         'status' => 'pending'
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($mission){
+            $mission->orders->each(fn($order)=>$order->rollback_status());
+            $mission->orders()->detach();
+        });
+    }
+
     public function scopeRunning($query)
     {
         $query->whereStatus('running');
@@ -42,17 +50,26 @@ class Mission extends Model
     {
         $query->whereStatus('completed');
     }
-    public function change_status_running()
+    public function start()
     {
         $this->update([
             'status' => 'running'
         ]);
     }
-    public function change_status_completed()
+    public function complete()
     {
+        /** @var Order $order */
+        $this->orders->each(fn($order)=>$order->update_status());
         $this->update([
             'status' => 'completed'
         ]);
+    }
+    public function assign_orders(array|Collection $orders)
+    {
+        $order_collection = is_array($orders) ? Order::findMany($orders) : $orders;
+        $this->orders()->attach($order_collection);
+        /** @var Order $order */
+        $order_collection->each(fn($order) => $order->update_status());
     }
 
     /*

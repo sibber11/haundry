@@ -53,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
         'two_factor_expires_at',
     ];
 
+    public function mission()
+    {
+        return $this->hasOne(Mission::class)->whereIn('status',['pending','running']);
+    }
+
     public function missions()
     {
         return $this->hasMany(Mission::class);
