@@ -23,11 +23,13 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-        $customer = Customer::first() ?? Customer::factory();
+        $customer = Customer::inRandomOrder()->first() ?? Customer::factory();
         return [
             'customer_id' => $customer,
             'total' => 0,
+            'status' => $this->faker->randomElement(Order::$status),
             'deadline' => $this->faker->date('Y-m-d H:i:s'),
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
 }

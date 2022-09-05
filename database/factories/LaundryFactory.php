@@ -25,7 +25,7 @@ class LaundryFactory extends Factory
         return [
             'order_id' => $order,
             'laundry_type_id' => $laundry_type,
-            'service_type' => $service,
+            'service_id' => $service,
             'amount' => $this->faker->numberBetween(0,10)
         ];
     }

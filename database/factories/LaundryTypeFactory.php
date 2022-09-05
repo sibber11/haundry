@@ -32,13 +32,13 @@ class LaundryTypeFactory extends Factory
 
     public function configure()
     {
-        $services = Service::inRandomOrder()->limit(random_int(1,4))->get();
-        $service_array = [];
-        foreach ($services as $service)
-        {
-            $service_array[$service->id] = ['price' => random_int(10,100)];
-        }
-        return $this->afterCreating(function (LaundryType $laundryType) use ($service_array) {
+        return $this->afterCreating(function (LaundryType $laundryType) {
+            $services = Service::inRandomOrder()->limit(random_int(1,4))->get();
+            $service_array = [];
+            foreach ($services as $service)
+            {
+                $service_array[$service->id] = ['price' => random_int(10,100)];
+            }
             $laundryType->services()->attach($service_array);
         });
     }

@@ -28,6 +28,7 @@ class CustomerFactory extends Factory
             'email' => preg_replace('/@example\..*/', '@haundry.test', $this->faker->unique()->safeEmail),
             'phone' => $this->faker->numerify('+8801#########'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
 }
