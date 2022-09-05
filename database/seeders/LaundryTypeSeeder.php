@@ -21,13 +21,14 @@ class LaundryTypeSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->inputs as $input => $array) {
+        /*foreach ($this->inputs as $input => $array) {
             foreach ($array as $value) {
                 LaundryType::factory()->create([
                     'category_id' => Category::whereName($input)->first(),
                     'name' => $value,
                 ]);
             }
-        }
+        }*/
+        LaundryType::factory()->count(120)->create();
     }
 }
