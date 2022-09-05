@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use App\Models\Order;
+use Database\Seeders\OrdersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -32,4 +34,11 @@ class OrderTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('orders', 1);
     }
+
+    public function test_order_seeder()
+    {
+        $this->seed(OrdersSeeder::class);
+        $this->assertDatabaseCount(Order::class, 6);
+    }
+
 }
