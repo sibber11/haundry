@@ -118,10 +118,14 @@ class MissionController extends AppBaseController
 
             return redirect(route('admin.missions.index'));
         }
+        if ($mission->status == 'completed' || $mission->status == 'running')
+        {
+            Flash::error("Mission not deleteable!");
+        }else{
+            $mission->delete();
+            Flash::success('Mission deleted successfully.');
+        }
 
-        $mission->delete();
-
-        Flash::success('Mission deleted successfully.');
 
         return redirect(route('admin.missions.index'));
     }
@@ -143,7 +147,21 @@ class MissionController extends AppBaseController
         }
         $orders = $request->input('order_id');
         $mission->assign_orders($orders);
-//        return $mission->load('orders');
+        return redirect()->route('admin.missions.show', $mission);
+    }
+
+    public function start()
+    {
+        $mission = auth()->user()->mission;
+        $mission->start();
+        return redirect()->route('admin.missions.show', $mission);
+    }
+
+    public function end()
+    {
+        /** @var Mission $mission */
+        $mission = auth()->user()->mission;
+        $mission->complete();
         return redirect()->route('admin.missions.show', $mission);
     }
 }

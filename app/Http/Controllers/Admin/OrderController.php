@@ -20,8 +20,15 @@ class OrderController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'filter' => 'nullable|string|in:pickable,operable,deliverable,running'
+        ]);
         /** @var  Order $orders */
-        $orders = Order::paginate(10);
+        $orders = Order::when($request->input('filter') == 'pickable', fn($q)=>$q->pickable())
+            ->when($request->input('filter') == 'operable', fn($q)=>$q->operable())
+            ->when($request->input('filter') == 'deliverable', fn($q)=>$q->deliverable())
+            ->when($request->input('filter') == 'running', fn($q)=>$q->running())
+            ->paginate(10)->withQueryString();
 
         return view('admin.orders.index')
             ->with('orders', $orders);
