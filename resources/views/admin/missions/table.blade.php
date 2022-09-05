@@ -3,7 +3,7 @@
         <table class="table" id="missions-table">
             <thead>
             <tr>
-                <th>User Id</th>
+                <th>User Name</th>
                 <th>Status</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -11,7 +11,7 @@
             <tbody>
             @foreach($missions as $mission)
                 <tr>
-                    <td>{{ $mission->user_id }}</td>
+                    <td>{{ $mission->user->name }}</td>
                     <td>{{ $mission->status }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.missions.destroy', $mission->id], 'method' => 'delete']) !!}
