@@ -95,9 +95,9 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function mission()
+    public function missions()
     {
-        return $this->belongsTo(Mission::class);
+        return $this->belongsToMany(Mission::class);
     }
 }
 

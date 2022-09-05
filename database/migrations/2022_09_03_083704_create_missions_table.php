@@ -21,6 +21,10 @@ return new class extends Migration
             ]);
             $table->timestamps();
         });
+        Schema::create('mission_order', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\Mission::class);
+            $table->foreignIdFor(\App\Models\Order::class);
+        });
     }
 
     /**

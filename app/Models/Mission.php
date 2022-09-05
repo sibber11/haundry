@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Mission extends Model
@@ -54,6 +55,9 @@ class Mission extends Model
         ]);
     }
 
+    /*
+     * Relations
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -61,19 +65,6 @@ class Mission extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
-
-    public function assign_orders(array $orders)
-    {
-        $order_collection = Order::findMany($orders);
-//        dump($order_collection);
-//        $this->orders()
-        foreach ($order_collection as $order)
-        {
-            $order->mission()->associate($this);
-            $order->change_status('onpickup');
-        }
-    }
-
 }
