@@ -26,6 +26,7 @@
         "axios": "^0.25",
         "bootstrap-datetime-picker": "^2.4.4",
         "select2": "^4.1.0-rc.0",
-        "vue": "^3.2.36"
+        "vue": "^3.2.36",
+        "vue3-select2-component": "^0.1.7"
     }
 }
