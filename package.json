@@ -10,22 +10,22 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "admin-lte": "3.1.0",
-        "bootstrap": "^4.6.0",
         "browser-sync": "^2.27.10",
         "browser-sync-webpack-plugin": "^2.3.0",
-        "jquery": "^3.6",
         "laravel-mix": "6.0.49",
-        "popper.js": "^1.16.1",
         "resolve-url-loader": "^5.0.0",
-        "sass": "^1.15.2",
-        "sass-loader": "^8.0.0",
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@ttskch/select2-bootstrap4-theme": "^1.5.2",
+        "admin-lte": "3.1.0",
         "axios": "^0.25",
+        "bootstrap": "^4.6.0",
         "bootstrap-datetime-picker": "^2.4.4",
+        "font-awesome": "^4.7.0",
+        "jquery": "^3.6",
         "lodash": "^4.17.21",
+        "popper.js": "^1.16.1",
         "select2": "^4.1.0-rc.0",
         "vue": "^3.2.36",
         "vue3-select2-component": "^0.1.7"
