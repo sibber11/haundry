@@ -2,10 +2,7 @@
     <!-- Customer Name Field -->
     <div class="form-group col-sm-4">
         <label for="customer_id">Customer Name:</label>
-        <select class="form-control" required="" id="customer_id" name="customer_id">
-            <option disabled value="">Select Customer...</option>
-            <option :value="customer.id" v-for="customer in customers">{{ customer.name }}</option>
-        </select>
+        <Select2 id="customer_id" :settings="option_customer" name="customer_id" required="required"></Select2>
     </div>
     <!-- Deadline Field -->
     <div class="form-group col-sm-4">
@@ -18,14 +15,11 @@
     </div>
     <div class="form-group col-sm-12"></div><!-- Laundry Type Id Field -->
     <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
-        <select class="form-control" id="laundry_type" v-model="input.type">
-            <option disabled value="">Select Type...</option>
-            <optgroup :label="category.name" v-for="category in categories">
-                <option :value="laundry" v-for="laundry in category.laundry_types">{{ laundry.name }}</option>
-            </optgroup>
-
-        </select>
-    </div><!-- Service Type Field -->
+        <Select2 id="laundry_type_id" v-model="input.laundry_type" :options="categories"
+                 :settings="{theme:'bootstrap4'}"
+                 @select="laundry_selected($event)"></Select2>
+    </div>
+    <!-- Service Type Field -->
     <div class="form-group col-sm-4">
         <label for="service_type">Service Type (Price):</label>
         <select class="form-control" id="service_type" :disabled="input.type === ''"
@@ -80,18 +74,42 @@
         </tfoot>
     </table>
 </template>
-t
 <script>
+import Select2 from 'vue3-select2-component';
+
 export default {
+    components: {
+        Select2
+    },
     name: 'AdminOrderCreate',
-    props: ['model', 'categories', 'initialCart', 'customers'],
+    props: ['model', 'categories', 'initialCart', 'customers', 'customerRoute'],
     data() {
         return {
             cart: [],
             input: {
                 type: '',
+                laundry_type: '',
                 service: '',
                 amount: 1
+            },
+            option_customer: {
+                ajax: {
+                    url: '',
+                    delay: 250,
+                    data: function (param) {
+                        return {
+                            q: param.term,
+                            type: 'customer'
+                        }
+                    },
+                    processResults: function (data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        return {
+                            results: data.data
+                        };
+                    },
+                },
+                theme: 'bootstrap4'
             },
         }
     },
@@ -124,12 +142,16 @@ export default {
                 };
                 this.cart.push(cart);
             }
+            this.input.laundry_type = '';
             this.input.type = '';
             this.input.service = '';
             this.input.amount = 1;
         },
         remove_item_from_cart(cart) {
             this.cart.splice(cart, 1);
+        },
+        laundry_selected(event) {
+            this.input.type = event;
         }
     }
 }
