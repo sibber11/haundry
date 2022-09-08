@@ -38,13 +38,22 @@
     </a>
     <ul class="nav nav-treeview ml-2">
         <li class="nav-item">
-            <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin/orders') && !Request::has('filter') ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.create') }}"
+               class="nav-link {{ Request::is('admin/orders/create') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Create Order</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.orders.index') }}"
+               class="nav-link {{ Request::is('admin/orders') && !Request::has('filter') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>All</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.orders.index', ['filter' => 'pickable']) }}" class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'pickable' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index', ['filter' => 'pickable']) }}"
+               class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'pickable' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Pickable</p>
                 <span class="badge badge-info right">{{\App\Models\Order::pickable()->count()}}</span>
