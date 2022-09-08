@@ -82,7 +82,7 @@ export default {
         Select2
     },
     name: 'AdminOrderCreate',
-    props: ['model', 'categories', 'initialCart', 'customers', 'customerRoute'],
+    props: ['model', 'categories', 'initialCart'],
     data() {
         return {
             cart: [],
@@ -94,7 +94,6 @@ export default {
             },
             option_customer: {
                 ajax: {
-                    url: '',
                     delay: 250,
                     data: function (param) {
                         return {
