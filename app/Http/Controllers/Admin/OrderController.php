@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\DeadlineSolver;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CustomerResource;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Customer;
 use Laracasts\Flash\Flash;
@@ -28,6 +31,7 @@ class OrderController extends AppBaseController
             ->when($request->input('filter') == 'operable', fn($q)=>$q->operable())
             ->when($request->input('filter') == 'deliverable', fn($q)=>$q->deliverable())
             ->when($request->input('filter') == 'running', fn($q)=>$q->running())
+            ->orderBy('id', 'desc')
             ->paginate(10)->withQueryString();
 
         return view('admin.orders.index')
@@ -43,14 +47,16 @@ class OrderController extends AppBaseController
         if ($request->ajax() || $request->wantsJson()) {
             $request->validate([
                 'q' => 'nullable|string',
+                'type' => 'required|string'
             ]);
-            if ($request->has('q')) {
-                # code...
+            if (!$request->input('q'))
+            {
+                return ['data'=>[]];
             }
-            if ($request->has('customer')) {
-                return ['results' => Customer::all()];
-            }elseif($request->has('type')){
-                return ['results' => LaundryType::all()];
+            $q = $request->input('q');
+            if ($request->input('type') == 'customer') {
+                $customer_list = Customer::where('name', 'like', "$q%" )->limit(5)->get();
+                return CustomerResource::collection($customer_list);
             }
             return 'Error!';
         }
