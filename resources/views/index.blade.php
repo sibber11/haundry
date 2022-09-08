@@ -46,6 +46,27 @@
             <h4>Just enter your name and number in the form above and we’ll give you a call as soon as possible</h4>
         </div>
     </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>Refer a Friend & get rewarded</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{route('send_invitation')}}" method="post">
+                @csrf
+                <div class="input-group">
+                    {{--                    <label for="invite_mail">Mail:</label>--}}
+                    <input type="email" name="mail" id="invite_mail" placeholder="Enter friend email"
+                           class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-default">Send Invitation</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
 </div>
 
     <!--    <div class="container-fluid section-star" id="our-service">
@@ -723,32 +744,6 @@
                             calling
                             us @ 09613 233332 directly.</p>
                         <p>&nbsp;</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid section-contact">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <h6 class="section-title font-size-20">Refer a Friend &amp; GET REWARDED</h6>
-
-                        <div id="invitation-message" style="max-width: 635px; margin:auto"></div>
-
-                        <form class="form-inline text-center ajax-form" method="post"
-                              action="#">
-                            <div class="form-group">
-                                <input type="text" class="form-control input-lg" id="Email" name="Email"
-                                       placeholder="Enter Friend emails (abc@xyz.com,pqr@xyz.com)" value="">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg">Send invitation</button>
-                            </div>
-                        </form>
-                        <p><br></p>
-                        <div class="addthis_inline_share_toolbox text-center" data-url="#"
-                             data-title="Get Registered &amp; Get Bonus | HelloLaundry.com.bd"></div>
                     </div>
                 </div>
             </div>

@@ -2,19 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Order;
-use App\Traits\HasTwoFactorGuard;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\HasReferral;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Traits\MustVerifyPhone as MustVerifyPhoneTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
 //implements MustVerifyEmail, MustVerifyPhone
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait, HasTwoFactorGuard;
+//    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait, HasTwoFactorGuard, HasReferral;
+    use HasFactory, SoftDeletes, HasReferral;
 
     /**
      * The attributes that are mass assignable.
