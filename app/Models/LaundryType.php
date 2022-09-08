@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class LaundryType extends Model
 {
     use HasFactory;
+
     public $table = 'laundry_types';
     public $timestamps = false;
 
@@ -27,12 +28,11 @@ class LaundryType extends Model
         'services' => 'required|array'
     ];
 
-    public $with = [
-        'category','services'
-    ];
+    public $with = ['services'];
+
     protected function name(): Attribute
     {
-        return Attribute::make(get:fn($value) => ucfirst($value));
+        return Attribute::make(get: fn($value) => ucfirst($value));
     }
 
     /**
@@ -43,10 +43,12 @@ class LaundryType extends Model
     {
         $this->services()->attach($services_array);
     }
+
     public function update_services($services_array)
     {
         $this->services()->sync($services_array);
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
