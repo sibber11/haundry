@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasReferral;
+use App\Traits\HasVoucherPoint;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ class Customer extends Authenticatable
 //implements MustVerifyEmail, MustVerifyPhone
 {
 //    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait, HasTwoFactorGuard, HasReferral;
-    use HasFactory, SoftDeletes, HasReferral;
+    use HasFactory, SoftDeletes, HasReferral, HasVoucherPoint;
 
     /**
      * The attributes that are mass assignable.
@@ -51,8 +52,25 @@ class Customer extends Authenticatable
         'two_factor_expires_at',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($customer) {
+            $customer->point()->save(new Point());
+        });
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function point()
+    {
+        return $this->hasOne(Point::class);
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
     }
 }
