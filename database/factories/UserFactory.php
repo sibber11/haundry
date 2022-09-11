@@ -43,4 +43,13 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function super_admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_super' => true,
+            ];
+        });
+    }
 }
