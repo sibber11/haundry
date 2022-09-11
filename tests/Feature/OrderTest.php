@@ -3,28 +3,29 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use App\Models\LaundryType;
 use App\Models\Order;
-use Database\Seeders\OrdersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class OrderTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_order_total_calculator()
+
+    public function test_order_can_be_placed_by_admin()
     {
         $this->withoutExceptionHandling();
-        Customer::factory()->create();
-        $user = Customer::first();
-        $this->actingAs($user);
+        $this->auth_as_admin();
+        $customer = Customer::factory()->create();
+        $laundry_type = LaundryType::factory()->create();
         $response = $this->post(route('admin.orders.store', [
-            'customer_id' => $user->id,
-            'deadline' => '10/05/2022',
+            'customer_id' => $customer->id,
+            'deadline_date' => '10/05/2022',
+            'deadline_time' => '17:00',
             'items' => [
                 [
-                    'laundry_type_id' => 1,
-                    'service_id' => 1,
+                    'laundry_type_id' => $laundry_type->id,
+                    'service_id' => $laundry_type->services->first()->id,
                     'amount' => 3
                 ],
             ]
@@ -32,13 +33,7 @@ class OrderTest extends TestCase
         ]));
 
         $response->assertRedirect();
-        $this->assertDatabaseCount('orders', 1);
-    }
-
-    public function test_order_seeder()
-    {
-        $this->seed(OrdersSeeder::class);
-        $this->assertDatabaseCount(Order::class, 6);
+        $this->assertDatabaseCount(Order::class, 1);
     }
 
 }
