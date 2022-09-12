@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id');
             $table->foreignId('mission_id')->nullable();
+            $table->integer('sub_total');
+            $table->foreignIdFor(\App\Models\Voucher::class)->nullable();
             $table->integer('total');
             $table->dateTime('deadline');
             $table->enum('status', [

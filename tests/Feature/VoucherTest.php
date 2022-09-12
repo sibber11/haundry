@@ -18,8 +18,9 @@ class VoucherTest extends TestCase
      */
     public function test_voucher_can_be_created()
     {
-        Voucher::create();
+        $voucher = Voucher::create();
         $this->assertDatabaseCount(Voucher::class, 1);
+        self::assertFalse($voucher->is_used);
     }
 
     public function test_customer_can_recieve_voucher()
@@ -29,5 +30,22 @@ class VoucherTest extends TestCase
         $customer->generateVoucher();
         $this->assertDatabaseCount(Voucher::class, 1);
         $this->assertEquals(20, $customer->vouchers->first()->discount);
+    }
+
+    public function test_voucher_is_useable_by_customer()
+    {
+        /**
+         * @var Customer $customer
+         */
+        $customer = Customer::factory()->create();
+        /**
+         * @var Voucher $voucher
+         */
+        $voucher = $customer->generateVoucher(10, true);
+        self::assertTrue($voucher->is_useable_by($customer));
+        $customer2 = Customer::factory()->create();
+        self::assertFalse($voucher->is_useable_by($customer2));
+        $voucher->mark_as_used();
+        self::assertFalse($voucher->is_useable_by($customer));
     }
 }

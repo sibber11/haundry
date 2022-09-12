@@ -17,8 +17,7 @@ return new class extends Migration {
             $table->string('code')->unique();
             $table->integer('discount')->default(0);
             $table->foreignIdFor(\App\Models\Customer::class)->nullable();
-            $table->boolean('is_public')->default(false);
-            $table->boolean('is_used')->default(false);
+            $table->boolean('is_used');
             $table->timestamps();
         });
     }

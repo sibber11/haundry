@@ -14,7 +14,13 @@ class Voucher extends Model
     ];
 
     protected $casts = [
-        'code' => 'string'
+        'code' => 'string',
+        'is_used' => 'bool',
+    ];
+
+    protected $attributes = [
+        'is_used' => false,
+        'discount' => 0
     ];
 
     protected static function boot()
@@ -36,5 +42,16 @@ class Voucher extends Model
     public function scopeCodeExists(Builder $query, string $code)
     {
         return $query->whereCode($code)->exists();
+    }
+
+    public function is_useable_by(Customer $customer): bool
+    {
+        return $this->customer_id == $customer->id && !$this->is_used;
+    }
+
+    public function mark_as_used()
+    {
+        $this->is_used = true;
+        $this->save();
     }
 }

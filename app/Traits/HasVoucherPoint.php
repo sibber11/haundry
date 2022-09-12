@@ -7,8 +7,13 @@ use App\Models\Voucher;
 
 trait HasVoucherPoint
 {
-    public function generateVoucher(int $discount = 20): Voucher|string
+    public function generateVoucher(int $discount = 20, bool $force_create = false): Voucher|string
     {
+
+        if ($force_create) {
+            return $this->vouchers()->save(Voucher::create(['discount' => $discount]));
+        }
+
         $discountMultiplier = 10;
         if ($this->point->total >= $discount * $discountMultiplier) {
             $this->point->total -= $discount * $discountMultiplier;

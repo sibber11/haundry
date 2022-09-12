@@ -73,4 +73,11 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Voucher::class);
     }
+
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class)->withPivot([
+            'start_date', 'end_date', 'used', 'remaining'
+        ]);
+    }
 }

@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\DeadlineSolver;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\CustomerResource;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Customer;
-use Laracasts\Flash\Flash;
-use App\Models\LaundryType;
-use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateOrderRequest;
 use App\Http\Requests\Admin\UpdateOrderRequest;
-use Illuminate\Support\Carbon;
+use App\Http\Resources\CustomerResource;
+use App\Models\Customer;
+use App\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash;
 
 class OrderController extends AppBaseController
 {
@@ -27,10 +24,10 @@ class OrderController extends AppBaseController
             'filter' => 'nullable|string|in:pickable,operable,deliverable,running'
         ]);
         /** @var  Order $orders */
-        $orders = Order::when($request->input('filter') == 'pickable', fn($q)=>$q->pickable())
-            ->when($request->input('filter') == 'operable', fn($q)=>$q->operable())
-            ->when($request->input('filter') == 'deliverable', fn($q)=>$q->deliverable())
-            ->when($request->input('filter') == 'running', fn($q)=>$q->running())
+        $orders = Order::when($request->input('filter') == 'pickable', fn($q) => $q->pickable())
+            ->when($request->input('filter') == 'operable', fn($q) => $q->operable())
+            ->when($request->input('filter') == 'deliverable', fn($q) => $q->deliverable())
+            ->when($request->input('filter') == 'running', fn($q) => $q->running())
             ->orderBy('id', 'desc')
             ->paginate(10)->withQueryString();
 
@@ -49,13 +46,12 @@ class OrderController extends AppBaseController
                 'q' => 'nullable|string',
                 'type' => 'required|string'
             ]);
-            if (!$request->input('q'))
-            {
-                return ['data'=>[]];
+            if (!$request->input('q')) {
+                return ['data' => []];
             }
             $q = $request->input('q');
             if ($request->input('type') == 'customer') {
-                $customer_list = Customer::where('name', 'like', "$q%" )->limit(5)->get();
+                $customer_list = Customer::where('name', 'like', "$q%")->limit(5)->get();
                 return CustomerResource::collection($customer_list);
             }
             return 'Error!';
@@ -71,8 +67,20 @@ class OrderController extends AppBaseController
         $input = $request->all();
         /** @var  Order $order */
         $input['deadline'] = DeadlineSolver::solve($input);
+        DB::beginTransaction();
         $order = Order::create($input);
         $order->add_items($input['items']);
+
+        if ($request->has('voucher_code' && $voucher_applied = $order->apply_voucher($request->input('voucher_code')))) {
+            if (!$voucher_applied) {
+                DB::rollBack();
+                Flash::success('Invalid voucher!');
+                return redirect()->route('admin.orders.create')->withInput();
+            }
+        } else {
+            DB::commit();
+        }
+
 
         Flash::success('Order saved successfully.');
 
