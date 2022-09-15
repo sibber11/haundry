@@ -19,10 +19,8 @@ class LaundryTypeFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return  array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'category_id' => Category::inRandomOrder()->first() ?? Category::factory(),
@@ -33,11 +31,10 @@ class LaundryTypeFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (LaundryType $laundryType) {
-            $services = Service::inRandomOrder()->limit(random_int(1,4))->get();
+            $services = Service::inRandomOrder()->limit(random_int(1, 4))->get();
             $service_array = [];
-            foreach ($services as $service)
-            {
-                $service_array[$service->id] = ['price' => random_int(10,100)];
+            foreach ($services as $service) {
+                $service_array[$service->id] = ['price' => random_int(10, 100)];
             }
             $laundryType->services()->attach($service_array);
         });

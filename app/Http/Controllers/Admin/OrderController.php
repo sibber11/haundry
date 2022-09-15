@@ -71,8 +71,8 @@ class OrderController extends AppBaseController
         $order = Order::create($input);
         $order->add_items($input['items']);
 
-        if ($request->has('voucher_code' && $voucher_applied = $order->apply_voucher($request->input('voucher_code')))) {
-            if (!$voucher_applied) {
+        if ($request->has('voucher_code')) {
+            if (!$order->apply_voucher($request->input('voucher_code'))) {
                 DB::rollBack();
                 Flash::success('Invalid voucher!');
                 return redirect()->route('admin.orders.create')->withInput();

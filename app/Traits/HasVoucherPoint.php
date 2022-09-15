@@ -3,10 +3,25 @@
 namespace App\Traits;
 
 use App\Models\Log;
+use App\Models\Point;
 use App\Models\Voucher;
 
 trait HasVoucherPoint
 {
+
+    public function instantiateHasVoucherPoint()
+    {
+
+    }
+
+    public static function booted()
+    {
+        parent::booted();
+        static::created(function ($customer) {
+            $customer->point()->save(new Point());
+        });
+    }
+
     public function generateVoucher(int $discount = 20, bool $force_create = false): Voucher|string
     {
 
@@ -31,5 +46,15 @@ trait HasVoucherPoint
         ]), ['amount' => $amount]);
         $this->point->total = $this->point->total + $amount;
         $this->point->save();
+    }
+
+    public function point()
+    {
+        return $this->hasOne(Point::class);
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
     }
 }

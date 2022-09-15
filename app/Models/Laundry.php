@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Laundry extends Model
 {
     use HasFactory;
+
     public $table = 'laundries';
     public $timestamps = false;
     public $fillable = [
@@ -18,7 +19,6 @@ class Laundry extends Model
     ];
 
     protected $casts = [
-        // 'service_id' => 'numeric',
     ];
 
     // public static $rules = [
@@ -27,6 +27,11 @@ class Laundry extends Model
     //     'service_id' => 'required|string',
     //     'amount' => 'required|numeric'
     // ];
+
+    public function getPriceAttribute()
+    {
+        return $this->laundry_type->services()->find($this->service_id)->pivot->price;
+    }
 
     public function laundry_type()
     {
@@ -38,9 +43,8 @@ class Laundry extends Model
         return $this->belongsTo(Service::class);
     }
 
-    public function getPriceAttribute()
+    public function package()
     {
-        return $this->laundry_type->services()->find($this->service_id)->pivot->price;
+        return $this->belongsTo(Package::class);
     }
-
 }

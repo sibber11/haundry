@@ -83,3 +83,14 @@ Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController:
     ]);
 
 Route::post('admin/missions/assign_orders', [\App\Http\Controllers\Admin\MissionController::class, 'assign_orders'])->name('admin.missions.assign_orders');
+
+Route::resource('admin/packages', App\Http\Controllers\PackageController::class)
+    ->names([
+        'index' => 'admin.packages.index',
+        'store' => 'admin.packages.store',
+        'show' => 'admin.packages.show',
+        'update' => 'admin.packages.update',
+        'destroy' => 'admin.packages.destroy',
+        'create' => 'admin.packages.create',
+        'edit' => 'admin.packages.edit'
+    ]);

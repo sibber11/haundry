@@ -123,14 +123,19 @@ class Order extends Model
         }
     }
 
-    public function calculate_sub_total()
+    public function calc_sub_total()
     {
         $sub_total = 0;
+        $total = 0;
+        $this->load('laundries');
         foreach ($this->laundries as $laundry) {
-            $sub_total += $laundry->price * $laundry->amount;
+            $price = $laundry->price * $laundry->amount;
+            if (!$laundry->package_id)
+                $total += $price;
+            $sub_total += $price;
         }
         $this->sub_total = $sub_total;
-        $this->total = $sub_total;
+        $this->total = $total;
         $this->save();
     }
 
@@ -140,7 +145,20 @@ class Order extends Model
             $laundries[] = Laundry::make($laundry);
         }
         $this->laundries()->saveMany($laundries);
-        $this->calculate_sub_total();
+        $this->calc_sub_total();
+    }
+
+    public function add_item(LaundryType $laundryType, Service|int $service, int $amount): void
+    {
+        if (is_integer($service)) {
+            $service = Service::findOrFail($service);
+        }
+        $laundry = $this->laundries()->save(Laundry::make([
+            'laundry_type_id' => $laundryType->id,
+            'service_id' => $service->id,
+            'amount' => $amount
+        ]));
+        $this->save();
     }
 
     public function apply_voucher(Voucher|string $voucher): bool
