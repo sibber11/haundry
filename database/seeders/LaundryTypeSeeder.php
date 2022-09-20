@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use App\Models\LaundryType;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +13,7 @@ class LaundryTypeSeeder extends Seeder
         'child' => ['pant'],
         'household' => ['blanket'],
     ];
+
     /**
      * Run the database seeds.
      *
@@ -29,6 +29,6 @@ class LaundryTypeSeeder extends Seeder
                 ]);
             }
         }*/
-        LaundryType::factory()->count(120)->create();
+        LaundryType::factory()->count(20)->create();
     }
 }
