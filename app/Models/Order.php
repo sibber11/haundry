@@ -32,6 +32,8 @@ class Order extends Model
         'total' => 0,
         'sub_total' => 0,
         'status' => 'placed',
+        'paid' => false,
+        'due_date' => null,
     ];
 
     static array $status = [
@@ -70,11 +72,13 @@ class Order extends Model
         $query->where('status', 'like', 'on%');
     }
 
-    public function change_status($status)
+    public function change_status(string|int $status)
     {
         if (is_integer($status)) {
             $status = $this->status[$status];
         }
+        if ($this->status == $status)
+            return;
         $this->status = $status;
         $this->save();
     }

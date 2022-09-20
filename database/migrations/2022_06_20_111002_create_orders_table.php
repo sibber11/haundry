@@ -14,8 +14,9 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Customer::class);
-//            $table->boolean('package_used')->default(false);
+            $table->foreignIdFor(\App\Models\Customer::class)->nullable();
+            $table->boolean('paid')->default(false);
+            $table->date('due_date')->nullable();
             $table->integer('sub_total');
             $table->foreignIdFor(\App\Models\Voucher::class)->nullable();
             $table->integer('total');
