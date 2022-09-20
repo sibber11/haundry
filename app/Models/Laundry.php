@@ -30,7 +30,7 @@ class Laundry extends Model
 
     public function getPriceAttribute()
     {
-        return $this->laundry_type->services()->find($this->service_id)->pivot->price;
+        return $this->laundry_type->services()->find($this->service_id)?->pivot->price;
     }
 
     public function laundry_type()
