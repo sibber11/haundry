@@ -16,6 +16,12 @@
     {!! Form::text('phone', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
+<!-- Phone Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('address', 'Address:') !!}
+    {!! Form::text('address', null, ['class' => 'form-control', 'required', 'placeholder' => 'add shop location here as example']) !!}
+</div>
+
 <!-- password Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('password', 'Password:') !!}

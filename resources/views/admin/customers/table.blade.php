@@ -6,8 +6,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Email Verified At</th>
-                <th>Phone Verified At</th>
+                {{--                <th>Email Verified At</th>--}}
+                <th>Address</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -17,9 +17,10 @@
                     <td>{{ $customer->name }}</td>
                     <td>{{ $customer->email }}</td>
                     <td>{{ $customer->phone }}</td>
-                    <td>{{ $customer->email_verified_at }}</td>
-                    <td>{{ $customer->phone_verified_at }}</td>
-                    <td  style="width: 120px">
+                    {{--                    <td>{{ $customer->email_verified_at }}</td>--}}
+                    {{--                    <td>{{ $customer->phone_verified_at }}</td>--}}
+                    <td>{{$customer->address}}</td>
+                    <td style="width: 120px">
                         {!! Form::open(['route' => ['admin.customers.destroy', $customer->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             <a href="{{ route('admin.customers.show', [$customer->id]) }}"

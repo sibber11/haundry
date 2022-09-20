@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->dateTime('two_factor_expires_at')->nullable();
             $table->string('referred_by')->nullable();
             $table->string('affiliate_id')->unique();
+            $table->string('address')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
