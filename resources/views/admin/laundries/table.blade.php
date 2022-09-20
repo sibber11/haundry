@@ -16,9 +16,9 @@
                 <tr>
                     {{-- <td>{{ $laundry->order_id }}</td> --}}
                     <td>{{ $laundry->laundry_type->name }}</td>
-                    <td>{{ $laundry->service->name.' ('. $laundry->price .')' }}</td>
+                    <td>{{ $laundry->service->name}}({{$laundry->price}})</td>
                     <td>{{ $laundry->amount }}</td>
-                    <td>{{ $laundry->laundry_type->{$laundry->service->name.'_price'} * $laundry->amount }}</td>
+                    <td>{{ $laundry->price * $laundry->amount }}</td>
                     {{-- <td  style="width: 120px">
                         {!! Form::open(['route' => ['admin.laundries.destroy', $laundry->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
