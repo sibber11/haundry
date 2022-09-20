@@ -169,7 +169,7 @@ class OrderController extends AppBaseController
     public function update_status(Request $request)
     {
         $input = $request->validate([
-            'status' => 'required|string|in:operated',
+            'status' => 'required|string|in:operated,confirmed',
             'order_id' => 'required|array'
         ]);
 
@@ -181,10 +181,10 @@ class OrderController extends AppBaseController
             return redirect(route('admin.orders.index', 'filter=operable'));
         }
 
-        $orders->each(function ($order) {
-
-            $order->change_status('operated');
+        $orders->each(function ($order) use ($input) {
+            $order->change_status($input['status']);
         });
+
         Flash::error('Orders marked as operated');
         return redirect(route('admin.orders.index', 'filter=operable'));
     }
