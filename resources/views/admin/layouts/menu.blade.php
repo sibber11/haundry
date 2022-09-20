@@ -1,7 +1,8 @@
 @auth('admin')
     @if(auth()->user()->mission)
         <li class="nav-item">
-            <a href="{{ route('admin.missions.show', auth()->user()->mission) }}" class="nav-link {{ Request::is('admin/missions*') ? 'active' : '' }}">
+            <a href="{{ route('admin.missions.show', auth()->user()->mission) }}"
+               class="nav-link {{ Request::is('admin/missions*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Current Mission</p>
             </a>
@@ -17,14 +18,16 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.laundryTypes.index') }}" class="nav-link {{ Request::is('admin/laundry*') ? 'active' : '' }}">
+    <a href="{{ route('admin.laundryTypes.index') }}"
+       class="nav-link {{ Request::is('admin/laundry*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Laundry Types</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.customers.index') }}" class="nav-link {{ Request::is('admin/customers*') ? 'active' : '' }}">
+    <a href="{{ route('admin.customers.index') }}"
+       class="nav-link {{ Request::is('admin/customers*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Customers</p>
     </a>
@@ -60,21 +63,24 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.orders.index', ['filter' => 'operable']) }}" class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'operable' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index', ['filter' => 'operable']) }}"
+               class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'operable' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Operable</p>
                 <span class="badge badge-info right">{{\App\Models\Order::operable()->count()}}</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.orders.index', ['filter' => 'deliverable']) }}" class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'deliverable' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index', ['filter' => 'deliverable']) }}"
+               class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'deliverable' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Deliverable</p>
                 <span class="badge badge-info right">{{\App\Models\Order::deliverable()->count()}}</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.orders.index', ['filter' => 'running']) }}" class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'running' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index', ['filter' => 'running']) }}"
+               class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'running' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Running</p>
                 <span class="badge badge-info right">{{\App\Models\Order::running()->count()}}</span>
@@ -83,7 +89,8 @@
     </ul>
 </li>
 <li class="nav-item">
-    <a href="{{ route('admin.categories.index') }}" class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
+    <a href="{{ route('admin.categories.index') }}"
+       class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Categories</p>
     </a>
@@ -102,3 +109,11 @@
         <p>Missions</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.packages.index') }}" class="nav-link {{ Request::is('admin.packages*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Packages</p>
+    </a>
+</li>
+
