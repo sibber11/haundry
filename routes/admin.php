@@ -33,7 +33,7 @@ Route::resource('admin/orders', App\Http\Controllers\Admin\OrderController::clas
         'create' => 'admin.orders.create',
         'edit' => 'admin.orders.edit'
     ]);
-Route::post('admin/orders/{id}/update_status', [\App\Http\Controllers\Admin\OrderController::class, 'update_status'])->name('admin.orders.update_status');
+Route::post('admin/orders/update_status', [\App\Http\Controllers\Admin\OrderController::class, 'update_status'])->name('admin.orders.update_status');
 Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
     ->names([
         'index' => 'admin.laundryTypes.index',
@@ -70,6 +70,7 @@ Route::get('markdone/{call}', [\App\Http\Controllers\RequestCallController::clas
 
 Route::get('admin/missions/start', [\App\Http\Controllers\Admin\MissionController::class, 'start'])->name('admin.missions.start');
 Route::get('admin/missions/end', [\App\Http\Controllers\Admin\MissionController::class, 'end'])->name('admin.missions.end');
+Route::patch('admin/missions/complete_one', [\App\Http\Controllers\Admin\MissionController::class, 'complete_one'])->name('admin.missions.complete_one');
 
 Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController::class)
     ->names([
@@ -94,3 +95,5 @@ Route::resource('admin/packages', App\Http\Controllers\PackageController::class)
         'create' => 'admin.packages.create',
         'edit' => 'admin.packages.edit'
     ]);
+Route::get('admin/income', [\App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('admin.income');
+Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');

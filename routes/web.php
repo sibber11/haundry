@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('index');
+    return view('newindex');
 });
 
 Route::get('phpinfo', function () {
@@ -24,9 +25,7 @@ Route::get('phpinfo', function () {
 // Route::post('order_place', [OrderController::class,''])->name('order_place');
 
 Route::resource('order', OrderController::class);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::middleware('guest:admin')->get('admin/login', function (){
+Route::middleware('guest:admin')->get('admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
 Route::post('admin/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.attempt');
