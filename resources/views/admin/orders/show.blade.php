@@ -15,8 +15,10 @@
                     </a>
                     @if($order->status == 'placed')
 
-                        <form action="{{route('admin.orders.update_status', $order)}}" method="post" class="d-inline float-right mr-2" id="status">
+                        <form action="{{route('admin.orders.update_status')}}" method="post"
+                              class="d-inline float-right mr-2" id="status">
                             @csrf
+                            <input type="hidden" name="order_id[]" value="{{$order->id}}">
                             <button class="btn btn-default" name="status" value="confirmed">Confirm Order</button>
                         </form>
                     @endif
@@ -25,7 +27,7 @@
         </div>
     </section>
     @error('status')
-        {{$message}}
+    {{$message}}
     @enderror
     <div class="content px-3">
         <div class="card">

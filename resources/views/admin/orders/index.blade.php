@@ -12,7 +12,7 @@
                        href="{{ route('admin.orders.create') }}">
                         Add New
                     </a>
-                    @if(request()->routeIs('admin.orders.index') && Request::has('filter'))
+                    @if(request()->routeIs('admin.orders.index') && Request::has('filter') && Request::input('filter') != 'operable')
                         @php
                             $missions = \App\Models\Mission::pending()->get();
                         @endphp
@@ -23,7 +23,8 @@
                                 <select name="mission_id" class="form-control" required>
                                     <option value="">Select mission...</option>
                                     @foreach($missions as $mission)
-                                        <option value="{{$mission->id}}">{{$mission->id}}</option>
+                                        <option value="{{$mission->id}}">{{$mission->id}} ({{$mission->user->name}})
+                                        </option>
                                     @endforeach
                                 </select>
                                 <div class="input-group-append">
@@ -32,6 +33,14 @@
                             </div>
 
                             <button class="btn btn-default col-sm-3">Assign</button>
+                        </form>
+                    @endif
+                    @if(request()->routeIs('admin.orders.index') && Request::has('filter') && Request::input('filter') == 'operable')
+                        <form action="{{route('admin.orders.update_status')}}" id="assign-form" method="post">
+                            @csrf
+                            <button class="btn btn-default float-right mr-2" value="operated" name="status">Mark
+                                Operated
+                            </button>
                         </form>
                     @endif
                 </div>
