@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateMissionRequest;
 use App\Http\Requests\UpdateMissionRequest;
 use App\Models\Mission;
+use App\Models\Order;
 use Flash;
 use Illuminate\Http\Request;
 
@@ -118,10 +119,9 @@ class MissionController extends AppBaseController
 
             return redirect(route('admin.missions.index'));
         }
-        if ($mission->status == 'completed' || $mission->status == 'running')
-        {
+        if ($mission->status == 'completed' || $mission->status == 'running') {
             Flash::error("Mission not deleteable!");
-        }else{
+        } else {
             $mission->delete();
             Flash::success('Mission deleted successfully.');
         }
@@ -163,5 +163,29 @@ class MissionController extends AppBaseController
         $mission = auth()->user()->mission;
         $mission->complete();
         return redirect()->route('admin.missions.show', $mission);
+    }
+
+    public function complete_one(Request $request)
+    {
+        $input = $request->validate([
+            'order_id' => 'required|numeric'
+        ]);
+        /** @var Mission $mission */
+        $mission = auth()->user()->mission;
+        if (!$mission->running) {
+            Flash::error('Mission not started yet.');
+            return redirect(route('admin.missions.show', $mission));
+        }
+        /** @var Order $order */
+        $order = $mission->orders()->find($input['order_id']);
+        if (empty($order)) {
+            Flash::error('Order not found');
+            return redirect(route('admin.missions.show', $mission));
+        }
+        $order->update_status();
+        $order->update([
+            'paid' => true
+        ]);
+        return redirect(route('admin.missions.show', $mission));
     }
 }
