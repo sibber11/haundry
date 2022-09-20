@@ -166,22 +166,26 @@ class OrderController extends AppBaseController
         return redirect(route('admin.orders.index'));
     }
 
-    public function update_status($id, Request $request)
+    public function update_status(Request $request)
     {
-        $request->validate([
-            'status' => 'required|string'
+        $input = $request->validate([
+            'status' => 'required|string|in:operated',
+            'order_id' => 'required|array'
         ]);
-        /** @var  Order $order */
-        $order = Order::find($id);
 
-        if (empty($order)) {
-            Flash::error('Order not found');
+        $orders = Order::findMany($input['order_id']);
 
-            return redirect(route('admin.orders.index'));
+        if ($orders->isEmpty()) {
+            Flash::error('Orders not found');
+
+            return redirect(route('admin.orders.index', 'filter=operable'));
         }
 
-        $status = $request->input('status');
-        $order->change_status($status);
-        return redirect()->route('admin.orders.show', $order);
+        $orders->each(function ($order) {
+
+            $order->change_status('operated');
+        });
+        Flash::error('Orders marked as operated');
+        return redirect(route('admin.orders.index', 'filter=operable'));
     }
 }
