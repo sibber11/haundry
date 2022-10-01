@@ -72,6 +72,12 @@ class Order extends Model
         $query->where('status', 'like', 'on%');
     }
 
+    public function scopeCompleted($query)
+    {
+        $query->whereIn('status', ['delivered', 'completed']);
+    }
+
+
     public function change_status(string|int $status)
     {
         if (is_integer($status)) {
