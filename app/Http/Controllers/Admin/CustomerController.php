@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Customer;
-use Laracasts\Flash\Flash;
-use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateCustomerRequest;
 use App\Http\Requests\Admin\UpdateCustomerRequest;
+use App\Models\Customer;
+use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
 
 class CustomerController extends AppBaseController
 {
@@ -40,7 +40,9 @@ class CustomerController extends AppBaseController
         $input = $request->all();
 
         /** @var  Customer $customer */
-        $customer = Customer::create($input);
+        $customer = Customer::make($input);
+        $customer->password = \Hash::make($request->input('password'));
+        $customer->save();
 
         Flash::success('Customer saved successfully.');
 
@@ -96,6 +98,7 @@ class CustomerController extends AppBaseController
         }
 
         $customer->fill($request->all());
+        $customer->password = \Hash::make($request->input('password'));
         $customer->save();
 
         Flash::success('Customer updated successfully.');
@@ -125,9 +128,10 @@ class CustomerController extends AppBaseController
 
         return redirect(route('admin.customers.index'));
     }
+
     public function customer_list(Request $request)
     {
-        return $this->sendResponse(Customer::select('name', 'email', 'phone')->get(),'buu');
+        return $this->sendResponse(Customer::select('name', 'email', 'phone')->get(), 'buu');
         // return Customer::where()->get();
     }
 }
