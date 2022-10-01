@@ -18,26 +18,27 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('order.create')}}" @guest data-toggle="modal" data-target="#order" @endguest>Order Now</a>
+                <a class="nav-link" href="{{route('order.create')}}" @guest data-toggle="modal"
+                   data-target="#order" @endguest>Order Now</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#our-service">Our Services</a>
+            {{--            <li class="nav-item active">--}}
+            {{--                <a class="nav-link" href="#our-service">Our Services</a>--}}
+            {{--            </li>--}}
+            {{--            <li class="nav-item">--}}
+            {{--                <a class="nav-link" href="#how-it-works">How it works</a>--}}
+            {{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link" href="#pricing">Price</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#how-it-works">How it works</a>
+                <a class="nav-link" href="#package">Packages</a>
             </li>
-            <!--            <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Price</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#package">Packages</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#why-choose-us">Why choose us?</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about-us">About us</a>
-                        </li>-->
+            {{--            <li class="nav-item">--}}
+            {{--                <a class="nav-link" href="#why-choose-us">Why choose us?</a>--}}
+            {{--            </li>--}}
+            {{--            <li class="nav-item">--}}
+            {{--                <a class="nav-link" href="#about-us">About us</a>--}}
+            {{--            </li>--}}
             <!--            <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
@@ -72,18 +73,23 @@
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="" class="user-image img-circle elevation-2" alt="img">
-                        <span class="d-none d-md-inline">{{auth()->user()->name}}</span>
+                        <span class="d-none d-md-inline">{{auth('customer')->user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                         <li class="nav-item bg-dark">
                             <a href="{{route('order.index')}}" class="nav-link">Orders</a>
                         </li>
                         <li class="nav-item bg-dark">
-                            <a href="{{route('order.index')}}" class="nav-link">Profile</a>
+                            <a href="{{route('profile')}}" class="nav-link">Profile</a>
+                        </li>
+                        <li class="nav-item bg-dark">
+                            <span class="nav-link">
+                                Total Point: {{auth('customer')->user()->point->total}}
+                            </span>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-{{--                            <a href="#" class="btn btn-default btn-flat">Profile</a>--}}
+                            {{--                            <a href="#" class="btn btn-default btn-flat">Profile</a>--}}
                             <a href="#" class="btn btn-default btn-flat float-right"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Sign out

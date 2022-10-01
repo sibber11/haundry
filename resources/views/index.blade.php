@@ -11,63 +11,128 @@
             </div>
         </div>
     @endif
-{{--    <div class="container">--}}
-{{--        @guest--}}
-{{--            <button class="btn btn-primary" data-toggle="modal" data-target="#order">Order Now</button>--}}
-{{--        @endguest--}}
-{{--        @auth--}}
-{{--            <a href="{{ route('order.create') }}" class="btn btn-primary">Order Now</a>--}}
-{{--        @endauth--}}
-{{--    </div>--}}
-<div class="container my-4">
-    <div class="card">
-        <div class="card-header">
-            <h4>Don’t worry, we’ll give you a call &amp; get your #LaundrySorted</h4>
-        </div>
-        <div class="card-body">
-            <form method="post" action="{{route('request_call')}}">
-                @csrf
-                <div class="form-group">
-                    <label for="Name">Name: </label>
-                    <input type="text" class="form-control input-lg" id="Name" name="name" required
-                           placeholder="Your Name" value="">
-                </div>
-                <div class="form-group">
-                    <label for="Name">Contact No: </label>
-                    <input type="text" class="form-control input-lg" id="ContactNo" name="phone" required
-                           placeholder="Contact No" value="">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Request a call back</button>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer">
-            <h4>Just enter your name and number in the form above and we’ll give you a call as soon as possible</h4>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h3>Refer a Friend & get rewarded</h3>
-        </div>
-        <div class="card-body">
-            <form action="{{route('send_invitation')}}" method="post">
-                @csrf
-                <div class="input-group">
-                    {{--                    <label for="invite_mail">Mail:</label>--}}
-                    <input type="email" name="mail" id="invite_mail" placeholder="Enter friend email"
-                           class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-default">Send Invitation</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer">
+    {{--    <div class="container">--}}
+    {{--        @guest--}}
+    {{--            <button class="btn btn-primary" data-toggle="modal" data-target="#order">Order Now</button>--}}
+    {{--        @endguest--}}
+    {{--        @auth--}}
+    {{--            <a href="{{ route('order.create') }}" class="btn btn-primary">Order Now</a>--}}
+    {{--        @endauth--}}
+    {{--    </div>--}}
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header" id="pricing">
+                Pricing
+            </div>
+            <div class="card-body">
+                @foreach(\App\Models\Category::all() as $category)
+                    <h3>{{$category->name}}</h3>
+                    <table class="table table-bordered">
 
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 30rem;">Name</th>
+                            @foreach(\App\Models\Service::all() as $service)
+                                <th>{{$service->name}}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($category->laundry_types()->limit(3)->get() as $laundry)
+                            <tr>
+                                <td>{{$laundry->name}}</td>
+                                <td>{{$laundry->services()->find(1)?->pivot->price}}</td>
+                                <td>{{$laundry->services()->find(2)?->pivot->price}}</td>
+                                <td>{{$laundry->services()->find(3)?->pivot->price}}</td>
+                                <td>{{$laundry->services()->find(4)?->pivot->price}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <br>
+                @endforeach
+            </div>
         </div>
     </div>
-</div>
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">Packages</div>
+            <div class="card-body" style="display: grid; gap: 2rem; grid-template: auto / auto auto auto">
+                @php
+                    $packages = \App\Models\Package::limit(6)->get();
+                @endphp
+                @foreach($packages as $package)
+                    <div class="card">
+                        <div class="card-header">
+                            {{$package->name}}
+                        </div>
+                        <div class="card-body">
+                            <div>Total: <strong>{{$package->total_piece}}</strong></div>
+                            <div>Regular Price: <strong>{{$package->regular_price}} BDT</strong></div>
+                            <div>Package Price: <strong>{{$package->price}} BDT</strong></div>
+                            <div>Save: <strong>{{$package->save}} BDT</strong></div>
+                            <div>Validity: <strong>{{$package->duration}} Days</strong></div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">Buy Now</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="card-footer">
+                <a href="#">View More...</a>
+            </div>
+        </div>
+    </div>
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Don’t worry, we’ll give you a call &amp; get your #LaundrySorted</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{route('request_call')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="Name">Name: </label>
+                        <input type="text" class="form-control input-lg" id="Name" name="name" required
+                               placeholder="Your Name" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Contact No: </label>
+                        <input type="text" class="form-control input-lg" id="ContactNo" name="phone" required
+                               placeholder="Contact No" value="">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Request a call back</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <h4>Just enter your name and number in the form above and we’ll give you a call as soon as possible</h4>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>Refer a Friend & get rewarded</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{route('send_invitation')}}" method="post">
+                    @csrf
+                    <div class="input-group">
+                        {{--                    <label for="invite_mail">Mail:</label>--}}
+                        <input type="email" name="mail" id="invite_mail" placeholder="Enter friend email"
+                               class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-default">Send Invitation</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </div>
 
     <!--    <div class="container-fluid section-star" id="our-service">
             <div class="container">
@@ -820,7 +885,6 @@
                     <h4 class="modal-title" id="myModalLabel">Terms &amp; Condition</h4>
                 </div>
                 <div class="modal-body">
-                    <p>&nbsp;</p>
                     <ul>
                         <li>&nbsp;Only Cash payment accepted on delivery.</li>
                         <li>Standard delivery would be done within 72 hours after the items have been collected.</li>
@@ -838,18 +902,13 @@
                         <li>&nbsp;The Service Tariff is subject to change without notice.</li>
                         <li>&nbsp;We are committed to ensure that your information is secure.</li>
                         <li>We will not sell, distribute or lease your personal information to third parties unless we
-                            are&nbsp;&nbsp; required by law to do so. If you believe that any information we are holding
-                            on
-                            you is incorrect or incomplete, please contact us as soon as possible
+                            are required by law to do so. If you believe that any information we are holding
+                            on you is incorrect or incomplete, please contact us as soon as possible
                         </li>
                         <li>Hello laundry reserves the right to change or cancel all kinds of content and service at
                             anytime.
                         </li>
                     </ul>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
                 </div>
             </div>
         </div>
@@ -911,8 +970,6 @@
                         <li>What time do you pick-up and deliver?&nbsp;&nbsp;&nbsp;</li>
                     </ul>
                     <p>Hello laundry picks up and delivers from 10.00 AM to 10.00 PM every day including Friday.</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
                     <ul>
                         <li><a href="http://theswisslaundry.com/faq.html#3">Ø &nbsp;Do you offer express service?</a>
                         </li>
@@ -931,12 +988,12 @@
 @push('page_scripts')
     <script>
         @if(session('msg'))
-            $(document).Toasts('create', {
-                title: "Call Request Recieved",
-                body: "{{session('msg')}}",
-                position: 'bottomRight'
+        $(document).Toasts('create', {
+            title: "Call Request Recieved",
+            body: "{{session('msg')}}",
+            position: 'bottomRight'
 
-            });
+        });
         @endif
     </script>
 @endpush
