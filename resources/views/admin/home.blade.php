@@ -1,11 +1,15 @@
+@php use App\Models\Customer; @endphp
+@php use App\Models\Order; @endphp
+@php use App\Models\RequestCall; @endphp
+@php use App\Models\Mission; @endphp
 @extends('admin.layouts.app')
 @php
-    $total_users = \App\Models\Customer::count();
-    $total_orders = \App\Models\Order::count();
-    $new_users = \App\Models\Customer::where('created_at', '>=', now()->subDays(7))->count();
-    $new_orders = \App\Models\Order::where('created_at', '>=', now()->subDays(7))->count();
-    $request_call = \App\Models\RequestCall::pending()->get();
-    $missions = \App\Models\Mission::running()->orWhere->pending()->get();
+    $total_users = Customer::count();
+    $total_orders = Order::count();
+    $new_users = Customer::where('created_at', '>=', now()->subDays(7))->count();
+    $new_orders = Order::where('created_at', '>=', now()->subDays(7))->count();
+    $request_call = RequestCall::orderBy('called')->get();
+    $missions = Mission::running()->orWhere->pending()->get();
 @endphp
 @section('content')
     <div class="container-fluid">
@@ -102,18 +106,15 @@
                 <tr>
                     <th>Mission ID</th>
                     <th>Rider Name</th>
-                    <th></th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($missions as $mission)
                     <tr>
                         <td>{{$mission->id}}</td>
-                        <td>{{$mission->missions}}</td>
-                        <td>
-                            {{$mission->deadline}}
-                            {{--                        <a href="{{route('admin.markdone', $call)}}">Mark Done</a>--}}
-                        </td>
+                        <td>{{$mission->user->name}}</td>
+                        <td>{{$mission->status}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -123,7 +124,7 @@
 @endsection
 
 @push('third_party_stylesheets')
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    {{--    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--}}
 @endpush
 
 @push('page_scripts')
@@ -135,3 +136,13 @@
         // })
     </script>
 @endpush
+
+
+{{--
+refer done
+point system done
+voucher partial
+cash discount
+package
+transaction
+--}}
