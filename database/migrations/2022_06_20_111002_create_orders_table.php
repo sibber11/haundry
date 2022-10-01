@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(1000);
             $table->foreignIdFor(\App\Models\Customer::class)->nullable();
             $table->boolean('paid')->default(false);
             $table->date('due_date')->nullable();
