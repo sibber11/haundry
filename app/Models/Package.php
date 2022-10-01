@@ -62,4 +62,6 @@ class Package extends Model
     {
         return $this->hasMany(Laundry::class);
     }
+
+    //    todo: taka diye point kinbe, service use korle point khoroch hobe. point er dam takar tulonay kom hobe.
 }
