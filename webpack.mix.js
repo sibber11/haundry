@@ -11,8 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix
+    .js('resources/js/app.js', 'public/js')
+    // .minify('public/js/app.js')
     .vue()
-    .browserSync('haundry.test')
-    .css('resources/css/app.css', 'public/css');
-    // .sass('resources/sass/app.scss', 'public/css');
+    .browserSync()
+    .css('resources/css/app.css', 'public/css')
+    .css("resources/css/newapp.css", 'public/css');
+// .sass('resources/sass/app.scss', 'public/css');
