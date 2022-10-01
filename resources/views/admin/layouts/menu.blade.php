@@ -11,7 +11,7 @@
 @endauth
 
 <li class="nav-item">
-    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+    <a href="{{ route('admin.home') }}" class="nav-link {{ Request::is('admin/home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Home</p>
     </a>
@@ -111,9 +111,16 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.packages.index') }}" class="nav-link {{ Request::is('admin.packages*') ? 'active' : '' }}">
+    <a href="{{ route('admin.packages.index') }}" class="nav-link {{ Request::is('admin/packages*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Packages</p>
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('admin.income', ['year' => now()->year, 'month' => now()->month]) }}"
+       class="nav-link {{ Request::is('admin/income*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Income</p>
+    </a>
+</li>
