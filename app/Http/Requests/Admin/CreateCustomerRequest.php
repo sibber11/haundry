@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCustomerRequest extends FormRequest
@@ -24,6 +23,13 @@ class CreateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        return Customer::$rules ?? [];
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'address' => 'required|string',
+            'password' => 'required|confirmed'
+        ];
+
+        return $rules;
     }
 }
