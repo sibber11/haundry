@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequestCallRequest;
 use App\Models\RequestCall;
-use Illuminate\Http\Request;
 
 class RequestCallController extends Controller
 {
@@ -22,7 +21,7 @@ class RequestCallController extends Controller
     {
         $input = $request->validated();
         RequestCall::create($input);
-        return redirect('/')->with('status','Expect a call from us in few minutes');
+        return redirect('/')->with('status', 'Expect a call from us in few minutes');
     }
 
 
@@ -41,6 +40,6 @@ class RequestCallController extends Controller
     {
         $call->mark_as_called();
 //        return response('marked_done', 200);
-        return redirect()->route('home');
+        return redirect()->route('admin.home');
     }
 }

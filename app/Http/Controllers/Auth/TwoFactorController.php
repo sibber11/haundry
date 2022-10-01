@@ -9,8 +9,8 @@ class TwoFactorController extends \App\Http\Controllers\Controller
 {
     public function index()
     {
-        if (auth()->user()->two_factor_code == null){
-            return  redirect()->route('home');
+        if (auth()->user()->two_factor_code == null) {
+            return redirect()->route('admin.home');
         }
         return view('auth.twoFactor');
     }
@@ -23,11 +23,10 @@ class TwoFactorController extends \App\Http\Controllers\Controller
 
         $user = auth()->user();
 
-        if($request->input('two_factor_code') == $user->two_factor_code)
-        {
+        if ($request->input('two_factor_code') == $user->two_factor_code) {
             $user->resetTwoFactorCode();
 
-            return redirect()->route('home');
+            return redirect()->service;
         }
 
         return redirect()->back()
