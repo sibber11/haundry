@@ -55,6 +55,11 @@ trait HasVoucherPoint
 
     public function vouchers()
     {
-        return $this->hasMany(Voucher::class);
+        return $this->hasMany(Voucher::class)->whereIsUsed(false);
+    }
+
+    public function getCanClaimVoucherAttribute()
+    {
+        return $this->point->total >= 200;
     }
 }
