@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Debugbar;
-use Illuminate\Http\Request;
-use App\Rules\PhoneValidator;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Notifications\TwoFactorCode;
-use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use App\Rules\PhoneValidator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -75,7 +74,7 @@ class LoginController extends Controller
     /**
      * Attempt to log the user into the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -106,7 +105,7 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
@@ -130,6 +129,6 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return '/home';
+        return RouteServiceProvider::HOME;
     }
 }
