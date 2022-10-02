@@ -26,11 +26,13 @@
         <h1 class="text-4xl p-4">Dry Clean &<br>Laundry Service</h1>
         <h5 class="text-sm p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium.</h5>
         <div id="call">
-            <form method="post" class="flex flex-col gap-1 max-w-min p-4">
-                <input type="text" placeholder="Your name here..." class="p-1.5 rounded">
-                <input type="text" placeholder="Your number here..." class="p-1.5 rounded">
+            <form method="post" class="flex flex-col gap-1 max-w-min p-4" action="{{route('request_call')}}">
+                @csrf
+                <input type="text" placeholder="Your name here..." class="p-1.5 rounded" name="name">
+                <input type="text" placeholder="Your number here..." class="p-1.5 rounded" name="phone">
                 <button class="rounded bg-macaw-900 px-2 py-1 text-white">Request a Call</button>
             </form>
+            {{--todo:let the customer know, that request call is been placed --}}
         </div>
     </div>
     <div class="flex-col-row-gap">
