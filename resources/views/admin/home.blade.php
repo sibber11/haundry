@@ -8,7 +8,7 @@
     $total_orders = Order::count();
     $new_users = Customer::where('created_at', '>=', now()->subDays(7))->count();
     $new_orders = Order::where('created_at', '>=', now()->subDays(7))->count();
-    $request_call = RequestCall::orderBy('called')->get();
+    $request_call = RequestCall::orderBy('created_at', 'desc')->orderBy('called')->get();
     $missions = Mission::running()->orWhere->pending()->get();
 @endphp
 @section('content')
