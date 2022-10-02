@@ -13,9 +13,8 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/js')
-    // .minify('public/js/app.js')
     .vue()
     .browserSync()
     .css('resources/css/app.css', 'public/css')
-    .css("resources/css/newapp.css", 'public/css');
+    .css("resources/css/style.css", 'public/css')
 // .sass('resources/sass/app.scss', 'public/css');
