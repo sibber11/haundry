@@ -25,9 +25,17 @@
 }
 
 .nav-item {
-    @apply p-2 whitespace-nowrap;
+    @apply px-2 py-1 whitespace-nowrap;
 }
 
-.nav-link {
-    @apply text-white;
+.active {
+    @apply bg-macaw-900 text-white rounded font-bold
+}
+
+.form-item {
+    @apply flex flex-col justify-between text-lg gap-3;
+}
+
+.form-item input {
+    @apply p-1 rounded border-2 border-macaw-900;
 }
