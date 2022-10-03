@@ -129,6 +129,9 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return RouteServiceProvider::HOME;
+        if (request()->routeIs('admin.attempt'))
+            return RouteServiceProvider::HOME;
+        else
+            return route('profile');
     }
 }
