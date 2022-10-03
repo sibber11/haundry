@@ -4,25 +4,27 @@
     <div class="sm:grid sm:grid-cols-2 flex flex-col-reverse mb-4">
         {{--        <img src="" alt="">--}}
         <div class="text-center">
-            <div class="pt-16 -mt-32 bg-gradient-to-t from-gray-200 via-gray-200 to-transparent">
+            <div
+                class="pt-16 -mt-32 sm:pt-0 sm:mt-16 sm:bg-inherit bg-gradient-to-t from-gray-200 via-gray-200 to-transparent">
                 <h1 class="text-4xl p-4 font-bold">Dry Clean <span class="text-macaw-900">&</span><br>Laundry
                     Service</h1>
                 <h5 class="text-sm p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium.</h5>
             </div>
             <div id="call">
-                <form method="post" class="flex flex-col gap-1"
+                <form method="post" class="flex flex-col gap-2"
                       action="{{route('request_call')}}">
                     @csrf
-                    <input type="text" placeholder="Your name here..." class="p-1.5 rounded border-2 border-macaw-900"
+                    <input type="text" placeholder="Your name here..." class="p-1 rounded border-2 border-macaw-900"
                            name="name">
-                    <input type="text" placeholder="Your number here..." class="p-1.5 rounded border-2 border-macaw-900"
+                    <input type="text" placeholder="Your number here..." class="p-1 rounded border-2 border-macaw-900"
                            name="phone">
-                    <button class="rounded bg-macaw-900 px-2 py-1 text-white">Request a Call</button>
+                    <button class="rounded bg-macaw-900 px-2 py-1 text-white border-2 border-macaw-900">Request a Call
+                    </button>
                 </form>
                 {{--todo:let the customer know, that request call is been placed --}}
             </div>
         </div>
-        <div class="-z-10">
+        <div class="-z-10 sm:z-auto">
             <img src="{{asset('images/home_back.png')}}" alt="" style="max-width: 100%; max-height: 100%">
         </div>
     </div>
@@ -37,7 +39,7 @@
             <div id="services" class="bg-white text-center grid grid-cols-2 sm:grid-cols-4 justify-between py-5 shadow">
                 <div class="my-3 sm:my-0">
                     <div class="service">
-                        <i class="fa fa- fa-2x text-macaw-900 pt-5"></i>
+                        <i class="fa fa-home fa-2x text-macaw-900 pt-5"></i>
                     </div>
                     <div class="text-lg font-bold">Laundry</div>
                 </div>
