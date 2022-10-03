@@ -14,49 +14,30 @@
             <i class="fa fa-bars"></i>
         </button>
     </div>
-    <ul class="hidden sm:flex flex-col sm:flex-row"
+    <ul class="hidden"
         id="main-nav">
         <li class="nav-item active">
-            <a class="nav-link active" href="{{route('order.create')}}" @guest data-toggle="modal"
-               data-target="#order" @endguest>Order Now</a>
+            <a class="nav-link active" href="{{route('order.create')}}">Order Now</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#services">Our Services</a>
+            <a class="nav-link" href="{{route('profile')}}">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#price">Price</a>
+            <a class="nav-link" href="{{route('order.index')}}">Orders</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#about">About us</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#packages">Packages</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#choose">Why choose us?</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#">How it works</a>
-        </li>
+        {{--        <li class="nav-item">--}}
+        {{--            <a class="nav-link" href="{{route('voucher')}}">Vouchers</a>--}}
+        {{--        </li>--}}
     </ul>
-    <ul class="hidden inline-flex sm:flex border-2 border-macaw-900 rounded items-center flex-row justify-between max-w-min"
+    <ul class="hidden inline-flex sm:flex border-2 border-macaw-900 rounded max-w-min"
         id="second-nav">
-        @guest('customer')
-            <li class="p-1">
-                <a href="{{route('register')}}" class="">Register</a>
-            </li>
-            <li class="text-macaw-900 text-2xl font-light">/</li>
-            <li class="p-1">
-                <a href="{{route('login')}}" class="">Login</a>
-            </li>
-        @endguest
         @auth
             <li class="p-1">
                 <a href={{route('profile')}} class="nav-link"
                    onclick="document.getElementById('profile').classList.toggle('hidden')">
-                    {{--                    <img src="" class="inline" alt="img">--}}
                     <span>{{auth('customer')->user()->name}}</span>
                 </a>
+
             </li>
             <li class="text-macaw-900 text-2xl font-light">/</li>
             <li class="p-1">

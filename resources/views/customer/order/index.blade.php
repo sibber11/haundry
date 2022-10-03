@@ -1,40 +1,45 @@
 @extends('layouts.customer')
 
 @php
-$orders = Auth::user()->orders;
+    $orders = Auth::user()->orders()->orderBy('created_at')->paginate(10);
 @endphp
 @section('content')
-    <div class="container my-4">
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Orders</h3>
-                </div>
-
-                <div class="card-body p-0">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th style="width: 10px">#ID</th>
-                            <th>Total</th>
-                            <th>Date</th>
-                            <th style="width: 40px">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($orders as $order)
-                            <tr>
-                                <td>{{$order->id}}</td>
-                                <td>{{$order->total}}</td>
-                                <td>{{$order->created_at}}</td>
-                                <td><span class="badge bg-danger">{{$order->status}}</span></td>
-                            </tr>
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+    <div class="">
+        <h3 class="font-bold text-lg p-2 mb-4">Orders</h3>
+        <table class="divide-y divide-gray-300 w-full">
+            <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-2 text-s text-gray-500">
+                    #ID
+                </th>
+                <th class="px-6 py-2 text-s text-gray-500">
+                    Total
+                </th>
+                <th class="px-6 py-2 text-s text-gray-500">
+                    Date
+                </th>
+                <th class="px-6 py-2 text-s text-gray-500">
+                    Status
+                </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-300">
+            @foreach($orders as $order)
+                <tr>
+                    <td class="px-6 py-4 text-center">{{$order->id}}</td>
+                    <td class="px-6 py-4 text-center">{{$order->total}}</td>
+                    <td class="px-6 py-4 text-center">{{$order->created_at}}</td>
+                    <td class="px-6 py-4 text-center">
+                            <span>
+                                {{$order->status}}
+                            </span>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <div class="my-2">
+            {{$orders->links()}}
+        </div>
     </div>
 @endsection
