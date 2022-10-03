@@ -16,7 +16,8 @@ mix
     .vue()
     .browserSync()
     .css('resources/css/app.css', 'public/css')
-    .postCss("resources/css/style.css", 'public/css', [
-        require('tailwindcss'),
-    ])
+    .css('resources/css/style.css', 'public/css')
+// .postCss("resources/css/style.css", 'public/css', [
+//     require('tailwindcss'),
+// ])
 // .sass('resources/sass/app.scss', 'public/css');
