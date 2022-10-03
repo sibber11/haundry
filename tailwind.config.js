@@ -2,7 +2,9 @@
 module.exports = {
     content: [
         "./resources/views/newindex.blade.php",
-        "./resources/views/layouts/nav.blade.php"
+        "./resources/views/layouts/*.blade.php",
+        "./resources/views/customer/**/*.blade.php",
+        "resources/views/vendor/pagination/tailwind.blade.php"
     ],
     theme: {
         extend: {
