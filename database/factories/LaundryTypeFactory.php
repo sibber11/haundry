@@ -16,6 +16,11 @@ class LaundryTypeFactory extends Factory
      * @var  string
      */
     protected $model = LaundryType::class;
+    private array $types = [
+        'T-Shirt', 'Kombol', 'Lap Cover', 'Sari', 'Three Piece', 'Jumper', 'Coat', 'Shirt',
+        'Pant', 'Trouser', 'Panjabi', 'Pajama', 'Rumal', 'Lungi', 'Tupi', 'Cap', 'Cador', 'Sofa Cover',
+        'Porda', 'Chair Cover', 'Table Cover', 'Cover', 'Lahenga', 'Groun'
+    ];
 
     /**
      * Define the model's default state.
@@ -24,7 +29,7 @@ class LaundryTypeFactory extends Factory
     {
         return [
             'category_id' => Category::inRandomOrder()->first() ?? Category::factory(),
-            'name' => $this->faker->name,
+            'name' => $this->faker->randomElement($this->types),
         ];
     }
 
