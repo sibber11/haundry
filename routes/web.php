@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +19,6 @@ Route::get('/', function () {
 Route::get('phpinfo', function () {
     phpinfo();
 });
-
-// Route::get('order', [OrderController::class,'index'])->name('order');
-// Route::post('order_place', [OrderController::class,''])->name('order_place');
-
-Route::resource('order', OrderController::class);
 Route::middleware('guest:admin')->get('admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
