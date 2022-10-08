@@ -13,12 +13,12 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('customer.order.index');
+        return view('customer.orders.index');
     }
 
     public function create()
     {
-        return view('customer.order.create');
+        return view('customer.orders.create');
     }
 
     public function store(CreateOrderRequest $request)
@@ -40,7 +40,7 @@ class OrderController extends Controller
             DB::commit();
         }
         Flash::success('Order saved successfully.');
-        return redirect('/')->with('status', "Your Order has been Placed.");
+        return redirect()->route('orders.index')->with('status', "Your Order has been Placed.");
     }
 
     public function cancel()
