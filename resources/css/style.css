@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.flex-col-row-gap {
-    @apply flex flex-col sm:flex-row gap-1.5 my-1.5;
-}
 
 .service {
     @apply rounded-full bg-macaw-100 w-20 h-20 mx-auto
@@ -28,14 +25,14 @@
     @apply px-2 py-1 whitespace-nowrap;
 }
 
-.active {
+.nav-link:hover {
+    @apply text-macaw-900;
+}
+
+.highlight {
     @apply bg-macaw-900 text-white rounded font-bold
 }
 
-.form-item {
-    @apply flex flex-col justify-between text-lg gap-3;
-}
-
-.form-item input {
-    @apply p-1 rounded border-2 border-macaw-900;
+.active {
+    @apply border-macaw-900 border-2 rounded;
 }
