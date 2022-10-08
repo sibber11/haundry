@@ -14,10 +14,10 @@
             <i class="fa fa-bars"></i>
         </button>
     </div>
-    <ul class="hidden sm:flex flex-col sm:flex-row"
+    <ul class="hidden sm:flex flex-col sm:flex-row gap-2"
         id="main-nav">
-        <li class="nav-item active">
-            <a class="nav-link active" href="{{route('order.create')}}" @guest data-toggle="modal"
+        <li class="nav-item highlight">
+            <a class="" href="{{route('orders.create')}}" @guest data-toggle="modal"
                data-target="#order" @endguest>Order Now</a>
         </li>
         <li class="nav-item">
@@ -55,7 +55,7 @@
                 <a href={{route('profile')}} class="nav-link"
                    onclick="document.getElementById('profile').classList.toggle('hidden')">
                     {{--                    <img src="" class="inline" alt="img">--}}
-                    <span>{{auth('customer')->user()->name}}</span>
+                    <span class="whitespace-nowrap">{{auth('customer')->user()->name}}</span>
                 </a>
             </li>
             <li class="text-macaw-900 text-2xl font-light">/</li>

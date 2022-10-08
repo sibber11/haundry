@@ -1,59 +1,85 @@
 <template>
-    <!-- Deadline Field -->
-    <div class="form-group col-sm-6">
-        <label for="deadline-date">Deadline Date:</label>
-        <input class="form-control" id="deadline-date" name="deadline_date" type="date">
+    <div class="md:flex items-center gap-4">
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="deadline-date">Deadline Date:</label>
+            <input
+                id="deadline-date"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="deadline_date" type="date">
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="deadline-time">Deadline
+                Time:</label>
+            <input
+                id="deadline-time"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="deadline_time" type="time" value="17:00">
+        </div>
     </div>
-    <div class="form-group col-sm-6">
-        <label for="deadline-time">Deadline Time:</label>
-        <input class="form-control" id="deadline-time" name="deadline_time" type="time" value="17:00">
-    </div>
-    <div class="form-group col-sm-12"></div><!-- Laundry Type Id Field -->
-    <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
-        <select class="form-control" id="laundry_type" v-model="input.type">
-            <option disabled value="">Select Type...</option>
-            <optgroup :label="category.name" v-for="category in categories">
-                <option :value="laundry" v-for="laundry in category.laundry_types">{{ laundry.name }}</option>
-            </optgroup>
-
-        </select>
-    </div><!-- Service Type Field -->
-    <div class="form-group col-sm-4">
-        <label for="service_type">Service Type (Price):</label>
-        <select class="form-control" id="service_type" :disabled="input.type === ''"
+    <div class="md:flex items-center gap-4">
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="laundry_type_id">Laundry Type:</label>
+            <select
+                id="laundry_type"
+                v-model="input.type"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
+                <option disabled value="">Select Type...</option>
+                <optgroup v-for="category in categories" :label="category.name">
+                    <option v-for="laundry in category.laundry_types" :value="laundry">{{ laundry.name }}</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="service_type">Service Type (Price):</label>
+            <select
+                id="service_type"
+                :disabled="input.type === ''"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded disabled:bg-gray-400"
                 v-model="input.service">
-            <option disabled value="">Select Service...</option>
-            <option :value="item" v-for="item in input.type.services">{{ item.name }}({{ item.pivot.price }})</option>
-        </select>
-    </div><!-- Amount Field -->
-    <div class="form-group col-sm-3">
-        <label for="amount">Amount</label>
-        <input class="form-control" id="amount" v-model="input.amount" type="number" min="0">
+                <option disabled value="">Select Service...</option>
+                <option v-for="item in input.type.services" :value="item">{{ item.name }}({{
+                        item.pivot.price
+                    }})
+                </option>
+            </select>
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="amount">Amount:</label>
+            <input
+                id="amount"
+                v-model="input.amount"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                min="0" type="number">
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="add">Action</label>
+            <button id="add"
+                    class="leading-none text-gray-50 p-3 mt-4 border-0 bg-green-500 rounded"
+                    type="button" @click="add_to_cart">
+                Add
+            </button>
+        </div>
     </div>
-    <div class="form-group col-sm-1">
-        <label for="">Action</label>
-        <button id="add" class="btn btn-success" type="button" @click="add_to_cart">Add</button>
-    </div>
-    <table class="table table-striped">
-        <thead class="">
+    <table v-if="total > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
+        <thead class="bg-gray-50">
         <tr>
-            <th>Laundry Type</th>
-            <th>Service Type</th>
-            <th>Amount</th>
-            <th style="width: 40px">Action</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">Laundry Type</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">Service Type</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">Amount</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">Action</th>
         </tr>
         </thead>
-        <tbody id="laundries">
+        <tbody id="laundries" class="bg-white divide-y divide-gray-300">
         <tr v-for="(cart_item, index) in cart" :key="index">
-            <td>
+            <td class="sm:px-6 py-4 text-center">
                 <input type="hidden" :name="`items[${index}][laundry_type_id]`" :value="cart_item.type.id">
                 {{ cart_item.type.name }}
             </td>
-            <td>
+            <td class="sm:px-6 py-4 text-center">
                 <input type="hidden" :name="`items[${index}][service_id]`" :value="cart_item.service.id">
                 {{ cart_item.service.name }} ({{ cart_item.service.pivot.price }})
             </td>
-            <td>
+            <td class="sm:px-6 py-4 text-center">
                 <input type="hidden" :name="`items[${index}][amount]`" :value="cart_item.amount">
                 {{ cart_item.amount }}
             </td>
@@ -64,10 +90,10 @@
             </td>
         </tr>
         </tbody>
-        <tfoot>
+        <tfoot v-if="total > 0" class="bg-gray-50">
         <tr>
-            <td colspan="3">Total</td>
-            <td>{{ total }}</td>
+            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Total</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">{{ total }}</th>
         </tr>
         </tfoot>
     </table>
