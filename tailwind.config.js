@@ -4,7 +4,8 @@ module.exports = {
         "./resources/views/index.blade.php",
         "./resources/views/layouts/*.blade.php",
         "./resources/views/customer/**/*.blade.php",
-        "resources/views/vendor/pagination/tailwind.blade.php"
+        "resources/views/vendor/pagination/tailwind.blade.php",
+        "resources/js/components/CustomerOrderFields.vue"
     ],
     theme: {
         extend: {

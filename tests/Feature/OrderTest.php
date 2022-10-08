@@ -48,7 +48,7 @@ class OrderTest extends TestCase
         $customer = Customer::factory()->create();
         $laundry_type = LaundryType::factory()->create();
         $laundry_type1 = LaundryType::factory()->create();
-        $response = $this->post(route('order.store'), [
+        $response = $this->post(route('orders.store'), [
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
@@ -108,7 +108,7 @@ class OrderTest extends TestCase
         $customer = auth()->user();
         $customer->subscribe(Package::factory()->create());
         $laundry_type = LaundryType::factory()->create();
-        $response = $this->post(route('order.store'), [
+        $response = $this->post(route('orders.store'), [
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
