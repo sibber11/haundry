@@ -16,8 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->string('code')->unique();
             $table->integer('discount')->default(0);
+            $table->integer('minimum')->default(0);
             $table->foreignIdFor(\App\Models\Customer::class)->nullable();
-            $table->boolean('is_used');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }

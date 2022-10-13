@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Helper\DeadlineSolver;
+use App\Helper\DateSolver;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CreateOrderRequest;
 use App\Models\Order;
@@ -23,18 +23,20 @@ class OrderController extends Controller
 
     public function store(CreateOrderRequest $request)
     {
-//        dd('bu');
         $input = $request->validated();
-        $input['deadline'] = DeadlineSolver::solve($input);
+        $input['deadline'] = DateSolver::solve($input, 'deadline');
+        $input['pickup'] = DateSolver::solve($input, 'pickup');
         $order = Order::make($input);
         DB::beginTransaction();
         auth()->user()->orders()->save($order);
         $order->add_items($input['items']);
-        if ($request->has('voucher_code')) {
-            if (!$order->apply_voucher($request->input('voucher_code'))) {
+        if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
+            if ($order->apply_voucher($request->input('voucher_code'))) {
+                DB::commit();
+            } else {
                 DB::rollBack();
                 Flash::success('Invalid voucher!');
-                return redirect()->route('admin.orders.create')->withInput();
+                return redirect()->route('orders.create')->withInput();
             }
         } else {
             DB::commit();

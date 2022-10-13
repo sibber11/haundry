@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\Voucher::class)->nullable();
             $table->integer('total');
             $table->dateTime('deadline');
+            $table->dateTime('pickup');
             $table->enum('status', [
                 'placed',
                 'confirmed',

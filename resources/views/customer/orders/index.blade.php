@@ -4,7 +4,12 @@
     $orders = Auth::user()->orders()->orderBy('created_at')->paginate(10);
 @endphp
 @section('content')
-    <div class="">
+    @if(session()->has('status'))
+        <div class="bg-green-500 p-2 rounded text-white mt-2">
+            {{session('status')}}
+        </div>
+    @endif
+    <div class="sm:mr-3">
         <h3 class="font-bold text-lg p-2 mb-4">Orders</h3>
         <table class="divide-y divide-gray-300 w-full text-sm sm:text-base">
             <thead class="bg-gray-50">

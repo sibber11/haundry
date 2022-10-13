@@ -14,7 +14,7 @@ class PackageTest extends TestCase
     public function test_package_can_be_factorized()
     {
         Package::factory()->create();
-        dump(Package::first()->toArray());
+//        dump(Package::first()->toArray());
         $this->assertDatabaseCount(Package::class, 1);
     }
 

@@ -15,16 +15,20 @@ class Order extends Model
 
     public $fillable = [
         'customer_id',
-        'deadline'
+        'deadline',
+        'pickup'
     ];
 
     protected $casts = [
-        'deadline' => 'datetime'
+        'deadline' => 'datetime',
+        'pickup' => 'datetime'
     ];
 
     public static $rules = [
         'deadline_date' => 'required|date',
         'deadline_time' => 'required|date_format:H:i',
+        'pickup_date' => 'required|date',
+        'pickup_time' => 'required|date_format:H:i',
         'items' => 'required|array',
         'voucher_code' => 'nullable|string'
     ];

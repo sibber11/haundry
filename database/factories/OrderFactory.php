@@ -30,6 +30,7 @@ class OrderFactory extends Factory
             'total' => $this->faker->numberBetween(5, 500),
             'status' => $this->faker->randomElement(Order::$status),
             'deadline' => $this->faker->date('Y-m-d H:i:s'),
+            'pickup' => $this->faker->date('Y-m-d H:i:s'),
             'created_at' => $this->faker->dateTimeThisMonth(),
             'updated_at' => $this->faker->dateTimeThisMonth(),
         ];

@@ -97,3 +97,14 @@ Route::resource('admin/packages', App\Http\Controllers\PackageController::class)
     ]);
 Route::get('admin/income', [\App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('admin.income');
 Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
+
+Route::resource('admin/vouchers', App\Http\Controllers\VoucherController::class)
+    ->names([
+        'index' => 'admin.vouchers.index',
+        'store' => 'admin.vouchers.store',
+        'show' => 'admin.vouchers.show',
+        'update' => 'admin.vouchers.update',
+        'destroy' => 'admin.vouchers.destroy',
+        'create' => 'admin.vouchers.create',
+        'edit' => 'admin.vouchers.edit'
+    ]);

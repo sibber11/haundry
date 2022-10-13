@@ -24,6 +24,8 @@ class OrderTest extends TestCase
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
+            'pickup_date' => '09/05/2022',
+            'pickup_time' => '17:00',
             'items' => [
                 [
                     'laundry_type_id' => $laundry_type->id,
@@ -52,6 +54,8 @@ class OrderTest extends TestCase
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
+            'pickup_date' => '09/05/2022',
+            'pickup_time' => '17:00',
             'items' => [
                 [
                     'laundry_type_id' => $laundry_type->id,
@@ -84,6 +88,8 @@ class OrderTest extends TestCase
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
+            'pickup_date' => '09/05/2022',
+            'pickup_time' => '17:00',
             'items' => [
                 [
                     'laundry_type_id' => $laundry_type->id,
@@ -112,6 +118,8 @@ class OrderTest extends TestCase
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
+            'pickup_date' => '09/05/2022',
+            'pickup_time' => '17:00',
             'items' => [
                 [
                     'laundry_type_id' => $laundry_type->id,

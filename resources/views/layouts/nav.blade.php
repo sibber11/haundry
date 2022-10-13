@@ -1,4 +1,4 @@
-<nav class="bg-white flex flex-col sm:flex-row justify-between p-2">
+<nav class="bg-white flex flex-col sm:flex-row justify-between p-2 sticky">
     <div class="flex flex-row justify-between">
         <ul class="">
             <li class="p-4 nav-item text-lg">

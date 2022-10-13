@@ -9,18 +9,34 @@ use Illuminate\Support\Str;
 class Voucher extends Model
 {
 
-    protected $fillable = [
-        'discount'
+    public $table = 'vouchers';
+
+    public $fillable = [
+        'code',
+        'discount',
+        'minimum',
+        'customer_id',
+        'is_used'
     ];
 
     protected $casts = [
         'code' => 'string',
-        'is_used' => 'bool',
+        'is_used' => 'boolean'
+    ];
+
+    public static $rules = [
+        'discount' => 'required',
+        'minimum' => 'required',
+        'customer_id' => 'nullable',
+        'is_used' => 'required|boolean',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable'
     ];
 
     protected $attributes = [
         'is_used' => false,
-        'discount' => 0
+        'discount' => 0,
+        'minimum' => 0
     ];
 
     protected static function boot()
@@ -55,3 +71,4 @@ class Voucher extends Model
         $this->save();
     }
 }
+

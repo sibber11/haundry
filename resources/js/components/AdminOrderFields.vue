@@ -1,17 +1,30 @@
 <template>
     <!-- Customer Name Field -->
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-6">
         <label for="customer_id">Customer Name:</label>
         <Select2 id="customer_id" :settings="option_customer" name="customer_id" required="required"></Select2>
     </div>
+    <div class="form-group col-sm-6">
+        <label for="voucher_code">Voucher Code:</label>
+        <input id="voucher_code" class="form-control" name="voucher_code" type="text">
+    </div>
     <!-- Deadline Field -->
-    <div class="form-group col-sm-4">
-        <label for="deadline-date">Deadline Date:</label>
+    <div class="form-group col-sm-3">
+        <label for="deadline-date">Delivery Date:</label>
         <input class="form-control" id="deadline-date" name="deadline_date" type="date">
     </div>
-    <div class="form-group col-sm-4">
-        <label for="deadline-time">Deadline Time:</label>
+    <div class="form-group col-sm-3">
+        <label for="deadline-time">Delivery Time:</label>
         <input class="form-control" id="deadline-time" name="deadline_time" type="time" value="17:00">
+    </div>
+    <!-- Deadline Field -->
+    <div class="form-group col-sm-3">
+        <label for="pickup-date">Pickup Date:</label>
+        <input id="pickup-date" class="form-control" name="pickup_date" type="date">
+    </div>
+    <div class="form-group col-sm-3">
+        <label for="pickup-time">Pickup Time:</label>
+        <input id="pickup-time" class="form-control" name="pickup_time" type="time" value="17:00">
     </div>
     <div class="form-group col-sm-12"></div><!-- Laundry Type Id Field -->
     <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
@@ -36,7 +49,7 @@
         <label for="">Action</label>
         <button id="add" class="btn btn-success" type="button" @click="add_to_cart">Add</button>
     </div>
-    <table class="table table-striped">
+    <table v-show="total > 0" class="table table-striped">
         <thead class="">
         <tr>
             <th>Laundry Type</th>
@@ -124,6 +137,7 @@ export default {
     },
     mounted() {
         document.querySelector('#deadline-date').valueAsDate = new Date();
+        document.querySelector('#pickup-date').valueAsDate = new Date();
     },
     methods: {
         add_to_cart() {

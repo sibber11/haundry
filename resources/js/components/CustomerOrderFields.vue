@@ -1,15 +1,53 @@
 <template>
-    <div class="md:flex items-center gap-4">
+    <div class="sm:flex items-center gap-4">
         <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="deadline-date">Deadline Date:</label>
+            <label class="font-semibold leading-none" for="voucher-code">
+                Voucher
+                <span v-if="voucher_msg" :class="{'bg-green-500':voucher_model.id, 'bg-red-500':!voucher_model.id}"
+                      class="text-xs rounded p-1">
+                    {{ voucher_msg }}
+                </span>
+            </label>
+            <input
+                id="voucher-code"
+                v-model="voucher"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="voucher_code" type="text" @input="check_voucher_availability">
+        </div>
+
+    </div>
+    <div class="sm:flex items-center gap-4">
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="pickup-date">
+                Pickup Date:
+            </label>
+            <input
+                id="pickup-date"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="pickup_date" type="date">
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="pickup-time">
+                Pickup Time:
+            </label>
+            <input
+                id="pickup-time"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="pickup_time" type="time" value="17:00">
+        </div>
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="deadline-date">
+                Delivery Date:
+            </label>
             <input
                 id="deadline-date"
                 class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
                 name="deadline_date" type="date">
         </div>
         <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="deadline-time">Deadline
-                Time:</label>
+            <label class="font-semibold leading-none" for="deadline-time">
+                Delivery Time:
+            </label>
             <input
                 id="deadline-time"
                 class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
@@ -48,19 +86,19 @@
             <input
                 id="amount"
                 v-model="input.amount"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                min="0" type="number">
+                class="sm:max-w-[10.5rem] leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                max="100" min="1" type="number">
         </div>
         <div class="w-full flex flex-col mt-2">
             <label class="font-semibold leading-none" for="add">Action</label>
             <button id="add"
-                    class="leading-none text-gray-50 p-3 mt-4 border-0 bg-green-500 rounded"
+                    class="leading-none text-gray-50 p-4 mt-4 border-0 bg-green-500 rounded"
                     type="button" @click="add_to_cart">
-                Add
+                Add to cart
             </button>
         </div>
     </div>
-    <table v-if="total > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
+    <table v-show="total > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
         <thead class="bg-gray-50">
         <tr>
             <th class="sm:px-6 py-2 text-s text-gray-500">Laundry Type</th>
@@ -83,14 +121,23 @@
                 <input type="hidden" :name="`items[${index}][amount]`" :value="cart_item.amount">
                 {{ cart_item.amount }}
             </td>
-            <td style="width: 40px">
-                <button type="button" class="btn btn-danger" @click="remove_item_from_cart(index)">
+            <td class="text-right" style="width: 40px">
+                <button class="bg-red-600 text-white py-1 px-2 rounded" type="button"
+                        @click="remove_item_from_cart(index)">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </td>
         </tr>
         </tbody>
-        <tfoot v-if="total > 0" class="bg-gray-50">
+        <tfoot class="bg-gray-50">
+        <tr>
+            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Subtotal</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">{{ subtotal }}</th>
+        </tr>
+        <tr v-if="voucher_model && subtotal > voucher_model.minimum">
+            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Voucher</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">-{{ voucher_model.discount }}</th>
+        </tr>
         <tr>
             <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Total</th>
             <th class="sm:px-6 py-2 text-s text-gray-500">{{ total }}</th>
@@ -107,22 +154,33 @@ export default {
             input: {
                 type: '',
                 service: '',
-                amount: 1
+                amount: 1,
             },
+            voucher: '',
+            voucher_msg: '',
+            voucher_model: {},
         }
     },
     computed: {
-        total() {
+        subtotal() {
             let total = 0;
             for (const cartElement of this.cart) {
                 total += cartElement.service.pivot.price * cartElement.amount;
-                console.log(cartElement);
+                // console.log(cartElement);
             }
             return total;
         },
+        total() {
+            if (this.voucher_model && this.subtotal > this.voucher_model.minimum) {
+                return this.subtotal - this.voucher_model.discount;
+            } else
+                return this.subtotal;
+
+        }
     },
     mounted() {
         document.querySelector('#deadline-date').valueAsDate = new Date();
+        document.querySelector('#pickup-date').valueAsDate = new Date();
     },
     methods: {
         add_to_cart() {
@@ -146,7 +204,24 @@ export default {
         },
         remove_item_from_cart(cart) {
             this.cart.splice(cart, 1);
-        }
+        },
+        check_voucher_availability: _.debounce(function () {
+            axios.post('/check_voucher', {
+                voucher_code: this.voucher
+            })
+                .then(r => {
+                    if (r.data.id) {
+                        this.voucher_msg = 'Valid. Only applicable over ' + r.data.minimum + ' taka';
+                        this.voucher_model = r.data;
+                    } else {
+                        this.voucher_msg = 'Invalid Voucher';
+                    }
+                    console.log(r.data);
+                })
+                .catch(r => {
+                    console.log(r.data);
+                })
+        }, 500)
     }
 }
 </script>

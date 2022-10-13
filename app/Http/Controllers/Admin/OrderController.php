@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper\DeadlineSolver;
+use App\Helper\DateSolver;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateOrderRequest;
 use App\Http\Requests\Admin\UpdateOrderRequest;
@@ -64,14 +64,15 @@ class OrderController extends AppBaseController
      */
     public function store(CreateOrderRequest $request)
     {
-        $input = $request->all();
+        $input = $request->validated();
         /** @var  Order $order */
-        $input['deadline'] = DeadlineSolver::solve($input);
+        $input['deadline'] = DateSolver::solve($input, 'deadline');
+        $input['pickup'] = DateSolver::solve($input, 'pickup');
         DB::beginTransaction();
         $order = Order::create($input);
         $order->add_items($input['items']);
 
-        if ($request->has('voucher_code')) {
+        if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
             if (!$order->apply_voucher($request->input('voucher_code'))) {
                 DB::rollBack();
                 Flash::success('Invalid voucher!');

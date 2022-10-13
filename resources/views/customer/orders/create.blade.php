@@ -4,9 +4,11 @@
     $customers = \App\Models\Customer::all()->keyBy('id');
 @endphp
 @section('content')
+    {{--    {{$errors}}--}}
+
     <form action="{{route('orders.store')}}" method="post" class="m-2">
         @csrf
         <Customer-Order-Fields :categories="{{$categories ?? '[]'}}"></Customer-Order-Fields>
-        <button class="bg-macaw-900 py-1 px-2 rounded my-4">Order</button>
+        <button class="w-full sm:w-auto leading-none text-gray-50 p-3 mt-4 border-0 bg-macaw-900 rounded">Order</button>
     </form>
 @endsection

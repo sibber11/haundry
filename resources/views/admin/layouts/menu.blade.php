@@ -124,3 +124,11 @@
         <p>Income</p>
     </a>
 </li>
+
+
+<li class="nav-item">
+    <a href="{{ route('admin.vouchers.index') }}" class="nav-link {{ Request::is('admin.vouchers*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Vouchers</p>
+    </a>
+</li>
