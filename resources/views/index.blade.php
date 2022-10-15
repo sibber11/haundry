@@ -40,7 +40,7 @@
         </div>
         <div class="flex flex-col sm:flex-row gap-3 my-1.5">
             <div id="refer" class="text-center text-white p-2 bg-macaw-900 text-2xl shadow sm:leading-loose">
-                <h2>Refer a Friend <br>&<br> Get 20% Off First Order.</h2>
+                <a href="{{route('referview')}}">Refer a Friend <br>&<br> Get 20% Off First Order.</a>
             </div>
             <div class="flex flex-col w-full justify-between">
                 <div class="service-name">

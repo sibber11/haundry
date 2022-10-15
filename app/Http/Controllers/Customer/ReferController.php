@@ -12,9 +12,14 @@ class ReferController extends Controller
     public function send_refer(Request $request)
     {
         $request->validate([
-            'mail' => 'required|email'
+            'email' => 'required|email'
         ]);
-        Mail::to($request->input('mail'))->send(new InvitationMail());
-        return redirect('/')->with('status', 'Invitation Sent!');
+        Mail::to($request->input('email'))->send(new InvitationMail());
+        return redirect()->route('referview')->with('status', 'Invitation Sent!');
+    }
+
+    public function view_refer()
+    {
+        return view('customer.refer');
     }
 }

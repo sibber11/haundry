@@ -1,13 +1,16 @@
 @component('mail::message')
-    # Introduction
+# Introduction
 
-    You are Invited to register.
+You are Invited to register.
 
-    {{--@component('mail::button', ['url' => auth()->user()->getReferralLink()])--}}
-    @component('mail::button', ['url' => $route])
-        Register
-    @endcomponent
+Click the Register button to register.
+@component('mail::button', ['url' => $route])
+    Register
+@endcomponent
+If you are having problem clicking the button, copy the link below to sign up.
 
-    Thanks,<br>
-    {{ config('app.name') }}
+{{$route}}
+
+Thanks,<br>
+{{config('app.name') }}
 @endcomponent

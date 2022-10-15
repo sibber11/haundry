@@ -12,7 +12,7 @@
     <li @class(['nav-item my-1', 'active' => Request::routeIs('voucher')])>
         <a @class(['block' => $flex, 'nav-link']) href="{{route('voucher')}}">Vouchers</a>
     </li>
-    {{--    <li class="nav-item">--}}
-    {{--        <a class="nav-link" href="{{route('voucher')}}">Vouchers</a>--}}
-    {{--    </li>--}}
+    <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('referview')])>
+        <a @class(['block' => $flex, 'nav-link']) href="{{route('referview')}}">Refer</a>
+    </li>
 </ul>

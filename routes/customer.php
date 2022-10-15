@@ -11,3 +11,6 @@ Route::patch('update_profile', [\App\Http\Controllers\Customer\ProfileController
 Route::post('claim_voucher', [\App\Http\Controllers\Customer\ProfileController::class, 'claim_voucher'])->name('claim_voucher');
 
 Route::post('check_voucher', [\App\Http\Controllers\Customer\ProfileController::class, 'check_voucher'])->name('check_voucher');
+
+Route::get('refer', [\App\Http\Controllers\Customer\ReferController::class, 'view_refer'])->name('referview');
+Route::post('refer', [\App\Http\Controllers\Customer\ReferController::class, 'send_refer'])->name('sendrefer');
