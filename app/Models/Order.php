@@ -184,14 +184,19 @@ class Order extends Model
             }
         }
 
-        if ($voucher->is_useable_by($this->customer)) {
-            $this->applied_voucher()->associate($voucher);
-            $this->total -= $voucher->discount;
-            $this->save();
-            $voucher->mark_as_used();
-            return true;
+        if (!$voucher->is_useable_by($this->customer)) {
+            return false;
         }
-        return false;
+
+        if ($voucher->minimum != null && $this->sub_total < $voucher->minimum)
+            return false;
+//        dd("voucher is good");
+        $this->applied_voucher()->associate($voucher);
+
+        $this->total = $this->sub_total - $this->calculate_discount($voucher);
+        $this->save();
+        $voucher->mark_as_used();
+        return true;
     }
 
     public function laundries()
@@ -212,5 +217,21 @@ class Order extends Model
     public function applied_voucher()
     {
         return $this->belongsTo(Voucher::class, 'voucher_id');
+    }
+
+    /**
+     * @param Model|object|\Illuminate\Database\Eloquent\Builder|string|Voucher|null $voucher
+     * @return void
+     */
+    public function calculate_discount(Voucher $voucher): int
+    {
+        if ($voucher->is_percent) {
+            $discount = $this->total * ($voucher->discount / 100);
+            if (!$voucher->maximum)
+                return $discount;
+            else
+                return min([$discount, $voucher->maximum]);
+        } else
+            return $voucher->discount;
     }
 }

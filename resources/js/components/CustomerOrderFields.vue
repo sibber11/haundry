@@ -211,7 +211,7 @@ export default {
             })
                 .then(r => {
                     if (r.data.id) {
-                        this.voucher_msg = 'Valid. Only applicable over ' + r.data.minimum + ' taka';
+                        this.voucher_msg = 'Valid. Only applicable over ' + r.data.minimum ?? 0 + ' taka';
                         this.voucher_model = r.data;
                     } else {
                         this.voucher_msg = 'Invalid Voucher';

@@ -15,6 +15,7 @@ class Voucher extends Model
         'code',
         'discount',
         'minimum',
+        'maximum',
         'customer_id',
         'is_used'
     ];
@@ -26,17 +27,17 @@ class Voucher extends Model
 
     public static $rules = [
         'discount' => 'required',
-        'minimum' => 'required',
+        'minimum' => 'nullable',
+        'maximum' => 'nullable',
+        'is_percent' => 'nullable',
         'customer_id' => 'nullable',
         'is_used' => 'required|boolean',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable'
     ];
 
     protected $attributes = [
         'is_used' => false,
         'discount' => 0,
-        'minimum' => 0
+
     ];
 
     protected static function boot()
