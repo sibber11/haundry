@@ -36,3 +36,19 @@
 .active {
     @apply border-macaw-900 border-2 rounded;
 }
+
+.footer-link {
+
+}
+
+.footer-link:hover {
+    @apply text-macaw-900;
+}
+
+.footer-icons {
+    @apply text-macaw-900;
+}
+
+.footer-icons:hover {
+    @apply text-white;
+}

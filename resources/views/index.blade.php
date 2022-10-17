@@ -412,5 +412,7 @@
                 </div>
             </div>
         </div>
+        @include('layouts.about')
+        @include('layouts.contact')
     </div>
 @endsection
