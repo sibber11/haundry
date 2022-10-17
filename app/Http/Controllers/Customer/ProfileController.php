@@ -39,7 +39,7 @@ class ProfileController extends Controller
     {
         /** @var Customer $customer */
         $customer = auth('customer')->user();
-        $voucher = $customer->generateVoucher($request->input('amount') / 10);
+        $voucher = $customer->generateVoucher($request->input('amount') / 10, 100, 0, false);
         if (is_string($voucher)) {
             Flash::error($voucher);
             return redirect()->route('voucher')->with('status', $voucher);

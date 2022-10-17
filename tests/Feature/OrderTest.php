@@ -82,7 +82,7 @@ class OrderTest extends TestCase
          * @var Customer $customer
          */
         $customer = Customer::factory()->create();
-        $voucher = $customer->generateVoucher(20, true);
+        $voucher = $customer->generateVoucher(20, 100, 0, false, true);
         $laundry_type = LaundryType::factory()->create();
         $response = $this->post(route('admin.orders.store'), [
             'customer_id' => $customer->id,
@@ -99,11 +99,9 @@ class OrderTest extends TestCase
             ],
             'voucher_code' => $voucher->code
         ]);
-
         $response->assertRedirect();
         self::assertDatabaseCount(Order::class, 1);
         self::assertDatabaseCount(Laundry::class, 1);
-
     }
 
     public function test_customer_can_use_package_to_order()

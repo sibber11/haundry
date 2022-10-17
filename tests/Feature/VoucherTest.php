@@ -27,7 +27,7 @@ class VoucherTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $customer->add_point(200);
-        $customer->generateVoucher();
+        $customer->generateVoucher(20, 100, 0, false, true);
         $this->assertDatabaseCount(Voucher::class, 1);
         $this->assertEquals(20, $customer->vouchers->first()->discount);
     }
@@ -41,7 +41,7 @@ class VoucherTest extends TestCase
         /**
          * @var Voucher $voucher
          */
-        $voucher = $customer->generateVoucher(10, true);
+        $voucher = $customer->generateVoucher(10, 100, 0, false, true);
         self::assertTrue($voucher->is_useable_by($customer));
         $customer2 = Customer::factory()->create();
         self::assertFalse($voucher->is_useable_by($customer2));

@@ -7,6 +7,9 @@ use Illuminate\Auth\Events\Registered;
 
 class ProvideVoucherToReferrer
 {
+    private int $discount = 20;
+    private bool $is_percent = true;
+
     /**
      * Create the event listener.
      *
@@ -27,9 +30,8 @@ class ProvideVoucherToReferrer
     {
         /** @var Customer $user */
         $user = $event->user->referrer;
-//        dd($user);
-        if ($user->refered()->count() > 0)
-            return;
-        $user->generateVoucher(20, true);
+        if ($user->refered()->count() == 1) {
+            $user->generateVoucher($this->discount, 100, 0, false, $this->is_percent);
+        }
     }
 }

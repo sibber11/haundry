@@ -22,18 +22,24 @@ trait HasVoucherPoint
         });
     }
 
-    public function generateVoucher(int $discount = 20, bool $force_create = false): Voucher|string
+    public function generateVoucher(int $discount, int $minimum, int $maximum = 0, bool $is_percent = false, bool $force_create = false): Voucher|string
     {
-
+        $attributes = [
+            'discount' => $discount,
+            'minimum' => $minimum,
+            'maximum' => $maximum,
+            'is_percent' => $is_percent
+        ];
         if ($force_create) {
-            return $this->vouchers()->save(Voucher::create(['discount' => $discount]));
+
+            return $this->vouchers()->save(Voucher::create($attributes));
         }
 
         $discountMultiplier = 10;
         if ($this->point->total >= $discount * $discountMultiplier) {
             $this->point->total -= $discount * $discountMultiplier;
             $this->point->save();
-            return $this->vouchers()->save(Voucher::create(['discount' => $discount]));
+            return $this->vouchers()->save(Voucher::create($attributes));
         } else {
             return "You Don't Have Enough Point";
         }

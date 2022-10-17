@@ -192,8 +192,12 @@ class Order extends Model
             return false;
 //        dd("voucher is good");
         $this->applied_voucher()->associate($voucher);
-
-        $this->total = $this->sub_total - $this->calculate_discount($voucher);
+        if ($voucher->is_percent) {
+            $actual_discount = min([$this->sub_total - $this->calculate_discount($voucher), $voucher->maximum]);
+        } else {
+            $actual_discount = $this->sub_total - $this->calculate_discount($voucher);
+        }
+        $this->total = $actual_discount;
         $this->save();
         $voucher->mark_as_used();
         return true;
