@@ -52,5 +52,5 @@
     @endforeach
 </div>
 <div class="text-center my-4">
-    <a href="#" class="bg-macaw-900 p-2 rounded text-white">Show More</a>
+    <a href="{{route('price-list')}}" class="bg-macaw-900 p-2 rounded text-white">Show More</a>
 </div>

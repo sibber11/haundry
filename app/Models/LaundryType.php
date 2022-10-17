@@ -35,6 +35,11 @@ class LaundryType extends Model
         return Attribute::make(get: fn($value) => ucfirst($value));
     }
 
+    public function price(int|Service $service)
+    {
+        return $this->services->find($service)?->pivot->price;
+    }
+
     /**
      * @param $services_array
      * [service_id=>['price'=>service_price]]
