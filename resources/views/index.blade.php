@@ -95,7 +95,7 @@
                 {{--                <i class="fa fa-home fa-5x"></i>--}}
                 {{--            </div>--}}
             </div>
-            <div class="p-6 bg-white rounded w-full shadow-2xl ">
+            <div class="p-6 bg-white rounded w-full shadow">
                 <div class="leading-9">
                     <h4 class="text-lg font-bold">Family Pack</h4>
                     <div>Item Count: <strong>100 pcs</strong></div>
