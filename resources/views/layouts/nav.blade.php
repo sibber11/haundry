@@ -1,8 +1,8 @@
 <nav class="bg-white flex flex-col sm:flex-row justify-between p-2 sticky">
     <div class="flex flex-row justify-between">
         <ul class="">
-            <li class="p-4 nav-item text-lg">
-                <img src="" alt="">
+            <li class="p-4 nav-item text-lg flex flex-row gap-2">
+                <img src="{{asset('images/logo.png')}}" alt="" width="32" height="32">
                 <a class="nav-brand" href="{{url('/')}}">{{config('app.name')}}</a>
             </li>
         </ul>

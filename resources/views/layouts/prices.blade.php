@@ -18,18 +18,15 @@
                     <th class="px-6 py-2 text-s text-gray-500">
                         Service Price
                     </th>
-                    {{--                    <th class="px-6 py-2 text-s text-gray-500">--}}
-                    {{--                        Wash Price--}}
-                    {{--                    </th>--}}
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-300">
                 @foreach($products as $product)
                     <tr class="whitespace-nowrap">
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4">
                             {{$product->name}}
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4">
                             @foreach($product->services as $service)
                                 <div class="text-sm">
                                     <strong>
@@ -41,9 +38,6 @@
                                 </div>
                             @endforeach
                         </td>
-                        {{--                        <td class="px-6 py-4 text-center">--}}
-                        {{--                            25--}}
-                        {{--                        </td>--}}
                     </tr>
                 @endforeach
                 </tbody>
