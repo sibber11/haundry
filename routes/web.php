@@ -1,4 +1,4 @@
-<?php
+0<?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +19,10 @@ Route::get('price-list', function () {
     return view('full-price-list');
 })->name('price-list');
 
+//Route::view('faq', 'faq')->name('faq');
+Route::get('faq', function (){
+    return 'ok';
+});
 Route::get('phpinfo', function () {
     phpinfo();
 });
