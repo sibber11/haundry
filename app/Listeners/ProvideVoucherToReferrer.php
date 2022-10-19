@@ -30,6 +30,8 @@ class ProvideVoucherToReferrer
     {
         /** @var Customer $user */
         $user = $event->user->referrer;
+        if ($user == null)
+            return;
         if ($user->refered()->count() == 1) {
             $user->generateVoucher($this->discount, 100, 0, false, $this->is_percent);
         }
