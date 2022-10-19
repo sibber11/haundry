@@ -129,38 +129,9 @@
             </div>
         </div>
         @include('layouts.prices')
+        @include('layouts.choose')
         <div class="service-name">
-            <h2>Why choose us?</h2>
-        </div>
-        <div id="choose" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div class="bg-white p-4 text-justify shadow">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, ducimus, in! A adipisci aperiam
-                blanditiis, consequatur consequuntur dolor enim eum labore libero repellendus sint soluta, suscipit
-                tempora, ut velit vitae?
-            </div>
-            <div class="bg-white p-4 text-justify shadow">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda atque blanditiis deleniti deserunt,
-                dolore ducimus enim, expedita ipsum iste labore, laborum minima perferendis praesentium quaerat quas
-                quia sequi tenetur ut!
-            </div>
-            <div class="bg-white p-4 text-justify shadow">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Beatae error iste
-                magnam
-                nihil odit optio
-                repellat rerum similique ullam velit? Assumenda delectus eos excepturi magni odit reiciendis, veniam
-                vero! At!
-            </div>
-            <div class="bg-white p-4 text-justify shadow">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                dolore dolorem
-                explicabo
-                fuga illum, iure
-                nisi pariatur quis ullam. Ad alias ea eveniet fugit illo illum laboriosam qui ratione repudiandae.
-            </div>
-        </div>
-        <div class="service-name">
-            <h2>
-                Customer Reviews
-            </h2>
+            <h2>Customer Reviews</h2>
         </div>
         <div id="reviews" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div class="shadow">
