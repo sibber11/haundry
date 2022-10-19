@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('phone', function ($attribute, $value) {
             return PhoneValidator::validate($value);
         });
-        Paginator::useTailwind();
+//        Paginator::useTailwind();
     }
 }
