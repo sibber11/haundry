@@ -128,8 +128,8 @@
                 {{--            </div>--}}
             </div>
         </div>
-        @include('layouts.prices')
-        @include('layouts.choose')
+        @include('sections.prices')
+        @include('sections.choose')
         <div class="service-name">
             <h2>Customer Reviews</h2>
         </div>
@@ -383,7 +383,7 @@
                 </div>
             </div>
         </div>
-        @include('layouts.about')
-        @include('layouts.contact')
+        @include('sections.about')
+        @include('sections.contact')
     </div>
 @endsection

@@ -6,9 +6,9 @@
 <div class="service-name">
     <h2>Prices</h2>
 </div>
-<div id="price" class="grid sm:grid-cols-2 gap-3 justify-between">
+<div id="price" class="grid grid-cols-1 sm:grid-cols-2 gap-3 justify-between">
     @foreach($chunked_price as $products)
-        <div class="border-b border-gray-200 shadow px-3 bg-white">
+        <div class="border-b-macaw-900 border-b-2 shadow bg-white">
             <table class="divide-y divide-gray-300 w-full">
                 <thead class="bg-gray-50">
                 <tr>

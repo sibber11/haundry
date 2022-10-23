@@ -5,6 +5,8 @@ module.exports = {
         "./resources/views/layouts/*.blade.php",
         "./resources/views/customer/**/*.blade.php",
         "./resources/views/components/**/*.blade.php",
+        "./resources/views/sections/**/*.blade.php",
+        "./resources/views/guest/**/*.blade.php",
         "resources/views/vendor/pagination/tailwind.blade.php",
         "resources/js/components/CustomerOrderFields.vue"
     ],
