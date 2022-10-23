@@ -12,11 +12,11 @@
         </ul>
     </nav>
     <ul class="my-2 text-4xl flex gap-3 justify-around items-center sm:border-l-2 sm:border-r-white">
-        <li><a href="#" class="footer-icons"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="#" class="footer-icons"><i class="fa fa-youtube"></i></a></li>
-        <li><a href="#" class="footer-icons"><i class="fa fa-instagram"></i></a></li>
-        <li><a href="#" class="footer-icons"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="#" class="footer-icons"><i class="fa fa-linkedin"></i></a></li>
+        <li><a href="#" class="footer-icons"><i class="fab fa-facebook"></i></a></li>
+        <li><a href="#" class="footer-icons"><i class="fab fa-youtube"></i></a></li>
+        <li><a href="#" class="footer-icons"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#" class="footer-icons"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="#" class="footer-icons"><i class="fab fa-linkedin"></i></a></li>
     </ul>
 </div>
 <div class="text-center m-4">

@@ -17,25 +17,18 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('admin.laundryTypes.index') }}"
-       class="nav-link {{ Request::is('admin/laundry*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
-        <p>Laundry Types</p>
-    </a>
-</li>
 
 <li class="nav-item">
     <a href="{{ route('admin.customers.index') }}"
        class="nav-link {{ Request::is('admin/customers*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
+        <i class="nav-icon fas fa-users"></i>
         <p>Customers</p>
     </a>
 </li>
 
 <li class="nav-item {{ Request::is('admin/orders*') ? 'menu-open ' : '' }}">
     <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin/orders*') ? 'active ' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
+        <i class="nav-icon fas fa-pallet"></i>
         <p>Orders
             <i class="right fa fa-angle-left"></i></p>
     </a>
@@ -43,7 +36,7 @@
         <li class="nav-item">
             <a href="{{ route('admin.orders.create') }}"
                class="nav-link {{ Request::is('admin/orders/create') ? 'active' : '' }}">
-                <i class="nav-icon fa fa-home"></i>
+                <i class="nav-icon fas fa-pencil-alt"></i>
                 <p>Create Order</p>
             </a>
         </li>
@@ -88,39 +81,18 @@
         </li>
     </ul>
 </li>
-<li class="nav-item">
-    <a href="{{ route('admin.categories.index') }}"
-       class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
-        <p>Categories</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('admin.services.index') }}" class="nav-link {{ Request::is('admin/service*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
-        <p>Services</p>
-    </a>
-</li>
 
 <li class="nav-item">
     <a href="{{ route('admin.missions.index') }}" class="nav-link {{ Request::is('admin/missions*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
+        <i class="nav-icon fas fa-truck"></i>
         <p>Missions</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('admin.packages.index') }}" class="nav-link {{ Request::is('admin/packages*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
-        <p>Packages</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('admin.income', ['year' => now()->year, 'month' => now()->month]) }}"
        class="nav-link {{ Request::is('admin/income*') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-home"></i>
+        <i class="nav-icon fas fa-coins"></i>
         <p>Income</p>
     </a>
 </li>
@@ -131,4 +103,42 @@
         <i class="nav-icon fas fa-home"></i>
         <p>Vouchers</p>
     </a>
+</li>
+<li class="nav-item {{ Request::is('admin/orders*') ? 'menu-open ' : '' }}">
+    <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin/orders*') ? 'active ' : '' }}">
+        <i class="nav-icon fas fa-cogs"></i>
+        <p>Settings
+            <i class="right fa fa-angle-left"></i></p>
+    </a>
+    <ul class="nav nav-treeview ml-2">
+        <li class="nav-item">
+            <a href="{{ route('admin.services.index') }}"
+               class="nav-link {{ Request::is('admin/service*') ? 'active' : '' }}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>Services</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.packages.index') }}"
+               class="nav-link {{ Request::is('admin/packages*') ? 'active' : '' }}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>Packages</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.laundryTypes.index') }}"
+               class="nav-link {{ Request::is('admin/laundry*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tshirt"></i>
+                <p>Laundry Types</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.categories.index') }}"
+               class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>Categories</p>
+            </a>
+        </li>
+
+    </ul>
 </li>

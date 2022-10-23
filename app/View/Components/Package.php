@@ -4,14 +4,14 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ChooseUs extends Component
+class Package extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(public string $header, public string $icon = 'fa-home')
+    public function __construct()
     {
         //
     }
@@ -23,6 +23,6 @@ class ChooseUs extends Component
      */
     public function render()
     {
-        return view('components.choose-us');
+        return view('components.package');
     }
 }
