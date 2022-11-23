@@ -6,7 +6,8 @@ use Illuminate\Contracts\Validation\Rule;
 
 class PhoneValidator implements Rule
 {
-    public static string $pattern = "/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/m";
+    public static string $pattern = "/((\+88)|(01)|(1))+[0-9]{9}/m";
+
     /**
      * Create a new rule instance.
      *
@@ -20,8 +21,8 @@ class PhoneValidator implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value): bool
@@ -36,10 +37,10 @@ class PhoneValidator implements Rule
      */
     public function message(): string
     {
-        return 'The Phone Number is Invalid!';
+        return 'The Phone Number is Invalid!!';
     }
 
-    public static function validate($phone): bool|int
+    public static function validate($attribute, $phone): bool|int
     {
         return preg_match(self::$pattern, $phone);
     }
