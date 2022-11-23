@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Laracasts\Flash\Flash;
-use App\Models\LaundryType;
-use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaundryTypeRequest;
 use App\Http\Requests\UpdateLaundryTypeRequest;
+use App\Models\LaundryType;
+use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
 
 class LaundryTypeController extends AppBaseController
 {
@@ -17,8 +17,8 @@ class LaundryTypeController extends AppBaseController
     public function index(Request $request)
     {
         /** @var  LaundryType $laundryTypes */
-        $laundryTypes = LaundryType::paginate(10);
-
+        $laundryTypes = LaundryType::orderBy('category_id')->orderBy('name')->paginate(10);
+//        dd($laundryTypes);
         return view('admin.laundry_types.index')
             ->with('laundryTypes', $laundryTypes);
     }
