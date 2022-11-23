@@ -9,12 +9,12 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"
-          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"--}}
+    {{--          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="--}}
+    {{--          crossorigin="anonymous"/>--}}
+    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"--}}
+    {{--          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="--}}
+    {{--          crossorigin="anonymous" referrerpolicy="no-referrer"/>--}}
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -61,7 +61,7 @@
 
                 <div class="input-group mb-3">
                     <input type="text" name="phone" value="{{ old('phone') }}"
-                           class="form-control @error('phone') is-invalid @enderror" placeholder="phone">
+                           class="form-control @error('phone') is-invalid @enderror" placeholder="Phone">
                     <div class="input-group-append">
                         <div class="input-group-text"><span class="fas fa-envelope"></span></div>
                     </div>
@@ -73,10 +73,13 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="password" name="password"
+                    <input type="password" name="password" id="password"
                            class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                     <div class="input-group-append">
-                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
+                        <div class="input-group-text">
+                            <span class="fas fa-eye" type="button"
+                                  onclick="togglePassword()"></span>
+                        </div>
                     </div>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -93,10 +96,22 @@
                     </div>
                 </div>
 
+                <div class="input-group mb-3">
+                    <input type="address" name="address" value="{{old('address')}}"
+                           class="form-control @error('address') is-invalid @enderror" placeholder="Address">
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
+                    </div>
+                    @error('address')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                    @enderror
+                </div>
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="true" required>
                             <label for="agreeTerms">
                                 I agree to the <a href="#">terms</a>
                             </label>
@@ -120,6 +135,16 @@
 <!-- /.register-box -->
 
 <script src="{{ mix('js/app.js') }}" defer></script>
+<script>
+    function togglePassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 
 </body>
 
