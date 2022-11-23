@@ -152,7 +152,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
     ],
+    'phone' => 'The Phone Number is Invalid!',
 
     /*
     |--------------------------------------------------------------------------
