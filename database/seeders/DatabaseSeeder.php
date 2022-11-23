@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Database\Seeders\LaundryTypeSeeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,6 +33,7 @@ class DatabaseSeeder extends Seeder
             CustomersSeeder::class,
             LaundryTypeSeeder::class,
             OrdersSeeder::class,
+            FeedbackSeeder::class
         ]);
     }
 }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 Route::get('price-list', function () {
     return view('guest.full-price-list');
 })->name('price-list');
@@ -32,3 +32,5 @@ Route::middleware('guest:admin')->get('admin/login', function () {
 Route::post('admin/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.attempt');
 
 Route::post('request_call', [\App\Http\Controllers\RequestCallController::class, 'request'])->name('request_call');
+
+Route::post('feedback', [\App\Http\Controllers\Customer\FeedbackController::class, 'store'])->name('post_feedback');

@@ -104,6 +104,13 @@
         <p>Vouchers</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('admin.feedbacks.index') }}"
+       class="nav-link {{ Request::is('admin.feedbacks*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Feedbacks</p>
+    </a>
+</li>
 <li class="nav-item {{ Request::is('admin/orders*') ? 'menu-open ' : '' }}">
     <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin/orders*') ? 'active ' : '' }}">
         <i class="nav-icon fas fa-cogs"></i>

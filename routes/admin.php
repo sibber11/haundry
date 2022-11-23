@@ -108,3 +108,14 @@ Route::resource('admin/vouchers', App\Http\Controllers\VoucherController::class)
         'create' => 'admin.vouchers.create',
         'edit' => 'admin.vouchers.edit'
     ]);
+
+Route::resource('admin/feedbacks', \App\Http\Controllers\Admin\FeedbackController::class)
+    ->names([
+        'index' => 'admin.feedbacks.index',
+        'store' => 'admin.feedbacks.store',
+        'show' => 'admin.feedbacks.show',
+        'update' => 'admin.feedbacks.update',
+        'destroy' => 'admin.feedbacks.destroy',
+        'create' => 'admin.feedbacks.create',
+        'edit' => 'admin.feedbacks.edit'
+    ]);
