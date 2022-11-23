@@ -164,7 +164,8 @@ class OrderController extends AppBaseController
 
         Flash::success('Order deleted successfully.');
 
-        return redirect(route('admin.orders.index'));
+        return back();
+//        return redirect(route('admin.orders.index'));
     }
 
     public function update_status(Request $request)
