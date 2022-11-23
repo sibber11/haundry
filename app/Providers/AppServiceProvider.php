@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Rules\PhoneValidator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,9 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('phone', function ($attribute, $value) {
-            return PhoneValidator::validate($value);
-        });
+        Validator::extend('phone', PhoneValidator::class);
+
 //        Paginator::useTailwind();
     }
 }
