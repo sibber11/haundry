@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('price-list', function () {
-    return view('full-price-list');
+    return view('guest.full-price-list');
 })->name('price-list');
 
 //Route::view('faq', 'faq')->name('faq');
