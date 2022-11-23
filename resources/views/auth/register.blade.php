@@ -9,12 +9,12 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"--}}
-    {{--          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="--}}
-    {{--          crossorigin="anonymous"/>--}}
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"--}}
-    {{--          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="--}}
-    {{--          crossorigin="anonymous" referrerpolicy="no-referrer"/>--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"
+          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -77,7 +77,7 @@
                            class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-eye" type="button"
+                            <span class="fas fa-eye" type="button" title="Show Password"
                                   onclick="togglePassword()"></span>
                         </div>
                     </div>
