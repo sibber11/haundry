@@ -8,7 +8,7 @@
     <div class="form-group col-sm-6">
         <label for="category_id">Category:</label>
         <select v-model="input.category"
-            class="form-control" required="" id="category_id" name="category_id">
+                id="category_id" class="form-control" name="category_id" required="">
             <option :value="category.id" v-for="category in categories">{{ category.name }}</option>
         </select>
     </div>
@@ -19,7 +19,7 @@
                 <span class="input-group-text" style="min-width: 8rem;">{{ service.name }}</span>
             </div>
             <input type="number" class="form-control" min="0" v-model="service.price"
-                   :disabled="!service.enabled" :name="price_namer(service.id)">
+                   :disabled="!service.enabled" :name="price_namer(service.id)" :required="service.enabled">
             <div class="input-group-append">
                 <div class="input-group-text">
                     <input type="checkbox" id="" v-model="service.enabled">
@@ -33,10 +33,10 @@
 export default {
     name: "LaundryTypeCreate",
     props: ['categories', 'services', 'model'],
-    mounted(){
-        if(this.model){
+    mounted() {
+        if (this.model) {
             // console.log(this.model.services)
-            for(const m of this.model.services){
+            for (const m of this.model.services) {
                 this.input.services[m.id].enabled = true;
                 this.input.services[m.id].price = m.pivot.price;
                 console.log(m)
@@ -53,8 +53,8 @@ export default {
             }
         }
     },
-    methods:{
-        price_namer(name){
+    methods: {
+        price_namer(name) {
             return `services[${name}][price]`;
         }
     }
