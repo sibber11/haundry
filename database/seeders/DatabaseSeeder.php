@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
         try {
             Customer::factory()->create([
                 'name' => 'Customer',
-                'email' => 'customer@haundry.test',
+                'email' => 'customer@washersinn.com',
             ]);
             User::factory()->create([
                 'name' => 'Super Admin',
-                'email' => 'super_admin@haundry.test',
+                'email' => 'super_admin@washersinn.com',
                 'is_super' => true,
             ]);
         } catch (\Throwable $th) {

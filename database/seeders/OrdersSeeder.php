@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Laundry;
 use App\Models\Order;
-use Database\Factories\LaundryFactory;
-use Database\Factories\OrderFactory;
 use Illuminate\Database\Seeder;
 
 class OrdersSeeder extends Seeder
@@ -18,7 +15,7 @@ class OrdersSeeder extends Seeder
     public function run()
     {
         //Order::factory(6)->create();
-        Order::factory()->count(100)->hasLaundries()->create();
+        Order::factory()->count(1)->hasLaundries()->create();
         /*->each(function ($order){
 
         });*/

@@ -71,5 +71,6 @@ class Voucher extends Model
         $this->is_used = true;
         $this->save();
     }
+    //todo voucher uses up to times
 }
 

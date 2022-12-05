@@ -203,6 +203,20 @@ class Order extends Model
         return true;
     }
 
+    public function use_point()
+    {
+        $user_point = auth()->user()->point;
+        if ($user_point->total <= 0)
+            return;
+        $usable_point = min($user_point->total, $this->total);
+        $user_point->total -= $usable_point;
+        $this->total -= $usable_point;
+        $this->point_used = $usable_point;
+        $user_point->save();
+        $this->save();
+//        dump($usable_point, $user_point->total, $this->total);
+    }
+
     public function laundries()
     {
         return $this->hasMany(Laundry::class);

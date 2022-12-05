@@ -14,3 +14,6 @@ Route::post('check_voucher', [\App\Http\Controllers\Customer\ProfileController::
 
 Route::get('refer', [\App\Http\Controllers\Customer\ReferController::class, 'view_refer'])->name('referview');
 Route::post('refer', [\App\Http\Controllers\Customer\ReferController::class, 'send_refer'])->name('sendrefer');
+
+Route::get('package/{package}', [\App\Http\Controllers\Customer\PackageController::class, 'show'])->name('package');
+Route::post('package/{package}', [\App\Http\Controllers\Customer\PackageController::class, 'buy'])->name('buy_package');

@@ -84,17 +84,6 @@ Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController:
     ]);
 
 Route::post('admin/missions/assign_orders', [\App\Http\Controllers\Admin\MissionController::class, 'assign_orders'])->name('admin.missions.assign_orders');
-
-Route::resource('admin/packages', App\Http\Controllers\PackageController::class)
-    ->names([
-        'index' => 'admin.packages.index',
-        'store' => 'admin.packages.store',
-        'show' => 'admin.packages.show',
-        'update' => 'admin.packages.update',
-        'destroy' => 'admin.packages.destroy',
-        'create' => 'admin.packages.create',
-        'edit' => 'admin.packages.edit'
-    ]);
 Route::get('admin/income', [\App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('admin.income');
 Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
 
@@ -118,4 +107,15 @@ Route::resource('admin/feedbacks', \App\Http\Controllers\Admin\FeedbackControlle
         'destroy' => 'admin.feedbacks.destroy',
         'create' => 'admin.feedbacks.create',
         'edit' => 'admin.feedbacks.edit'
+    ]);
+
+Route::resource('admin/packages', \App\Http\Controllers\Admin\PackageController::class)
+    ->names([
+        'index' => 'admin.packages.index',
+        'store' => 'admin.packages.store',
+        'show' => 'admin.packages.show',
+        'update' => 'admin.packages.update',
+        'destroy' => 'admin.packages.destroy',
+        'create' => 'admin.packages.create',
+        'edit' => 'admin.packages.edit'
     ]);

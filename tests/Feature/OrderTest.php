@@ -110,7 +110,7 @@ class OrderTest extends TestCase
         $this->auth_as_customer();
         /** @var Customer $customer */
         $customer = auth()->user();
-        $customer->subscribe(Package::factory()->create());
+        $customer->purchase($package = Package::factory()->create(['points' => 10]));
         $laundry_type = LaundryType::factory()->create();
         $response = $this->post(route('orders.store'), [
             'customer_id' => $customer->id,
@@ -125,12 +125,12 @@ class OrderTest extends TestCase
                     'amount' => 3
                 ],
             ],
+            'use_point' => true,
         ]);
+//        dump(auth()->user()->point->total, Order::first()->total, Order::first()->sub_total);
         $response->assertRedirect();
         self::assertDatabaseCount(Order::class, 1);
         self::assertDatabaseCount(Laundry::class, 1);
-
     }
-
 }
 

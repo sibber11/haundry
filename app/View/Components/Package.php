@@ -11,7 +11,7 @@ class Package extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public \App\Models\Package $package)
     {
         //
     }

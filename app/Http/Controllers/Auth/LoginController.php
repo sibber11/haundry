@@ -57,7 +57,7 @@ class LoginController extends Controller
         $data = ['password' => $request->input('password')];
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             $data['email'] = $username;
-        } elseif (PhoneValidator::validate($username)) {
+        } elseif (PhoneValidator::validate(null, $username)) {
             $data['phone'] = $username;
         }
         return $data;

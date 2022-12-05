@@ -30,6 +30,9 @@ class OrderController extends Controller
         DB::beginTransaction();
         auth()->user()->orders()->save($order);
         $order->add_items($input['items']);
+        if ($request->has('use_point')) {
+            $order->use_point();
+        }
         if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
             if ($order->apply_voucher($request->input('voucher_code'))) {
                 DB::commit();
