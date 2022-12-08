@@ -48,6 +48,14 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('admin.orders.index', ['filter' => 'new']) }}"
+               class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'new' ? 'active' : '' }}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>New Orders</p>
+                <span class="badge badge-info right">{{\App\Models\Order::new()->count()}}</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin.orders.index', ['filter' => 'pickable']) }}"
                class="nav-link {{ Request::is('admin/orders') && Request::input('filter') == 'pickable' ? 'active' : '' }}">
                 <i class="nav-icon fa fa-home"></i>

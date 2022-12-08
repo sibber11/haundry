@@ -7,7 +7,7 @@
     $total_users = Customer::count();
     $total_orders = Order::count();
     $new_users = Customer::where('created_at', '>=', now()->subDays(7))->count();
-    $new_orders = Order::where('created_at', '>=', now()->subDays(7))->count();
+    $new_orders = Order::new()->count();
     $request_call = RequestCall::orderBy('created_at', 'desc')->orderBy('called')->get();
     $missions = Mission::running()->orWhere->pending()->get();
 @endphp
@@ -24,7 +24,7 @@
                     <div class="icon">
                         <i class="ion ion-android-bus"></i>
                     </div>
-                    <a href="{{route('admin.orders.index')}}" class="small-box-footer">More info <i
+                    <a href="{{route('admin.orders.index', ['filter' => 'new'])}}" class="small-box-footer">More info <i
                             class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -38,7 +38,8 @@
                     <div class="icon">
                         <i class="ion ion-person-stalker"></i>
                     </div>
-                    <a href="{{route('admin.customers.index')}}" class="small-box-footer">More info <i
+                    <a href="{{route('admin.customers.index')}}" class="small-box-footer">More info
+                        <i
                             class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>

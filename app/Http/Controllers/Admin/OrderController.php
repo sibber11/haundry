@@ -21,10 +21,11 @@ class OrderController extends AppBaseController
     public function index(Request $request)
     {
         $request->validate([
-            'filter' => 'nullable|string|in:pickable,operable,deliverable,running'
+            'filter' => 'nullable|string|in:pickable,operable,deliverable,running,new'
         ]);
         /** @var  Order $orders */
-        $orders = Order::when($request->input('filter') == 'pickable', fn($q) => $q->pickable())
+        $orders = Order::when($request->input('filter') == 'new', fn($q) => $q->new())
+            ->when($request->input('filter') == 'pickable', fn($q) => $q->pickable())
             ->when($request->input('filter') == 'operable', fn($q) => $q->operable())
             ->when($request->input('filter') == 'deliverable', fn($q) => $q->deliverable())
             ->when($request->input('filter') == 'running', fn($q) => $q->running())

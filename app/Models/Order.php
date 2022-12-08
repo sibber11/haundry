@@ -61,6 +61,11 @@ class Order extends Model
         $query->where('status', 'confirmed');
     }
 
+    public function scopeNew($query)
+    {
+        $query->where('status', 'placed');
+    }
+
     public function scopeOperable($query)
     {
         $query->where('status', 'picked');
