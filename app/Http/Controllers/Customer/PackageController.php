@@ -17,6 +17,9 @@ class PackageController extends Controller
 
     public function buy(Package $package, Request $request)
     {
+        $request->validate([
+            'trxid' => 'required|string|max:20',
+        ]);
         /** @var Customer $user */
         $user = Auth::user();
         $user->purchase($package);
