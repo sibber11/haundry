@@ -19,7 +19,7 @@ class Mission extends Model
     ];
 
     public static $rules = [
-        'user_id' => 'required',
+        'user_id' => 'required|numeric|exists:users,id',
 //        'status' => 'required|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
@@ -55,6 +55,11 @@ class Mission extends Model
     public function scopeCompleted($query)
     {
         $query->whereStatus('completed');
+    }
+
+    public function scopeInComplete($query)
+    {
+        $query->whereNot('status', 'completed');
     }
 
     public function start()
