@@ -1,7 +1,7 @@
 <nav class="bg-white flex flex-col sm:flex-row justify-between p-2 sticky">
     <div class="flex flex-row justify-between">
         <ul class="">
-            <li class="p-4 nav-item text-lg flex flex-row gap-2">
+            <li class="p-4 nav-item text-lg flex flex-row gap-2 items-center">
                 <img src="{{asset('images/logo.png')}}" alt="" width="32" height="32">
                 <a class="nav-brand" href="{{url('/')}}">{{config('app.name')}}</a>
             </li>
@@ -14,7 +14,7 @@
             <i class="fa fa-bars"></i>
         </button>
     </div>
-    <ul class="hidden sm:flex flex-col sm:flex-row gap-2"
+    <ul class="hidden sm:flex flex-col sm:flex-row gap-2 items-center"
         id="main-nav">
         <li class="nav-item highlight">
             <a class="" href="{{route('orders.create')}}" @guest data-toggle="modal"
@@ -39,7 +39,7 @@
             <a class="nav-link" href="#">How it works</a>
         </li>
     </ul>
-    <ul class="hidden inline-flex sm:flex border-2 border-macaw-900 rounded items-center flex-row justify-between max-w-min"
+    <ul class="hidden inline-flex sm:flex items-center flex-row justify-between max-w-min"
         id="second-nav">
         @guest('customer')
             <li class="p-1">
