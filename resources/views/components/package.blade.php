@@ -1,9 +1,10 @@
 <div class="p-6 bg-white rounded shadow w-full">
     <div class="leading-9">
-        <h4 class="text-lg font-bold">{{$package->name}}</h4>
-        <div>Price: <strong>{{$package->price}}</strong></div>
-        <div>Points: <strong>{{$package->points}}</strong></div>
-        <div>Save: <strong>{{$package->points - $package->price}}</strong></div>
+        <h4 class="text-lg font-bold text-center">{{$package->name}}</h4>
+        <div class="flex justify-between"><span>Price:</span> <strong>{{$package->price}}</strong></div>
+        <div class="flex justify-between"><span>Points:</span> <strong>{{$package->points}}</strong></div>
+        <div class="flex justify-between"><span>Save:</span> <strong>{{$package->points - $package->price}}</strong>
+        </div>
 
     </div>
     <div class="text-center mt-3">
