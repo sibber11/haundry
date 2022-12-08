@@ -18,14 +18,10 @@ Route::get('/', function () {
 Route::get('price-list', function () {
     return view('guest.full-price-list');
 })->name('price-list');
+Route::get('packages', function () {
+    return view('customer.all-packages');
+})->name('packages');
 
-//Route::view('faq', 'faq')->name('faq');
-Route::get('faq', function () {
-    return 'ok';
-});
-Route::get('phpinfo', function () {
-    phpinfo();
-});
 Route::middleware('guest:admin')->get('admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
