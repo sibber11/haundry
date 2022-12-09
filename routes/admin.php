@@ -119,3 +119,12 @@ Route::resource('admin/packages', \App\Http\Controllers\Admin\PackageController:
         'create' => 'admin.packages.create',
         'edit' => 'admin.packages.edit'
     ]);
+
+Route::resource('admin/banners', App\Http\Controllers\BannerController::class)
+    ->names([
+        'index' => 'admin.banners.index',
+        'store' => 'admin.banners.store',
+        'update' => 'admin.banners.update',
+        'destroy' => 'admin.banners.destroy',
+        'create' => 'admin.banners.create',
+    ]);

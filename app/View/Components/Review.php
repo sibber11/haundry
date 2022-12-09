@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Feedback;
 use Illuminate\View\Component;
 
 class Review extends Component
@@ -11,7 +12,7 @@ class Review extends Component
      *
      * @return void
      */
-    public function __construct(public string $name = 'Washer\'s inn Customer', public float $point = 4.8)
+    public function __construct(public Feedback $feedback)
     {
         //
     }

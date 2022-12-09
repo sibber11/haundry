@@ -35,7 +35,8 @@
                 </div>
             </div>
             <div class="-z-10 sm:z-auto">
-                <img src="{{asset('images/home_back.png')}}" alt="" style="max-width: 100%; max-height: 100%">
+                {{--                <img src="{{asset('images/home_back.png')}}" alt="" style="max-width: 100%; max-height: 100%">--}}
+                @include('sections.slideshow')
             </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-3 my-1.5">
