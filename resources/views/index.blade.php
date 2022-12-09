@@ -79,13 +79,7 @@
         @include('sections.packages')
         @include('sections.prices')
         @include('sections.choose')
-        <div class="service-name">
-            <h2>Customer Reviews</h2>
-        </div>
-        <div id="reviews" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <x-review></x-review>
-            <x-review></x-review>
-        </div>
+        @include('sections.reviews')
         @include('sections.about')
         @include('sections.contact')
     </div>

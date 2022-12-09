@@ -10,4 +10,8 @@ class Feedback extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $attributes = [
+        'show' => false
+    ];
 }
