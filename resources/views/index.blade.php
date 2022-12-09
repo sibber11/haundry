@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@php
+    $settings = \App\Models\Settings::first();
+@endphp
 @section('content')
     <div class="sm:mx-4">
         <div class="sm:grid sm:grid-cols-2 flex flex-col-reverse mb-4">
@@ -9,8 +11,9 @@
                     class="pt-16 -mt-32 sm:pt-0 sm:mt-16 sm:bg-inherit bg-gradient-to-t from-gray-200 via-gray-200 to-transparent">
                     <h1 class="text-4xl p-4 font-bold">Dry Clean <span class="text-macaw-900">&</span><br>Laundry
                         Service</h1>
-                    <h5 class="text-sm p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-                        accusantium.</h5>
+                    <h5 class="text-sm p-4">
+                        {{$settings->about_top}}
+                    </h5>
                 </div>
                 <div id="call">
                     <form method="post" class="flex flex-col gap-2"
@@ -51,25 +54,25 @@
                      class="bg-white text-center grid grid-cols-2 sm:grid-cols-4 justify-between py-5 shadow">
                     <div class="my-3 sm:my-0">
                         <div class="service">
-                            <i class="fa fa-home fa-2x text-macaw-900 pt-5"></i>
+                            <i class="fa fa-3x text-macaw-900 pt-[1rem] fa-tshirt"></i>
                         </div>
                         <div class="text-lg font-bold">Laundry</div>
                     </div>
                     <div class="my-3 sm:my-0">
                         <div class="service">
-                            <i class="fa fa-home fa-2x text-macaw-900 pt-5"></i>
+                            <i class="fa fa-3x text-macaw-900 pt-[1rem] fa-tint"></i>
                         </div>
                         <div class="text-lg font-bold">Dry Cleaning</div>
                     </div>
                     <div class="my-3 sm:my-0">
                         <div class="service">
-                            <i class="fa fa-home fa-2x text-macaw-900 pt-5"></i>
+                            <i class="fa fa-3x text-macaw-900 pt-[1rem] fa-water"></i>
                         </div>
                         <div class="text-lg font-bold">Wash</div>
                     </div>
                     <div class="my-3 sm:my-0">
                         <div class="service">
-                            <i class="fa fa-home fa-2x text-macaw-900 pt-5"></i>
+                            <i class="fa fa-3x text-macaw-900 pt-[1rem] fa-fire-alt"></i>
                         </div>
                         <div class="text-lg font-bold">Iron</div>
                     </div>

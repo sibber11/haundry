@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
-    ->names([
-        'index' => 'admin.laundryTypes.index',
-        'store' => 'admin.laundryTypes.store',
-        'show' => 'admin.laundryTypes.show',
-        'update' => 'admin.laundryTypes.update',
-        'destroy' => 'admin.laundryTypes.destroy',
-        'create' => 'admin.laundryTypes.create',
-        'edit' => 'admin.laundryTypes.edit'
-    ]);
-
 Route::resource('admin/customers', App\Http\Controllers\Admin\CustomerController::class)
     ->names([
         'index' => 'admin.customers.index',
@@ -43,27 +32,6 @@ Route::resource('admin/laundry-types', App\Http\Controllers\Admin\LaundryTypeCon
         'destroy' => 'admin.laundryTypes.destroy',
         'create' => 'admin.laundryTypes.create',
         'edit' => 'admin.laundryTypes.edit'
-    ]);
-
-Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class)
-    ->names([
-        'index' => 'admin.categories.index',
-        'store' => 'admin.categories.store',
-        'show' => 'admin.categories.show',
-        'update' => 'admin.categories.update',
-        'destroy' => 'admin.categories.destroy',
-        'create' => 'admin.categories.create',
-        'edit' => 'admin.categories.edit'
-    ]);
-Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::class)
-    ->names([
-        'index' => 'admin.services.index',
-        'store' => 'admin.services.store',
-        'show' => 'admin.services.show',
-        'update' => 'admin.services.update',
-        'destroy' => 'admin.services.destroy',
-        'create' => 'admin.services.create',
-        'edit' => 'admin.services.edit'
     ]);
 
 Route::get('markdone/{call}', [\App\Http\Controllers\RequestCallController::class, 'markdone'])->name('admin.markdone');
@@ -98,33 +66,64 @@ Route::resource('admin/vouchers', App\Http\Controllers\VoucherController::class)
         'edit' => 'admin.vouchers.edit'
     ]);
 
-Route::resource('admin/feedbacks', \App\Http\Controllers\Admin\FeedbackController::class)
-    ->names([
-        'index' => 'admin.feedbacks.index',
-        'store' => 'admin.feedbacks.store',
-        'show' => 'admin.feedbacks.show',
-        'update' => 'admin.feedbacks.update',
-        'destroy' => 'admin.feedbacks.destroy',
-        'create' => 'admin.feedbacks.create',
-        'edit' => 'admin.feedbacks.edit'
-    ]);
 
-Route::resource('admin/packages', \App\Http\Controllers\Admin\PackageController::class)
-    ->names([
-        'index' => 'admin.packages.index',
-        'store' => 'admin.packages.store',
-        'show' => 'admin.packages.show',
-        'update' => 'admin.packages.update',
-        'destroy' => 'admin.packages.destroy',
-        'create' => 'admin.packages.create',
-        'edit' => 'admin.packages.edit'
-    ]);
+Route::group(['prefix' => 'admin/settings'], function () {
+    Route::resource('laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
+        ->names([
+            'index' => 'admin.laundryTypes.index',
+            'store' => 'admin.laundryTypes.store',
+            'show' => 'admin.laundryTypes.show',
+            'update' => 'admin.laundryTypes.update',
+            'destroy' => 'admin.laundryTypes.destroy',
+            'create' => 'admin.laundryTypes.create',
+            'edit' => 'admin.laundryTypes.edit'
+        ]);
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class)
+        ->names([
+            'index' => 'admin.categories.index',
+            'store' => 'admin.categories.store',
+            'show' => 'admin.categories.show',
+            'update' => 'admin.categories.update',
+            'destroy' => 'admin.categories.destroy',
+            'create' => 'admin.categories.create',
+            'edit' => 'admin.categories.edit'
+        ]);
+    Route::resource('services', App\Http\Controllers\Admin\ServiceController::class)
+        ->names([
+            'index' => 'admin.services.index',
+            'store' => 'admin.services.store',
+            'show' => 'admin.services.show',
+            'update' => 'admin.services.update',
+            'destroy' => 'admin.services.destroy',
+            'create' => 'admin.services.create',
+            'edit' => 'admin.services.edit'
+        ]);
+    Route::resource('feedbacks', \App\Http\Controllers\Admin\FeedbackController::class)
+        ->names([
+            'index' => 'admin.feedbacks.index',
+            'update' => 'admin.feedbacks.update',
+            'destroy' => 'admin.feedbacks.destroy',
+        ]);
 
-Route::resource('admin/banners', App\Http\Controllers\BannerController::class)
-    ->names([
-        'index' => 'admin.banners.index',
-        'store' => 'admin.banners.store',
-        'update' => 'admin.banners.update',
-        'destroy' => 'admin.banners.destroy',
-        'create' => 'admin.banners.create',
-    ]);
+    Route::resource('packages', \App\Http\Controllers\Admin\PackageController::class)
+        ->names([
+            'index' => 'admin.packages.index',
+            'store' => 'admin.packages.store',
+            'show' => 'admin.packages.show',
+            'update' => 'admin.packages.update',
+            'destroy' => 'admin.packages.destroy',
+            'create' => 'admin.packages.create',
+            'edit' => 'admin.packages.edit'
+        ]);
+
+    Route::resource('banners', App\Http\Controllers\BannerController::class)
+        ->names([
+            'index' => 'admin.banners.index',
+            'store' => 'admin.banners.store',
+            'update' => 'admin.banners.update',
+            'destroy' => 'admin.banners.destroy',
+            'create' => 'admin.banners.create',
+        ]);
+    Route::get('about', [\App\Http\Controllers\Admin\SettingsController::class, 'edit'])->name('admin.settings.edit');
+    Route::patch('about', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('admin.settings.update');
+});

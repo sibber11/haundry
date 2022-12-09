@@ -107,19 +107,12 @@
 
 
 <li class="nav-item">
-    <a href="{{ route('admin.vouchers.index') }}" class="nav-link {{ Request::is('admin.vouchers*') ? 'active' : '' }}">
+    <a href="{{ route('admin.vouchers.index') }}" class="nav-link {{ Request::is('admin/vouchers*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Vouchers</p>
     </a>
 </li>
-<li class="nav-item">
-    <a href="{{ route('admin.feedbacks.index') }}"
-       class="nav-link {{ Request::is('admin.feedbacks*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Feedbacks</p>
-    </a>
-</li>
-<li class="nav-item {{ Request::is('admin/orders*') ? 'menu-open ' : '' }}">
+<li class="nav-item {{ Request::is('admin/settings*') ? 'menu-open ' : '' }}">
     <a href="{{ route('admin.orders.index') }}" class="nav-link {{ Request::is('admin/orders*') ? 'active ' : '' }}">
         <i class="nav-icon fas fa-cogs"></i>
         <p>Settings
@@ -127,41 +120,53 @@
     </a>
     <ul class="nav nav-treeview ml-2">
         <li class="nav-item">
+            <a href="{{ route('admin.categories.index') }}"
+               class="nav-link {{ Request::is('*settings/categories*') ? 'active' : '' }}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>Categories</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin.services.index') }}"
-               class="nav-link {{ Request::is('admin/service*') ? 'active' : '' }}">
+               class="nav-link {{ Request::is('*settings/services*') ? 'active' : '' }}">
                 <i class="nav-icon fa fa-home"></i>
                 <p>Services</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.packages.index') }}"
-               class="nav-link {{ Request::is('admin/packages*') ? 'active' : '' }}">
-                <i class="nav-icon fa fa-home"></i>
-                <p>Packages</p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="{{ route('admin.laundryTypes.index') }}"
-               class="nav-link {{ Request::is('admin/laundry*') ? 'active' : '' }}">
+               class="nav-link {{ Request::is('*settings/laundry*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tshirt"></i>
                 <p>Laundry Types</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.categories.index') }}"
-               class="nav-link {{ Request::is('admin/categories*') ? 'active' : '' }}">
+            <a href="{{ route('admin.packages.index') }}"
+               class="nav-link {{ Request::is('*settings/packages*') ? 'active' : '' }}">
                 <i class="nav-icon fa fa-home"></i>
-                <p>Categories</p>
+                <p>Packages</p>
             </a>
         </li>
-
         <li class="nav-item">
             <a href="{{ route('admin.banners.index') }}"
-               class="nav-link {{ Request::is('admin.banners*') ? 'active' : '' }}">
+               class="nav-link {{ Request::is('*settings/banners*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Banners</p>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a href="{{ route('admin.feedbacks.index') }}"
+               class="nav-link {{ Request::is('*settings/feedbacks*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Feedbacks</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.settings.edit') }}"
+               class="nav-link {{ Request::is('*settings/about') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-home"></i>
+                <p>About</p>
+            </a>
+        </li>
     </ul>
 </li>
