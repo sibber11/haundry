@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin'], function () {
@@ -66,8 +67,10 @@ Route::group(['prefix' => 'admin'], function () {
             'edit' => 'admin.vouchers.edit'
         ]);
     Route::get('income', [\App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('admin.income');
-    Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+    Route::get('home', [HomeController::class, 'index'])->name('admin.home');
     Route::redirect('/', '/admin/home');
+    Route::patch('/fcm-token', [HomeController::class, 'updateToken'])->name('fcmToken');
+//Route::get('/send-notification', [HomeController::class, 'notification'])->name('notification');
 });
 //Route::redirect('/', '/admin/home');
 Route::group(['prefix' => 'admin/settings'], function () {

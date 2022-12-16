@@ -2,7 +2,7 @@
 <html lang="en">
 @include('layouts.header')
 <body class="bg-gray-200">
-<header>
+<header class="shadow">
     @include('layouts.nav')
 </header>
 <main id="app" class="mt-0 max-w-5xl mx-4 sm:mx-auto">

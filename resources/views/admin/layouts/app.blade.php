@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"--}}
-    {{--          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="--}}
-    {{--          crossorigin="anonymous" referrerpolicy="no-referrer"/>--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css"
+          integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @stack('third_party_stylesheets')
 
@@ -51,6 +54,60 @@
 {{--        integrity="sha512-zdVl3VXeIbC+voYo4oJ7cIvMb8mP1l8LFe2pF0PlYlHwqEP0mcAyDIl1XSaQZwALrC2tYsFg+rww4TF4I/4lTA=="--}}
 {{--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
 <script src="{{ mix('js/app.js') }}"></script>
+<script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBBdDNLfI5aJBmORnuJUaLFKgy4DqgAwlU",
+        authDomain: "washersinn-60974.firebaseapp.com",
+        projectId: "washersinn-60974",
+        storageBucket: "washersinn-60974.appspot.com",
+        messagingSenderId: "965325849062",
+        appId: "1:965325849062:web:f66ea1bc6522dac8f31627"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function (token) {
+
+            axios.post("{{ route('fcmToken') }}", {
+                _method: "PATCH",
+                token
+            }).then(({data}) => {
+                console.log(data)
+            }).catch(({response: {data}}) => {
+                console.error(data)
+            })
+
+        }).catch(function (err) {
+            console.log(`Token Error :: ${err}`);
+        });
+    }
+
+    initFirebaseMessagingRegistration();
+
+    messaging.onMessage(function ({data: {body, title}}) {
+        new Notification(title, {body});
+    });
+</script>
+
+<script>
+    // Echo.private('admin')
+    //     .listen('CallRequested', (e) => {
+    //         console.log(e);
+    //         $(document).Toasts('create', {
+    //             title: 'New Request Call',
+    //             body: e.data,
+    //             position: 'bottomRight',
+    //             class: 'mb-5 mr-2',
+    //         })
+    //
+    //     });
+</script>
 @stack('third_party_scripts')
 
 @stack('page_scripts')

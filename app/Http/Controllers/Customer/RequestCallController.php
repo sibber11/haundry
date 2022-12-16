@@ -13,6 +13,10 @@ class RequestCallController extends Controller
     public function request(StoreRequestCallRequest $request)
     {
         $input = $request->validated();
+        if (RequestCall::where('phone', $input['phone'])->pending()->count() > 0) {
+            Flash::success('Please wait! We will call you momentarily');
+            return redirect('/');
+        }
         $request_call = RequestCall::create($input);
         CallRequested::dispatch($request_call);
         $request->session()->put($input);
