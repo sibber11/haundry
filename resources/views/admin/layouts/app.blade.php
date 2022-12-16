@@ -57,12 +57,12 @@
 <script>
     // Your web app's Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyBBdDNLfI5aJBmORnuJUaLFKgy4DqgAwlU",
-        authDomain: "washersinn-60974.firebaseapp.com",
-        projectId: "washersinn-60974",
-        storageBucket: "washersinn-60974.appspot.com",
-        messagingSenderId: "965325849062",
-        appId: "1:965325849062:web:f66ea1bc6522dac8f31627"
+        apiKey: {{env('FIREBASE_API_KEY')}},
+        authDomain: {{env('FIREBASE_AUTH_DOMAIN')}},
+        projectId: {{env('FIREBASE_PROJECT_ID')}},
+        storageBucket: {{env('FIREBASE_STORAGE_BUCKET')}},
+        messagingSenderId: {{env('FIREBASE_MESSAGING_SENDER_ID')}},
+        appId: {{env('FIREBASE_APP_ID')}}
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
