@@ -24,7 +24,9 @@
                 </div>
             @endforeach
             @if($user->vouchers->isEmpty())
-                You Have no vouchers!
+                <div class="p-2 m-2">
+                    You Have no vouchers!
+                </div>
             @endif
         </div>
     </div>

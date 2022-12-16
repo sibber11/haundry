@@ -4,6 +4,7 @@
 @endphp
 @section('content')
     <div class="sm:mx-4">
+        @include('flash::message')
         <div class="sm:grid sm:grid-cols-2 flex flex-col-reverse mb-4">
             {{--        <img src="" alt="">--}}
             <div class="text-center">
@@ -19,11 +20,12 @@
                     <form method="post" class="flex flex-col gap-2"
                           action="{{route('request_call')}}">
                         @csrf
-                        <input type="text" placeholder="Your name here..." class="p-1 rounded border-2 border-macaw-900"
-                               name="name">
+                        <input type="text" placeholder="Your name here..."
+                               class="p-1 rounded border-2 border-macaw-900 @error('name') border-red-600 @enderror"
+                               name="name" value="{{session('name')}}">
                         <input type="text" placeholder="Your number here..."
-                               class="p-1 rounded border-2 border-macaw-900"
-                               name="phone">
+                               class="p-1 rounded border-2 border-macaw-900 @error('phone') border-red-600 @enderror"
+                               name="phone" value="{{session('phone')}}">
                         <button class="rounded bg-macaw-900 px-2 py-1 text-white border-2 border-macaw-900">Request a
                             Call
                         </button>
@@ -37,15 +39,16 @@
                     </a>
                 </div>
             </div>
-            <div class="-z-10 sm:z-auto">
+            <div class="-z-10 sm:z-auto my-2 sm:ml-2">
                 {{--                <img src="{{asset('images/home_back.png')}}" alt="" style="max-width: 100%; max-height: 100%">--}}
                 @include('sections.slideshow')
             </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-3 my-1.5">
-            <div id="refer" class="text-center text-white p-2 bg-macaw-900 text-2xl shadow sm:leading-loose">
-                <a href="{{route('referview')}}">Refer a Friend <br>&<br> Get 20% Off First Order.</a>
-            </div>
+            <a href="{{route('referview')}}" id="refer"
+               class="text-center text-white p-2 bg-macaw-900 text-2xl shadow sm:leading-loose">
+                <div>Refer a Friend <br>&<br> Get 20% Off First Order.</div>
+            </a>
             <div class="flex flex-col w-full justify-between">
                 <div class="service-name">
                     <h2>Our Services</h2>

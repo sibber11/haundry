@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('http://fonts.cdnfonts.com/css/poppins');
+/*@import url('http://fonts.cdnfonts.com/css/poppins');*/
 @layer base {
     html {
         font-family: Poppins, system-ui, sans-serif;
@@ -56,4 +56,12 @@
 
 .footer-icons:hover {
     @apply text-white;
+}
+
+.alert {
+    @apply p-2 my-4;
+}
+
+.alert-success {
+    @apply bg-green-500 rounded text-white;
 }

@@ -5,7 +5,7 @@
 @endphp
 @section('content')
     @if(session()->has('status'))
-        <div class="bg-green-500 p-2 rounded text-white mt-2">
+        <div class="bg-green-500 p-2 rounded text-white mt-5 mr-3">
             {{session('status')}}
         </div>
     @endif
