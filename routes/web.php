@@ -21,12 +21,6 @@ Route::get('price-list', function () {
 Route::get('packages', function () {
     return view('customer.all-packages');
 })->name('packages');
-
-Route::middleware('guest:admin')->get('admin/login', function () {
-    return view('auth.login');
-})->name('admin.login');
-Route::post('admin/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.attempt');
-
-Route::post('request_call', [\App\Http\Controllers\RequestCallController::class, 'request'])->name('request_call');
+Route::post('request_call', [\App\Http\Controllers\Customer\RequestCallController::class, 'request'])->name('request_call');
 
 Route::post('feedback', [\App\Http\Controllers\Customer\FeedbackController::class, 'store'])->name('post_feedback');
