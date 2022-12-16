@@ -23,3 +23,4 @@ public/mix-manifest.json
 public/css/*.css
 public/js/*.js
 /public/fonts/vendor/font-awesome/
+/public/firebase-messaging-sw.js
