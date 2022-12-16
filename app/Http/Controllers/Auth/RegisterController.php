@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +40,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('customer.auth.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -61,18 +67,17 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return \App\Models\Customer
      */
     protected function create(array $data)
     {
-        $user_class = config('auth.providers.customers.model');
-        $user = $user_class::create([
+        $customer = Customer::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'address' => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
-        return $user;
+        return $customer;
     }
 }
