@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Events\OrderPlaced;
 use App\Helper\DateSolver;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CreateOrderRequest;
@@ -44,6 +45,8 @@ class OrderController extends Controller
         } else {
             DB::commit();
         }
+        OrderPlaced::dispatch($order);
+        Flash::success($order->toJson());
         Flash::success('Order saved successfully.');
         return redirect()->route('orders.index')->with('status', "Your Order has been Placed.");
     }
