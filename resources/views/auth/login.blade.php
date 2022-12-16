@@ -31,7 +31,7 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
             {{--                @dd(request()->routeIs('admin.login'))--}}
-            <form method="post" action="{{ request()->routeIs('admin.login')? url('admin/login'):url('login') }}">
+            <form method="post" action="{{ route('admin.login') }}">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -51,7 +51,7 @@
                            class="form-control @error('password') is-invalid @enderror">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-eye" type="button" onclick="togglePassword()"
+                            <span class="fas fa-eye" onclick="togglePassword()"
                                   title="Show Password"></span>
                         </div>
                     </div>

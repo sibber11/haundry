@@ -1,15 +1,17 @@
-@php use App\Models\Customer; @endphp
-@php use App\Models\Order; @endphp
-@php use App\Models\RequestCall; @endphp
-@php use App\Models\Mission; @endphp
+@php
+    use App\Models\Customer;
+    use App\Models\Order;
+    use App\Models\RequestCall;
+    use App\Models\Mission;
+@endphp
 @extends('admin.layouts.app')
 @php
     $total_users = Customer::count();
     $total_orders = Order::count();
     $new_users = Customer::where('created_at', '>=', now()->subDays(7))->count();
     $new_orders = Order::new()->count();
-    $request_call = RequestCall::orderBy('created_at', 'desc')->orderBy('called')->get();
-    $missions = Mission::running()->orWhere->pending()->get();
+    $request_call = RequestCall::orderBy('created_at', 'desc')->orderBy('called')->limit(5)->get();
+    $missions = Mission::running()->orWhere->pending()->limit(10)->get();
 @endphp
 @section('content')
     <div class="container-fluid">
@@ -94,10 +96,18 @@
                         <td>{{$call->phone}}</td>
                         <td>{{$call->called ? 'Called':'Pending'}}</td>
                         <td>
-                            <form action="{{route('admin.markdone', $call)}}">
+                            <form action="{{route('admin.markdone', $call)}}" class="d-inline" method="post">
                                 @csrf
+                                @method('patch')
                                 <button @disabled($call->called) class="btn btn-primary">
-                                    Mark as Called
+                                    <i class="fas fa-checked"></i>
+                                </button>
+                            </form>
+                            <form action="{{route('admin.requestCall.destroy', $call)}}" class="d-inline" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger">
+                                    <i class="fas fa-alt-trash"></i>
                                 </button>
                             </form>
                         </td>
@@ -140,21 +150,4 @@
 @endpush
 
 @push('page_scripts')
-    <script>
-        // $(document).Toasts('create', {
-        //     title: 'New Request Call',
-        //     body: 'Name: Sibber\n Phone: +8801815979207',
-        //     position: 'bottomRight'
-        // })
-    </script>
 @endpush
-
-
-{{--
-refer done
-point system done
-voucher partial
-cash discount
-package
-transaction
---}}
