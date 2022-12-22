@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Events\OrderPlaced;
 use App\Models\Customer;
 use App\Models\Laundry;
 use App\Models\LaundryType;
@@ -42,16 +43,17 @@ class OrderTest extends TestCase
 
     public function test_order_can_be_placed_by_customer()
     {
+        \Event::fake();
         $this->withoutExceptionHandling();
         $this->auth_as_customer();
         /**
          * @var Customer $customer
          */
-        $customer = Customer::factory()->create();
+//        $customer = Customer::factory()->create();
         $laundry_type = LaundryType::factory()->create();
         $laundry_type1 = LaundryType::factory()->create();
         $response = $this->post(route('orders.store'), [
-            'customer_id' => $customer->id,
+//            'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
             'deadline_time' => '17:00',
             'pickup_date' => '09/05/2022',
@@ -73,6 +75,7 @@ class OrderTest extends TestCase
         $response->assertRedirect();
         self::assertDatabaseCount(Order::class, 1);
         self::assertDatabaseCount(Laundry::class, 2);
+        \Event::assertDispatched(OrderPlaced::class);
     }
 
     public function test_voucher_can_be_applied_to_order_by_admin()
