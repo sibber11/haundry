@@ -22,7 +22,11 @@ class SendPushNotification implements ShouldQueue
      */
     public function __construct()
     {
-        $this->fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        try {
+            $this->fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        } catch (\Exception $e) {
+
+        }
     }
 
     /**
