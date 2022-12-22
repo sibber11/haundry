@@ -24,25 +24,26 @@
                                     <select name="mission_id" class="form-control" required>
                                         <option value="">Select mission...</option>
                                         @foreach($missions as $mission)
-                                            <option value="{{$mission->id}}">{{$mission->id}} ({{$mission->user->name}})
+                                            <option value="{{$mission->id}}">
+                                                {{$mission->id}} ({{$mission->user->name}})
                                             </option>
                                         @endforeach
                                     </select>
                                     <div class="input-group-append">
                                         <a href="{{route('admin.missions.create')}}"
-                                           class="btn btn-default">
+                                           class="btn btn-primary">
                                             New Mission
                                         </a>
                                     </div>
                                 </div>
 
-                                <button class="btn btn-default col-sm-3">Assign</button>
+                                <button class="btn btn-primary col-sm-3">Assign</button>
                             </form>
                         @endif
                         @if(Request::input('filter') == 'operable')
                             <form action="{{route('admin.orders.update_status')}}" id="assign-form" method="post">
                                 @csrf
-                                <button class="btn btn-default float-right mr-2" value="operated" name="status">
+                                <button class="btn btn-primary float-right mr-2" value="operated" name="status">
                                     Mark Operated
                                 </button>
                             </form>
@@ -50,7 +51,7 @@
                         @if(Request::input('filter') == 'new')
                             <form action="{{route('admin.orders.update_status')}}" id="assign-form" method="post">
                                 @csrf
-                                <button class="btn btn-default float-right mr-2" value="confirmed" name="status">
+                                <button class="btn btn-primary float-right mr-2" value="confirmed" name="status">
                                     Confirm Orders
                                 </button>
                             </form>
@@ -65,11 +66,10 @@
     <div class="content px-3">
 
         @include('flash::message')
-
         <div class="clearfix"></div>
 
         <div class="card">
-            @include('admin.orders.table')
+            @include('admin.orders.datatable')
         </div>
     </div>
 

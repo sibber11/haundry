@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\OrderDataTable;
 use App\Helper\DateSolver;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Admin\CreateOrderRequest;
@@ -18,12 +19,12 @@ class OrderController extends AppBaseController
     /**
      * Display a listing of the Order.
      */
-    public function index(Request $request)
+    /*public function index(Request $request)
     {
         $request->validate([
             'filter' => 'nullable|string|in:pickable,operable,deliverable,running,new'
         ]);
-        /** @var  Order $orders */
+        /** @var  Order $orders *//*
         $orders = Order::when($request->input('filter') == 'new', fn($q) => $q->new())
             ->when($request->input('filter') == 'pickable', fn($q) => $q->pickable())
             ->when($request->input('filter') == 'operable', fn($q) => $q->operable())
@@ -34,6 +35,10 @@ class OrderController extends AppBaseController
 
         return view('admin.orders.index')
             ->with('orders', $orders);
+    }*/
+    public function index(OrderDataTable $dataTable)
+    {
+        return $dataTable->render('admin.orders.index');
     }
 
 
@@ -181,14 +186,14 @@ class OrderController extends AppBaseController
         if ($orders->isEmpty()) {
             Flash::error('Orders not found');
 
-            return redirect(route('admin.orders.index', 'filter=operable'));
+            return back();
         }
 
         $orders->each(function ($order) use ($input) {
             $order->change_status($input['status']);
         });
 
-        Flash::error('Orders marked as operated');
-        return redirect(route('admin.orders.index', 'filter=operable'));
+        Flash::success('Orders marked as operated');
+        return back();
     }
 }
