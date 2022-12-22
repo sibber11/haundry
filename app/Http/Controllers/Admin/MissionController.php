@@ -151,14 +151,15 @@ class MissionController extends AppBaseController
         }
         $orders = $request->input('order_id');
         $mission->assign_orders($orders);
-        return redirect()->route('admin.missions.show', $mission);
+        return back();
     }
 
     public function start()
     {
         $mission = auth()->user()->mission;
         $mission->start();
-        return redirect()->route('admin.missions.show', $mission);
+        Flash::success('Mission started');
+        return back();
     }
 
     public function end()
@@ -166,7 +167,8 @@ class MissionController extends AppBaseController
         /** @var Mission $mission */
         $mission = auth()->user()->mission;
         $mission->complete();
-        return redirect()->route('admin.missions.show', $mission);
+        Flash::success('Mission ended');
+        return back();
     }
 
     public function complete_one(Request $request)
@@ -178,18 +180,18 @@ class MissionController extends AppBaseController
         $mission = auth()->user()->mission;
         if (!$mission->running) {
             Flash::error('Mission not started yet.');
-            return redirect(route('admin.missions.show', $mission));
+            return back();
         }
         /** @var Order $order */
         $order = $mission->orders()->find($input['order_id']);
         if (empty($order)) {
             Flash::error('Order not found');
-            return redirect(route('admin.missions.show', $mission));
+            return back();
         }
         $order->update_status();
         $order->update([
             'paid' => true
         ]);
-        return redirect(route('admin.missions.show', $mission));
+        return back();
     }
 }
