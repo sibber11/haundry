@@ -68,7 +68,7 @@ class Order extends Model
 
     public function scopeOperable($query)
     {
-        $query->where('status', 'picked');
+        $query->where('status', 'onoperation');
     }
 
     public function scopeDeliverable($query)
