@@ -1,13 +1,13 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-
-require('./bootstrap');
-require('admin-lte');
-
+// /**
+//  * First we will load all of this project's JavaScript dependencies which
+//  * includes Vue and other libraries. It is a great starting point when
+//  * building robust, powerful web applications using Vue and Laravel.
+//  */
+//
+//
+require('../bootstrap');
+// require('admin-lte');
+//
 window.Vue = require('vue');
 
 const app = Vue.createApp({});
@@ -20,7 +20,7 @@ const app = Vue.createApp({});
  */
 const files = require.context('./', true, /.vue$/i);
 files.keys().map(function (key) {
-app.component(key.split('/').pop().split('.')[0], files(key).default);
+    app.component(key.split('/').pop().split('.')[0], files(key).default);
 });
 
 app.mount('#app');

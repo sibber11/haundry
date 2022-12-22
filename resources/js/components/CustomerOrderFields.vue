@@ -86,7 +86,7 @@
             <label class="font-semibold leading-none" for="voucher-code">
                 Voucher
                 <span v-if="voucher_msg" :class="{'bg-green-500':voucher_model.id, 'bg-red-500':!voucher_model.id}"
-                      class="text-xs rounded p-1">
+                      class="text-xs rounded p-1 text-white ">
                     {{ voucher_msg }}
                 </span>
             </label>
