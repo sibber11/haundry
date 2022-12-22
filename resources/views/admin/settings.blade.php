@@ -19,7 +19,7 @@
     <div class="content px-3">
         @include('adminlte-templates::common.errors')
         <div class="card">
-            {!! Form::open(['route' => 'admin.settings.update', 'method' => 'patch']) !!}
+            {!! Form::open(['route' => 'admin.settings.update', 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-sm-12">
@@ -31,6 +31,16 @@
                     <div class="form-group col-sm-12">
                         {!! Form::label('about_bot', 'About bot:') !!}
                         {!! Form::textarea('about_bot', $settings->about_bot, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        {!! Form::label('logo', 'Logo:') !!}
+                        <div>
+                            <img src="{{asset($settings->logo)}}" alt="logo"
+                                 style="max-width: 100%; max-height: 200px;">
+                        </div>
+                        {!! Form::file('logo', ['class' => 'form-control-file', 'required']) !!}
                     </div>
                 </div>
 

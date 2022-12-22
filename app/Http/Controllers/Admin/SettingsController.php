@@ -17,9 +17,13 @@ class SettingsController extends Controller
     {
         $request->validate([
             'about_top' => 'required|string',
-            'about_bot' => 'required|string'
+            'about_bot' => 'required|string',
+            'logo' => 'nullable|image'
         ]);
         $settings = Settings::first();
+        if ($request->hasFile('logo')) {
+            $settings->logo = $request->file('logo')->store('banners');
+        }
         $settings->about_top = $request->input('about_top');
         $settings->about_bot = $request->input('about_bot');
         $settings->save();

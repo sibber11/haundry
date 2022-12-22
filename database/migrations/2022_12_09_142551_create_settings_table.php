@@ -16,11 +16,13 @@ return new class extends Migration {
             $table->id();
             $table->string('about_top');
             $table->string('about_bot');
+            $table->string('logo');
         });
 
         \App\Models\Settings::create([
             'about_top' => '',
-            'about_bot' => ''
+            'about_bot' => '',
+            'logo' => ''
         ]);
     }
 
