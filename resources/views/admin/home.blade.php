@@ -26,7 +26,9 @@
                     <div class="icon">
                         <i class="ion ion-android-bus"></i>
                     </div>
+
                     <a href="{{route('admin.orders.index', ['filter' => 'new'])}}" class="small-box-footer">More info <i
+
                             class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -40,9 +42,10 @@
                     <div class="icon">
                         <i class="ion ion-person-stalker"></i>
                     </div>
+
                     <a href="{{route('admin.customers.index')}}" class="small-box-footer">More info
-                        <i
-                            class="fa fa-arrow-circle-right"></i></a>
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
