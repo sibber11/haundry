@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Listeners\ProvideVoucherToReferrer;
 use App\Listeners\SendPhoneVerificationNotification;
+use App\Listeners\SendPushNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +22,15 @@ class EventServiceProvider extends ServiceProvider
             SendPhoneVerificationNotification::class,
             ProvideVoucherToReferrer::class
         ],
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        SendPushNotification::class,
     ];
 
     /**

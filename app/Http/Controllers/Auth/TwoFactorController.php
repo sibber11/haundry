@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Notifications\TwoFactorCode;
 use Illuminate\Http\Request;
 
-class TwoFactorController extends \App\Http\Controllers\Controller
+class TwoFactorController extends Controller
 {
     public function index()
     {

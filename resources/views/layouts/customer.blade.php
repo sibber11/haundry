@@ -12,5 +12,6 @@
     </section>
 </main>
 </body>
-<script src="{{mix('js/app.js')}}"></script>
+<script defer src="{{mix('customer/js/app.js')}}"></script>
 </html>
+

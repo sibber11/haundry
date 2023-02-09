@@ -6,37 +6,28 @@
 
 @section('content')
     <div class="m-4">
-        <div class="">
+        <h2 class="font-bold text-lg p-2 m-2">
+            Available Points
+        </h2>
+        <div class="p-2 m-2">
             You Have {{$user->point->total}} point.
         </div>
-        <div>You can spend your point to claim voucher</div>
-
-        <form action="{{route('claim_voucher')}}" method="post" class="flex">
-            @csrf
-            <select name="" id="" class="w-full">
-                <option value="">Select point amount...</option>
-                <option value="" {{$user->can_claim_voucher?'':'disabled'}}>200</option>
-                <option value="" {{$user->can_claim_voucher?'':'disabled'}}>500</option>
-                <option value="" {{$user->can_claim_voucher?'':'disabled'}}>1000</option>
-                <option value="" {{$user->can_claim_voucher?'':'disabled'}}>5000</option>
-                <option value="" {{$user->can_claim_voucher?'':'disabled'}}>10000</option>
-            </select>
-            <button class="w-full" name="amount" value="200">
-                Claim Voucher
-            </button>
-        </form>
-        <div class="mt-8 mb-4 font-bold text-lg">
+        <h2 class="font-bold text-lg p-2 m-2">
             Available vouchers
-            {{--            <a href="#" class="">help</a>--}}
-        </div>
-        <ul class="">
-            {{--                    @dd($user->vouchers)--}}
+        </h2>
+        <div>
             @foreach($user->vouchers as $voucher)
-                <li class="inline p-2 m-2 rounded bg-macaw-900 text-white">{{$voucher->code}}</li>
+                <div class="border-2 m-4 p-2 bg-white rounded shadow">
+                    <div>Code: <strong>{{$voucher->code}}</strong></div>
+                    <div>Discount: {{$voucher->discount}}</div>
+                    <span class="text-sm">*Applicable on only order over {{$voucher->minimum}}</span>
+                </div>
             @endforeach
             @if($user->vouchers->isEmpty())
-                You Have no vouchers!
+                <div class="p-2 m-2">
+                    You Have no vouchers!
+                </div>
             @endif
-        </ul>
+        </div>
     </div>
 @endsection

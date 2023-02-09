@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateVoucherRequest;
 use App\Http\Requests\UpdateVoucherRequest;
 use App\Models\Voucher;
@@ -43,23 +44,6 @@ class VoucherController extends AppBaseController
     public function create()
     {
         return view('admin.vouchers.create');
-    }
-
-    /**
-     * Display the specified Voucher.
-     */
-    public function show($id)
-    {
-        /** @var Voucher $voucher */
-        $voucher = Voucher::find($id);
-
-        if (empty($voucher)) {
-            Flash::error('Voucher not found');
-
-            return redirect(route('admin.vouchers.index'));
-        }
-
-        return view('admin.vouchers.show')->with('voucher', $voucher);
     }
 
     /**

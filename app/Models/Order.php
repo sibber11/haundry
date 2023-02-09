@@ -61,9 +61,14 @@ class Order extends Model
         $query->where('status', 'confirmed');
     }
 
+    public function scopeNew($query)
+    {
+        $query->where('status', 'placed');
+    }
+
     public function scopeOperable($query)
     {
-        $query->where('status', 'picked');
+        $query->where('status', 'onoperation');
     }
 
     public function scopeDeliverable($query)
@@ -201,6 +206,20 @@ class Order extends Model
         $this->save();
         $voucher->mark_as_used();
         return true;
+    }
+
+    public function use_point()
+    {
+        $user_point = auth()->user()->point;
+        if ($user_point->total <= 0)
+            return;
+        $usable_point = min($user_point->total, $this->total);
+        $user_point->total -= $usable_point;
+        $this->total -= $usable_point;
+        $this->point_used = $usable_point;
+        $user_point->save();
+        $this->save();
+//        dump($usable_point, $user_point->total, $this->total);
     }
 
     public function laundries()

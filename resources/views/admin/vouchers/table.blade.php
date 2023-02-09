@@ -22,10 +22,10 @@
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['admin.vouchers.destroy', $voucher->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            <a href="{{ route('admin.vouchers.show', [$voucher->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
+                            {{--                            <a href="{{ route('admin.vouchers.show', [$voucher->id]) }}"--}}
+                            {{--                               class='btn btn-default btn-xs'>--}}
+                            {{--                                <i class="far fa-eye"></i>--}}
+                            {{--                            </a>--}}
                             <a href="{{ route('admin.vouchers.edit', [$voucher->id]) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-edit"></i>

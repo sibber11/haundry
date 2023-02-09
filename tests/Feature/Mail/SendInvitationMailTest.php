@@ -24,10 +24,8 @@ class SendInvitationMailTest extends TestCase
         $this->actingAs($customer);
 
         $response = $this->post(route('send_invitation'), [
-            'mail' => 'abd@ui.co'
+            'email' => 'abd@ui.co'
         ]);
         \Mail::assertSent(InvitationMail::class);
-
-//        dump($response);
     }
 }

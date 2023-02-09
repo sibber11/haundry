@@ -14,22 +14,16 @@ return new class extends Migration {
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Service::class);
             $table->string('name');
-            $table->tinyInteger('total_piece');
-            $table->integer('regular_price');
+            $table->integer('points');
             $table->integer('price');
-            $table->integer('save');
-            $table->tinyInteger('duration');
-            $table->timestamps();
+            $table->boolean('active')->default(true);
+
         });
         Schema::create('customer_package', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Customer::class);
             $table->foreignIdFor(\App\Models\Package::class);
-            $table->date('start_date');
-            $table->date('end_date');
-//            $table->integer('used');
-            $table->integer('remaining');
+            $table->dateTime('activated_at')->default(now());
         });
     }
 

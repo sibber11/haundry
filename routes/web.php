@@ -18,19 +18,9 @@ Route::get('/', function () {
 Route::get('price-list', function () {
     return view('guest.full-price-list');
 })->name('price-list');
-
-//Route::view('faq', 'faq')->name('faq');
-Route::get('faq', function () {
-    return 'ok';
-});
-Route::get('phpinfo', function () {
-    phpinfo();
-});
-Route::middleware('guest:admin')->get('admin/login', function () {
-    return view('auth.login');
-})->name('admin.login');
-Route::post('admin/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.attempt');
-
-Route::post('request_call', [\App\Http\Controllers\RequestCallController::class, 'request'])->name('request_call');
+Route::get('packages', function () {
+    return view('customer.all-packages');
+})->name('packages');
+Route::post('request_call', [\App\Http\Controllers\Customer\RequestCallController::class, 'request'])->name('request_call');
 
 Route::post('feedback', [\App\Http\Controllers\Customer\FeedbackController::class, 'store'])->name('post_feedback');

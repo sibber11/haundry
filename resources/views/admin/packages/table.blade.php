@@ -3,26 +3,20 @@
         <table class="table" id="packages-table">
             <thead>
             <tr>
-                <th>Service name</th>
                 <th>Name</th>
-                <th>Total Piece</th>
-                <th>Regular Price</th>
+                <th>Points</th>
                 <th>Price</th>
-                <th>Save</th>
-                <th>Duration</th>
+                {{--                <th>Active</th>--}}
                 <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach($packages as $package)
                 <tr>
-                    <td>{{ $package->service->name }}</td>
                     <td>{{ $package->name }}</td>
-                    <td>{{ $package->total_piece }}</td>
-                    <td>{{ $package->regular_price }}</td>
+                    <td>{{ $package->points }}</td>
                     <td>{{ $package->price }}</td>
-                    <td>{{ $package->save }}</td>
-                    <td>{{ $package->duration }}</td>
+                    {{--                    <td>{{ $package->active }}</td>--}}
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['admin.packages.destroy', $package->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

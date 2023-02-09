@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use App\Traits\CanSubscribeToPackage;
+use App\Traits\CanPurchasePackage;
 use App\Traits\HasReferral;
 use App\Traits\HasVoucherPoint;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Customer extends Authenticatable
 //implements MustVerifyEmail, MustVerifyPhone
 {
 //    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, MustVerifyPhoneTrait, HasTwoFactorGuard, HasReferral;
-    use HasFactory, SoftDeletes, HasReferral, HasVoucherPoint, CanSubscribeToPackage;
+    use HasFactory, SoftDeletes, HasReferral, HasVoucherPoint, CanPurchasePackage, Notifiable;
 
     /**
      * The attributes that are mass assignable.

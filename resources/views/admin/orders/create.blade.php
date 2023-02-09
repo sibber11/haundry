@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Orders
+                        Create Orders
                     </h1>
                 </div>
             </div>
@@ -23,13 +23,10 @@
 
             <div class="card-body">
 
-                <div class="row">
-                    @include('admin.orders.fields')
-
-                </div>
-{{--                <div class="row adder">--}}
-{{--                    @include('admin.laundries.fields')--}}
-{{--                </div>--}}
+                @include('admin.orders.fields')
+                {{--                <div class="row adder">--}}
+                {{--                    @include('admin.laundries.fields')--}}
+                {{--                </div>--}}
 
             </div>
 

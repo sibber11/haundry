@@ -4,38 +4,44 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h1>Incomes for year 2022</h1>
                 </div>
-                <div class="col-sm-6">
-                    {{--                    <form>--}}
-                    {{--                        <div class="input-group mb-3">--}}
-                    {{--                            <div class="input-group-prepend">--}}
-                    {{--                                <span class="input-group-text">month</span>--}}
-                    {{--                            </div>--}}
-                    {{--                            <select name="month" id="" class="form-control d-inline">--}}
-                    {{--                                <option selected value="2022">2022</option>--}}
-                    {{--                            </select>--}}
-                    {{--                            <select id='month-select' class="form-control d-inline" name="month">--}}
-                    {{--                                <option value=''>--Select Month--</option>--}}
-                    {{--                                <option value='1'>January</option>--}}
-                    {{--                                <option value='2'>February</option>--}}
-                    {{--                                <option value='3'>March</option>--}}
-                    {{--                                <option value='4'>April</option>--}}
-                    {{--                                <option value='5'>May</option>--}}
-                    {{--                                <option value='6'>June</option>--}}
-                    {{--                                <option value='7'>July</option>--}}
-                    {{--                                <option value='8'>August</option>--}}
-                    {{--                                <option value='9'>September</option>--}}
-                    {{--                                <option value='10'>October</option>--}}
-                    {{--                                <option value='11'>November</option>--}}
-                    {{--                                <option value='12'>December</option>--}}
-                    {{--                            </select>--}}
-                    {{--                            <div class="input-group-append">--}}
-                    {{--                                <button class="btn btn-default d-inline">Filter</button>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </form>--}}
+                <div class="col-sm-8">
+                    <form>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Year</span>
+                            </div>
+                            @php
+                                $years = \App\Models\Order::selectRaw('distinct year(updated_at) as year')->get();
+                                $months= \App\Models\Order::selectRaw('distinct month(updated_at) as month')->get();
+//                                dd($years);
+
+                            @endphp
+                            <select name="year" id="year-select" class="form-control d-inline">
+                                <option value=''>--Select Year--</option>
+                                @foreach($years as $year)
+                                    <option
+                                        @if(request()->input('year') == $year->year) selected
+                                        @endif value="{{$year->year}}">{{$year->year}}</option>
+                                @endforeach
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Month</span>
+                            </div>
+                            <select id='month-select' class="form-control d-inline" name="month">
+                                <option value=''>--Select Month--</option>
+                                @foreach($months as $month)
+                                    <option @if(request()->input('month') == $month->month) selected
+                                            @endif value="{{$month->month}}">{{DateTime::createFromFormat('!m', $month->month)->format('F')}}</option>
+                                @endforeach
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary d-inline">Filter</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
     use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -45,7 +45,13 @@ class AuthTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $response = $this->post(route('register'), [
-            'name' => 's', 'email' => 's@g.c', 'password' => 'password', 'password_confirmation' => 'password', 'phone' => '01815979207'
+            'name' => 's',
+            'email' => 's@g.c',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'phone' => '01815979207',
+            'address' => 'Narayankul, Pubail, Gazipur',
+            'terms' => 'true'
         ]);
         $response->assertRedirect();
         $this->assertTrue(\Auth::check());

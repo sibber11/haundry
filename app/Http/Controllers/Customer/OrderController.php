@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Events\OrderPlaced;
 use App\Helper\DateSolver;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CreateOrderRequest;
@@ -30,6 +31,9 @@ class OrderController extends Controller
         DB::beginTransaction();
         auth()->user()->orders()->save($order);
         $order->add_items($input['items']);
+        if ($request->has('use_point')) {
+            $order->use_point();
+        }
         if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
             if ($order->apply_voucher($request->input('voucher_code'))) {
                 DB::commit();
@@ -41,6 +45,8 @@ class OrderController extends Controller
         } else {
             DB::commit();
         }
+        OrderPlaced::dispatch($order);
+        Flash::success($order->toJson());
         Flash::success('Order saved successfully.');
         return redirect()->route('orders.index')->with('status', "Your Order has been Placed.");
     }

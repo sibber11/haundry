@@ -1,53 +1,61 @@
 <template>
-    <!-- Customer Name Field -->
-    <div class="form-group col-sm-6">
-        <label for="customer_id">Customer Name:</label>
-        <Select2 id="customer_id" :settings="option_customer" name="customer_id" required="required"></Select2>
+    <div class="row">
+        <!-- Customer Name Field -->
+        <div class="form-group col-sm-6">
+            <label for="customer_id">Customer Name:</label>
+            <Select2 id="customer_id" :settings="option_customer" name="customer_id" required="required"></Select2>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="voucher_code">Voucher Code:</label>
+            <input id="voucher_code" class="form-control" name="voucher_code" type="text">
+        </div>
     </div>
-    <div class="form-group col-sm-6">
-        <label for="voucher_code">Voucher Code:</label>
-        <input id="voucher_code" class="form-control" name="voucher_code" type="text">
+    <div class="row">
+        <!-- Deadline Field -->
+        <div class="form-group col-sm-3">
+            <label for="deadline-date">Delivery Date:</label>
+            <input id="deadline-date" class="form-control" name="deadline_date" type="date">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="deadline-time">Delivery Time:</label>
+            <input id="deadline-time" class="form-control" name="deadline_time" type="time" value="17:00">
+        </div>
+        <!-- Deadline Field -->
+        <div class="form-group col-sm-3">
+            <label for="pickup-date">Pickup Date:</label>
+            <input id="pickup-date" class="form-control" name="pickup_date" type="date">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="pickup-time">Pickup Time:</label>
+            <input id="pickup-time" class="form-control" name="pickup_time" type="time" value="17:00">
+        </div>
     </div>
-    <!-- Deadline Field -->
-    <div class="form-group col-sm-3">
-        <label for="deadline-date">Delivery Date:</label>
-        <input class="form-control" id="deadline-date" name="deadline_date" type="date">
-    </div>
-    <div class="form-group col-sm-3">
-        <label for="deadline-time">Delivery Time:</label>
-        <input class="form-control" id="deadline-time" name="deadline_time" type="time" value="17:00">
-    </div>
-    <!-- Deadline Field -->
-    <div class="form-group col-sm-3">
-        <label for="pickup-date">Pickup Date:</label>
-        <input id="pickup-date" class="form-control" name="pickup_date" type="date">
-    </div>
-    <div class="form-group col-sm-3">
-        <label for="pickup-time">Pickup Time:</label>
-        <input id="pickup-time" class="form-control" name="pickup_time" type="time" value="17:00">
-    </div>
-    <div class="form-group col-sm-12"></div><!-- Laundry Type Id Field -->
-    <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
-        <Select2 id="laundry_type_id" v-model="input.laundry_type" :options="categories"
-                 :settings="{theme:'bootstrap4'}"
-                 @select="laundry_selected($event)"></Select2>
-    </div>
-    <!-- Service Type Field -->
-    <div class="form-group col-sm-4">
-        <label for="service_type">Service Type (Price):</label>
-        <select class="form-control" id="service_type" :disabled="input.type === ''"
-                v-model="input.service">
-            <option disabled value="">Select Service...</option>
-            <option :value="item" v-for="item in input.type.services">{{ item.name }}({{ item.pivot.price }})</option>
-        </select>
-    </div><!-- Amount Field -->
-    <div class="form-group col-sm-3">
-        <label for="amount">Amount</label>
-        <input class="form-control" id="amount" v-model="input.amount" type="number" min="0">
-    </div>
-    <div class="form-group col-sm-1">
-        <label for="">Action</label>
-        <button id="add" class="btn btn-success" type="button" @click="add_to_cart">Add</button>
+    <div class="row">
+        <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
+            <Select2 id="laundry_type_id" v-model="input.laundry_type" :options="categories"
+                     :settings="{theme:'bootstrap4'}"
+                     @select="laundry_selected($event)"></Select2>
+        </div>
+        <!-- Service Type Field -->
+        <div class="form-group col-sm-4">
+            <label for="service_type">Service Type (Price):</label>
+            <select id="service_type" v-model="input.service" :disabled="input.type === ''"
+                    class="form-control">
+                <option disabled value="">Select Service...</option>
+                <option v-for="item in input.type.services" :value="item">{{ item.name }}({{
+                        item.pivot.price
+                    }})
+                </option>
+            </select>
+        </div><!-- Amount Field -->
+        <div class="form-group col-sm-3">
+            <label for="amount">Amount</label>
+            <input id="amount" v-model="input.amount" class="form-control" min="0" type="number">
+        </div>
+        <div class="form-group col-sm-1">
+            <label for="add">Action</label><br>
+            <button id="add" class="btn btn-success w-100" type="button" @click="add_to_cart">Add</button>
+        </div>
     </div>
     <table v-show="total > 0" class="table table-striped">
         <thead class="">

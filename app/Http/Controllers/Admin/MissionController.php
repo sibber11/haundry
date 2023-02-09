@@ -7,6 +7,7 @@ use App\Http\Requests\CreateMissionRequest;
 use App\Http\Requests\UpdateMissionRequest;
 use App\Models\Mission;
 use App\Models\Order;
+use App\Models\User;
 use Flash;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class MissionController extends AppBaseController
     public function index(Request $request)
     {
         /** @var  Mission $missions */
-        $missions = Mission::paginate(10);
+        $missions = Mission::with('user')->paginate(10);
 
         return view('admin.missions.index')
             ->with('missions', $missions);
@@ -40,11 +41,14 @@ class MissionController extends AppBaseController
     {
         $input = $request->all();
 
+        $user = User::find($request->input('user_id'));
         /** @var  Mission $mission */
+        if ($user->missions()->incomplete()->count() > 0) {
+            Flash::error('Mission Cannot Be Created! Mission Exists for the user (' . $user->name . ')');
+            return redirect()->route('admin.missions.index');
+        }
         $mission = Mission::create($input);
-
         Flash::success('Mission saved successfully.');
-
         return redirect(route('admin.missions.index'));
     }
 
@@ -147,14 +151,15 @@ class MissionController extends AppBaseController
         }
         $orders = $request->input('order_id');
         $mission->assign_orders($orders);
-        return redirect()->route('admin.missions.show', $mission);
+        return back();
     }
 
     public function start()
     {
         $mission = auth()->user()->mission;
         $mission->start();
-        return redirect()->route('admin.missions.show', $mission);
+        Flash::success('Mission started');
+        return back();
     }
 
     public function end()
@@ -162,7 +167,8 @@ class MissionController extends AppBaseController
         /** @var Mission $mission */
         $mission = auth()->user()->mission;
         $mission->complete();
-        return redirect()->route('admin.missions.show', $mission);
+        Flash::success('Mission ended');
+        return back();
     }
 
     public function complete_one(Request $request)
@@ -174,18 +180,18 @@ class MissionController extends AppBaseController
         $mission = auth()->user()->mission;
         if (!$mission->running) {
             Flash::error('Mission not started yet.');
-            return redirect(route('admin.missions.show', $mission));
+            return back();
         }
         /** @var Order $order */
         $order = $mission->orders()->find($input['order_id']);
         if (empty($order)) {
             Flash::error('Order not found');
-            return redirect(route('admin.missions.show', $mission));
+            return back();
         }
         $order->update_status();
         $order->update([
             'paid' => true
         ]);
-        return redirect(route('admin.missions.show', $mission));
+        return back();
     }
 }

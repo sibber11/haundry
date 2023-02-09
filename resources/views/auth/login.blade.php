@@ -16,7 +16,7 @@
           integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet">
 
 </head>
 
@@ -31,7 +31,7 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
             {{--                @dd(request()->routeIs('admin.login'))--}}
-            <form method="post" action="{{ request()->routeIs('admin.login')? url('admin/login'):url('login') }}">
+            <form method="post" action="{{ route('admin.login') }}">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -51,7 +51,7 @@
                            class="form-control @error('password') is-invalid @enderror">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-eye" type="button" onclick="togglePassword()"
+                            <span class="fas fa-eye" onclick="togglePassword()"
                                   title="Show Password"></span>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
 </div>
 <!-- /.login-box -->
 
-<script src="{{ mix('js/app.js') }}"></script>
+{{--<script src="{{ mix('admin/js/app.js') }}"></script>--}}
 <script>
     function togglePassword() {
         var x = document.getElementById("password");

@@ -12,10 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .js('resources/js/app.js', 'public/js')
+    .js('resources/js/admin/app.js', 'public/admin/js')
+    .js('resources/js/customer/app.js', 'public/customer/js')
+    .js('resources/js/firebase-messaging-sw.js', 'public')
     .vue()
+    .css('resources/css/admin/app.css', 'public/admin/css')
+    .postCss("resources/css/customer/app.css", 'public/customer/css', [require('tailwindcss')])
     .browserSync('haundry.test')
-    .css('resources/css/app.css', 'public/css')
-    // .css('resources/css/style.css', 'public/css')
-    .postCss("resources/css/style.css", 'public/css', [require('tailwindcss'),])
-// .sass('resources/sass/app.scss', 'public/css');
+    .disableSuccessNotifications()

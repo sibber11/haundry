@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFeedbackRequest;
 use App\Models\Feedback;
 use Flash;
+use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
@@ -28,34 +28,25 @@ class FeedbackController extends Controller
      * @param \App\Http\Requests\StoreFeedbackRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFeedbackRequest $request)
+    public function update($id, Request $request)
     {
-        $input = $request->all();
-        $feedback = Feedback::create($input);
-        Flash::success('Feedback saved successfully.');
-
-        return redirect(route('home'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Feedback $feedback
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        /** @var  Feedback $feedback */
+        /** @var  Feedback $Feedback */
         $feedback = Feedback::find($id);
-
+//        dd($request->all());
         if (empty($feedback)) {
-            \Laracasts\Flash\Flash::error('Feedback not found');
+            Flash::error('Feedback not found');
 
-            return redirect(route('admin.feedback.index'));
+            return redirect(route('admin.feedbacks.index'));
         }
+        if ($request->has('toggle')) {
+            $feedback->show = !$feedback->show;
+            $feedback->save();
+        }
+        Flash::success('Feedback visibility toggled successfully.');
 
-        return view('admin.feedback.show')->with('feedback', $feedback);
+        return redirect(route('admin.feedbacks.index'));
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -69,7 +60,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::find($id);
 
         if (empty($feedback)) {
-            \Laracasts\Flash\Flash::error('Feedback not found');
+            Flash::error('Feedback not found');
 
             return redirect(route('admin.feedbacks.index'));
         }

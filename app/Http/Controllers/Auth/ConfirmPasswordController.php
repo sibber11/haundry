@@ -26,7 +26,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::CUSTOMER_HOME;
 
     /**
      * Create a new controller instance.
@@ -36,5 +36,10 @@ class ConfirmPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function showConfirmForm()
+    {
+        return view('customer.auth.passwords.confirm');
     }
 }

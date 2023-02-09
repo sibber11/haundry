@@ -29,6 +29,6 @@ class LaundryTypeSeeder extends Seeder
                 ]);
             }
         }*/
-        LaundryType::factory()->count(20)->create();
+        LaundryType::factory()->count(1)->create();
     }
 }

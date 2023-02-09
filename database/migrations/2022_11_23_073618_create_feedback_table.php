@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email');
             $table->longText('feedback');
+            $table->boolean('show');
             $table->timestamps();
         });
     }

@@ -27,7 +27,7 @@ class PhoneValidator implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return self::validate($value);
+        return self::validate($attribute, $value);
     }
 
     /**

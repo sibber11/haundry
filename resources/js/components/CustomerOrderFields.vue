@@ -1,23 +1,6 @@
 <template>
     <div class="sm:flex items-center gap-4">
         <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="voucher-code">
-                Voucher
-                <span v-if="voucher_msg" :class="{'bg-green-500':voucher_model.id, 'bg-red-500':!voucher_model.id}"
-                      class="text-xs rounded p-1">
-                    {{ voucher_msg }}
-                </span>
-            </label>
-            <input
-                id="voucher-code"
-                v-model="voucher"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="voucher_code" type="text" @input="check_voucher_availability">
-        </div>
-
-    </div>
-    <div class="sm:flex items-center gap-4">
-        <div class="w-full flex flex-col mt-2">
             <label class="font-semibold leading-none" for="pickup-date">
                 Pickup Date:
             </label>
@@ -54,7 +37,7 @@
                 name="deadline_time" type="time" value="17:00">
         </div>
     </div>
-    <div class="md:flex items-center gap-4">
+    <div class="sm:flex items-center gap-4">
         <div class="w-full flex flex-col mt-2">
             <label class="font-semibold leading-none" for="laundry_type_id">Laundry Type:</label>
             <select
@@ -98,7 +81,35 @@
             </button>
         </div>
     </div>
-    <table v-show="total > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
+    <div class="sm:flex items-center gap-4">
+        <div class="w-full flex flex-col mt-2">
+            <label class="font-semibold leading-none" for="voucher-code">
+                Voucher
+                <span v-if="voucher_msg" :class="{'bg-green-500':voucher_model.id, 'bg-red-500':!voucher_model.id}"
+                      class="text-xs rounded p-1 text-white ">
+                    {{ voucher_msg }}
+                </span>
+            </label>
+            <input
+                id="voucher-code"
+                v-model="voucher"
+                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                name="voucher_code" type="text" @input="check_voucher_availability">
+        </div>
+        <div class="flex w-full mt-2 self-end sm:mb-2">
+            <input id="use_point" v-model="use_point" class="w-4 h-4"
+                   name="use_point" type="checkbox">
+            <div class="ml-2">
+                <label class="font-semibold leading-none" for="use_point">
+                    Use Point
+                </label>
+                <p id="helper-checkbox-text" class="text-sm font-normal">
+                    You can use upto {{ point.total }} point as credit.
+                </p>
+            </div>
+        </div>
+    </div>
+    <table v-show="subtotal > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
         <thead class="bg-gray-50">
         <tr>
             <th class="sm:px-6 py-2 text-s text-gray-500">Laundry Type</th>
@@ -138,6 +149,10 @@
             <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Voucher</th>
             <th class="sm:px-6 py-2 text-s text-gray-500">-{{ voucher_model.discount }}</th>
         </tr>
+        <tr v-if="use_point">
+            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Point</th>
+            <th class="sm:px-6 py-2 text-s text-gray-500">-{{ usable_point }}</th>
+        </tr>
         <tr>
             <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Total</th>
             <th class="sm:px-6 py-2 text-s text-gray-500">{{ total }}</th>
@@ -147,7 +162,7 @@
 </template>
 <script>
 export default {
-    props: ['model', 'categories', 'initialCart', 'customers'],
+    props: ['categories', 'point'],
     data() {
         return {
             cart: [],
@@ -159,6 +174,7 @@ export default {
             voucher: '',
             voucher_msg: '',
             voucher_model: {},
+            use_point: false,
         }
     },
     computed: {
@@ -171,11 +187,18 @@ export default {
             return total;
         },
         total() {
+            let temp_total = this.subtotal;
             if (this.voucher_model && this.subtotal > this.voucher_model.minimum) {
-                return this.subtotal - this.voucher_model.discount;
-            } else
-                return this.subtotal;
+                temp_total -= this.voucher_model.discount;
+            }
+            if (this.use_point) {
+                temp_total -= this.usable_point
+            }
+            return temp_total;
 
+        },
+        usable_point() {
+            return Math.min(this.subtotal, this.point.total);
         }
     },
     mounted() {

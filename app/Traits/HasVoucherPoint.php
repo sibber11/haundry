@@ -45,13 +45,14 @@ trait HasVoucherPoint
         }
     }
 
-    public function add_point(int $amount): void
+    public function add_point(int $amount)
     {
         $this->point->logs()->save(new Log([
             'content' => 'something'
         ]), ['amount' => $amount]);
         $this->point->total = $this->point->total + $amount;
         $this->point->save();
+        return $amount . ' point ' . 'added to the account of ' . $this->name;
     }
 
     public function point()

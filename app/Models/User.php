@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
         'name',
         'email',
         'phone',
-        'password',
+        'fcm_token'
     ];
 
     /**
@@ -55,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail, MustVerifyPhone
 
     public function mission()
     {
-        return $this->hasOne(Mission::class)->whereIn('status',['pending','running']);
+        return $this->hasOne(Mission::class)->whereIn('status', ['pending', 'running']);
     }
 
     public function missions()

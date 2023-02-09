@@ -10,9 +10,12 @@
         <a @class(['block' => $flex, 'nav-link']) href="{{route('orders.index')}}">Orders</a>
     </li>
     <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('voucher')])>
-        <a @class(['block' => $flex, 'nav-link']) href="{{route('voucher')}}">Vouchers</a>
+        <a @class(['block' => $flex, 'nav-link']) href="{{route('voucher')}}">Vouchers & Points</a>
     </li>
     <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('referview')])>
         <a @class(['block' => $flex, 'nav-link']) href="{{route('referview')}}">Refer</a>
+    </li>
+    <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('pacakges')])>
+        <a @class(['block' => $flex, 'nav-link']) href="{{route('packages')}}">Packages</a>
     </li>
 </ul>

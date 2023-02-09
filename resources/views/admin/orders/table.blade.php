@@ -28,7 +28,9 @@
                                    class="order-selector">
                         </th>
                     @endif
-                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->id }} @if($order->status == 'placed')
+                            <span class="text-sm px-1 rounded bg-primary">new</span>
+                        @endif </td>
                     <td>{{ $order->customer->name }}</td>
                     <td>{{ $order->status }}</td>
                     @if(Request::routeIs('admin.orders.index'))

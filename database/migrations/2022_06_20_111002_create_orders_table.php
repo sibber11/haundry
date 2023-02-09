@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->date('due_date')->nullable();
             $table->integer('sub_total');
             $table->foreignIdFor(\App\Models\Voucher::class)->nullable();
+            $table->integer('point_used')->nullable();
             $table->integer('total');
             $table->dateTime('deadline');
             $table->dateTime('pickup');

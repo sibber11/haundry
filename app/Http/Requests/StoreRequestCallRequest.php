@@ -24,8 +24,8 @@ class StoreRequestCallRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'phone' => 'required|string',
+            'name' => 'required|string|max:100',
+            'phone' => 'required|phone',
         ];
     }
 }

@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
 
-                    <a class="btn btn-default float-right"
+                    <a class="btn btn-default float-right ml-2"
                        href="{{ route('admin.missions.index') }}">
                         @lang('crud.back')
                     </a>
@@ -32,6 +32,7 @@
     </section>
 
     <div class="content px-3">
+        @include('flash::message')
         <div class="card">
             <div class="card-body">
                 <div class="row">
