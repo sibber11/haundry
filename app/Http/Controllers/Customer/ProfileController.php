@@ -30,6 +30,22 @@ class ProfileController extends Controller
         return redirect()->route('profile')->with('status', 'saved');
     }
 
+    public function edit_address()
+    {
+        return view('customer.address', ['address' => \Auth::user()->address]);
+    }
+
+    public function update_address(Request $request)
+    {
+        $request->validate([
+            'address' => 'required|string|max:255'
+        ]);
+        $user = \Auth::user();
+        $user->address = $request->input('address');
+        $user->save();
+        return redirect($request->has('redirect') ? route('review_order') : route('profile'));
+    }
+
     public function voucher()
     {
         return view('customer.voucher');

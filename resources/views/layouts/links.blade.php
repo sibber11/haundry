@@ -6,7 +6,10 @@
     <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('profile')])>
         <a @class(['block' => $flex, 'nav-link']) href="{{route('profile')}}">Profile</a>
     </li>
-    <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('orders.index')])>
+    <li @class(['nav-item my-1', 'active' => Request::routeIs('address.edit')])>
+        <a @class(['block' => $flex, 'nav-link']) href="{{route('address.edit')}}">Address</a>
+    </li>
+    <li @class(['nav-item my-1', 'active' => Request::routeIs('orders.index')])>
         <a @class(['block' => $flex, 'nav-link']) href="{{route('orders.index')}}">Orders</a>
     </li>
     <li @class(['nav-item my-1 border-2', 'active' => Request::routeIs('voucher')])>
