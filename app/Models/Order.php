@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +9,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Order extends Model
 {
     use HasFactory;
+
+    public static $rules = [
+        'deadline_date' => 'required|date',
+        'deadline_time' => 'required|date_format:H:i',
+        'pickup_date' => 'required|date',
+        'pickup_time' => 'required|date_format:H:i',
+        'items' => 'required|array',
+        'voucher_code' => 'nullable|string'
+    ];
+
+    static array $status = [
+        'placed',
+        'confirmed',
+        'onpickup',
+        'picked',
+        'onoperation',
+        'operated',
+        'ondelivery',
+        'delivered',
+    ];
 
     public $table = 'orders';
 
@@ -24,31 +43,12 @@ class Order extends Model
         'pickup' => 'datetime'
     ];
 
-    public static $rules = [
-        'deadline_date' => 'required|date',
-        'deadline_time' => 'required|date_format:H:i',
-        'pickup_date' => 'required|date',
-        'pickup_time' => 'required|date_format:H:i',
-        'items' => 'required|array',
-        'voucher_code' => 'nullable|string'
-    ];
     protected $attributes = [
         'total' => 0,
         'sub_total' => 0,
         'status' => 'placed',
         'paid' => false,
         'due_date' => null,
-    ];
-
-    static array $status = [
-        'placed',
-        'confirmed',
-        'onpickup',
-        'picked',
-        'onoperation',
-        'operated',
-        'ondelivery',
-        'delivered',
     ];
 
     public function scopeRequiresPickup($query)
@@ -86,18 +86,6 @@ class Order extends Model
         $query->whereIn('status', ['delivered', 'completed']);
     }
 
-
-    public function change_status(string|int $status)
-    {
-        if (is_integer($status)) {
-            $status = $this->status[$status];
-        }
-        if ($this->status == $status)
-            return;
-        $this->status = $status;
-        $this->save();
-    }
-
     public function update_status()
     {
         switch ($this->status) {
@@ -127,6 +115,17 @@ class Order extends Model
         }
     }
 
+    public function change_status(string|int $status)
+    {
+        if (is_integer($status)) {
+            $status = $this->status[$status];
+        }
+        if ($this->status == $status)
+            return;
+        $this->status = $status;
+        $this->save();
+    }
+
     public function rollback_status()
     {
         switch ($this->status) {
@@ -140,6 +139,36 @@ class Order extends Model
                 $this->change_status('operated');
                 break;
         }
+    }
+
+    public function add_items(array $input): bool
+    {
+        //todo: add price to the order
+
+        //fetch all laundry types from the database that matches the ids in the input
+        $laundry_types = LaundryType::findMany(array_column($input, 'id'));
+        $laundries = [];
+        $services = Service::all();
+        foreach ($input as $laundry) {
+            try {
+                $laundries[] = Laundry::make([
+                    'laundry_type_id' => $laundry_types->find($laundry['id'])->id,
+                    'service_id' => $services->find($laundry['service_id'])->id,
+                    'amount' => $laundry['amount']
+                ]);
+            } catch (\Exception $e) {
+                dump($e->getMessage());
+                return false;
+            }
+        }
+        $this->laundries()->saveMany($laundries);
+        $this->calc_sub_total();
+        return true;
+    }
+
+    public function laundries()
+    {
+        return $this->hasMany(Laundry::class);
     }
 
     public function calc_sub_total()
@@ -156,15 +185,6 @@ class Order extends Model
         $this->sub_total = $sub_total;
         $this->total = $total;
         $this->save();
-    }
-
-    public function add_items(array $input): void
-    {
-        foreach ($input as $laundry) {
-            $laundries[] = Laundry::make($laundry);
-        }
-        $this->laundries()->saveMany($laundries);
-        $this->calc_sub_total();
     }
 
     public function add_item(LaundryType $laundryType, Service|int $service, int $amount): void
@@ -208,35 +228,6 @@ class Order extends Model
         return true;
     }
 
-    public function use_point()
-    {
-        $user_point = auth()->user()->point;
-        if ($user_point->total <= 0)
-            return;
-        $usable_point = min($user_point->total, $this->total);
-        $user_point->total -= $usable_point;
-        $this->total -= $usable_point;
-        $this->point_used = $usable_point;
-        $user_point->save();
-        $this->save();
-//        dump($usable_point, $user_point->total, $this->total);
-    }
-
-    public function laundries()
-    {
-        return $this->hasMany(Laundry::class);
-    }
-
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function missions()
-    {
-        return $this->belongsToMany(Mission::class);
-    }
-
     public function applied_voucher()
     {
         return $this->belongsTo(Voucher::class, 'voucher_id');
@@ -256,5 +247,29 @@ class Order extends Model
                 return min([$discount, $voucher->maximum]);
         } else
             return $voucher->discount;
+    }
+
+    public function use_point()
+    {
+        $user_point = auth()->user()->point;
+        if ($user_point->total <= 0)
+            return;
+        $usable_point = min($user_point->total, $this->total);
+        $user_point->total -= $usable_point;
+        $this->total -= $usable_point;
+        $this->point_used = $usable_point;
+        $user_point->save();
+        $this->save();
+//        dump($usable_point, $user_point->total, $this->total);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function missions()
+    {
+        return $this->belongsToMany(Mission::class);
     }
 }

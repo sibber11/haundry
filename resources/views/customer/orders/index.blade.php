@@ -10,9 +10,9 @@
         </div>
     @endif
     <div class="sm:mr-3">
-        <h3 class="font-bold text-lg p-2 mb-4">Orders</h3>
+        <h3 class="font-bold text-2xl p-2 mb-2">Orders</h3>
         <table class="divide-y divide-gray-300 w-full text-sm sm:text-base">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-100">
             <tr>
                 <th class="sm:px-6 py-2 text-s text-gray-500">
                     #ID
@@ -21,7 +21,7 @@
                     Total
                 </th>
                 <th class="sm:px-6 py-2 text-s text-gray-500">
-                    Date
+                    Issue Date
                 </th>
                 <th class="sm:px-6 py-2 text-s text-gray-500">
                     Status
@@ -30,9 +30,13 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-300">
             @foreach($orders as $order)
-                <tr>
-                    <td class="sm:px-6 py-4 text-center">{{$order->id}}</td>
-                    <td class="sm:px-6 py-4 text-center">{{$order->total}}</td>
+                <tr class="even:bg-gray-50">
+                    <td class="sm:px-6 py-4 text-center">
+                        <a href="{{route('orders.show', $order)}}" class="underline font-bold">
+                            {{$order->id}}
+                        </a>
+                    </td>
+                    <td class="sm:px-6 py-4 text-center">${{$order->total}}</td>
                     <td class="sm:px-6 py-4 text-center">{{$order->created_at}}</td>
                     <td class="sm:px-6 py-4 text-center">
                             <span>

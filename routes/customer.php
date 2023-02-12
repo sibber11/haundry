@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::resource('orders', \App\Http\Controllers\Customer\OrderController::class);
+Route::post('save_cart', [\App\Http\Controllers\Customer\OrderController::class, 'save_cart'])->name('save_cart');
+Route::get('review_order', [\App\Http\Controllers\Customer\OrderController::class, 'review_order'])->name('review_order');
 Route::post('send_invitation', [\App\Http\Controllers\Customer\ReferController::class, 'send_refer'])->name('send_invitation');
 
 Route::get('profile', [\App\Http\Controllers\Customer\ProfileController::class, 'index'])->name('profile');

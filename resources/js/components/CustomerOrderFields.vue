@@ -1,250 +1,181 @@
+<script setup>
+import {computed, ref} from 'vue'
+import axios from 'axios'
+import Alert from "@/components/Alert.vue";
+
+const props = defineProps({
+    services: {
+        type: Object,
+        required: true
+    },
+    route: {
+        type: String,
+        required: true
+    },
+    cart: {
+        type: Object
+    }
+})
+
+const selected = ref(props.services[0]); // selected service
+const cart = ref(props.cart ?? []); // cart items
+//add the item to cart if it is not already in the cart else increase the amount
+const addToCart = (item) => {
+    const index = cart.value.findIndex((cartItem) => cartItem.id === item.id && cartItem.service_id === selected.value.id);
+    if (index === -1) {
+        cart.value.push({
+            id: item.id,
+            name: item.name,
+            amount: 1,
+            service: selected.value.name,
+            service_id: selected.value.id,
+            price: getPrice(item)
+        });
+    } else {
+        cart.value[index].amount++;
+    }
+}
+//remove the item from the cart if amount is 1 else decrease the amount
+
+const removeFromCart = (item) => {
+    const index = cart.value.findIndex((cartItem) => cartItem.id === item.id);
+    if (cart.value[index].amount === 1) {
+        cart.value.splice(index, 1);
+    } else {
+        cart.value[index].amount--;
+    }
+}
+
+// returns the amount of the item in the cart
+const getQuantity = (item) => {
+    const index = cart.value.findIndex((cartItem) => cartItem.id === item.id && cartItem.service === selected.value.name);
+    if (index === -1) {
+        return 0;
+    } else {
+        return cart.value[index].amount;
+    }
+}
+
+const getPrice = (item) => {
+    const index = item.services.findIndex((service) => service.id === selected.value.id);
+    return item.services[index].pivot.price;
+}
+
+const getTotal = () => {
+    return cart.value.reduce((total, item) => total + item.amount * item.price, 0)
+}
+
+function submit() {
+    axios.post(props.route, {
+        cart: cart.value
+    }).then((response) => {
+        if (response.data.status === 'success')
+            location.href = response.data.redirect;
+        else
+            hasAlert.value = true;
+        //else show error to user using popup
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+function getCount(service) {
+    return cart.value.reduce((carry, cartItem) => {
+        if (cartItem.service_id === service.id) {
+            return carry + cartItem.amount;
+        } else {
+            return carry;
+        }
+    }, 0)
+}
+
+const keyword = ref('');
+const list = computed(() => {
+    return selected.value.laundry_type.filter(laundry => laundry.name.toLowerCase().match(keyword.value.toLowerCase()))
+})
+
+const hasAlert = ref(false);
+</script>
+
 <template>
-    <div class="sm:flex items-center gap-4">
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="pickup-date">
-                Pickup Date:
-            </label>
-            <input
-                id="pickup-date"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="pickup_date" type="date">
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="pickup-time">
-                Pickup Time:
-            </label>
-            <input
-                id="pickup-time"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="pickup_time" type="time" value="17:00">
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="deadline-date">
-                Delivery Date:
-            </label>
-            <input
-                id="deadline-date"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="deadline_date" type="date">
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="deadline-time">
-                Delivery Time:
-            </label>
-            <input
-                id="deadline-time"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="deadline_time" type="time" value="17:00">
-        </div>
+    <!--    {{ cart }}-->
+    <Alert v-if="hasAlert" class="mt-4" message="Your cart is empty!" type="warning" @close="hasAlert = false"></Alert>
+    <div class="flex justify-between items-center mr-4">
+        <h1 class="text-2xl font-bold my-4">Add Items To Cart</h1>
+        <span>
+            <span>Search: </span>
+            <input v-model="keyword"
+                   class="p-1 rounded px-2 shadow-sm"
+                   type="text">
+            <button
+                class="py-1 px-2 bg-white rounded m-1 mr-0 font-bold hover:bg-gray-300 shadow-sm"
+                type="button"
+                @click="keyword = ''"
+            >
+                Reset
+            </button>
+        </span>
     </div>
-    <div class="sm:flex items-center gap-4">
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="laundry_type_id">Laundry Type:</label>
-            <select
-                id="laundry_type"
-                v-model="input.type"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
-                <option disabled value="">Select Type...</option>
-                <optgroup v-for="category in categories" :label="category.name">
-                    <option v-for="laundry in category.laundry_types" :value="laundry">{{ laundry.name }}</option>
-                </optgroup>
-            </select>
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="service_type">Service Type (Price):</label>
-            <select
-                id="service_type"
-                :disabled="input.type === ''"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded disabled:bg-gray-400"
-                v-model="input.service">
-                <option disabled value="">Select Service...</option>
-                <option v-for="item in input.type.services" :value="item">{{ item.name }}({{
-                        item.pivot.price
-                    }})
-                </option>
-            </select>
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="amount">Amount:</label>
-            <input
-                id="amount"
-                v-model="input.amount"
-                class="sm:max-w-[10.5rem] leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                max="100" min="1" type="number">
-        </div>
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="add">Action</label>
-            <button id="add"
-                    class="leading-none text-gray-50 p-4 mt-4 border-0 bg-green-500 rounded"
-                    type="button" @click="add_to_cart">
-                Add to cart
+    <!--    4 buttons with same size-->
+    <div class="flex justify-between mr-4">
+        <button v-for="service in props.services"
+                :class="{'bg-white': selected.id === service.id, 'bg-gray-400': selected.id !== service.id}"
+                class="p-2 rounded w-40 rounded-b-none"
+                type="button" @click="selected = service">
+            {{ service.name }}
+            <span class="bg-purple-700 text-white py-1/2 px-1 rounded">
+                {{ getCount(service) }}
+            </span>
+        </button>
+    </div>
+    <div class="mr-4">
+        <table class="w-full bg-white mr-4">
+            <tr>
+                <th class="border-b">Icon</th>
+                <th class="border-b">Laundry</th>
+                <th class="border-b">Price</th>
+                <th class="border-b">Quantity</th>
+            </tr>
+            <tr v-for="laundry in list" class="odd:bg-blue-100">
+                <td><i :class="'fa-'+laundry.icon" class="fa px-3"></i></td>
+                <td>{{ laundry.name }}</td>
+                <td>{{ getPrice(laundry) }}</td>
+                <td class="text-right">
+                    <button class="p-2 py-1" type="button" @click="removeFromCart(laundry)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span class="px-2">{{ getQuantity(laundry) }}</span>
+                    <button class="p-2 py-1 mr-2" type="button" @click="addToCart(laundry)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="border-t py-3" colspan="3">
+                    <h3 class="font-bold text-md px-4">Total:</h3>
+                </td>
+                <td class="font-bold text-md text-right border-t">
+                    <span class="mr-4">
+                        {{ getTotal() }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="bg-gray-50 p-4 mt-6 rounded shadow mr-4">
+        <div class="flex justify-around items-center w-full space-x-4">
+            <a class="w-full text-center mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+               href="/"
+            >
+                Back
+            </a>
+            <button
+                class="w-full mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+                type="button"
+                @click="submit"
+            >
+                Place Order
             </button>
         </div>
     </div>
-    <div class="sm:flex items-center gap-4">
-        <div class="w-full flex flex-col mt-2">
-            <label class="font-semibold leading-none" for="voucher-code">
-                Voucher
-                <span v-if="voucher_msg" :class="{'bg-green-500':voucher_model.id, 'bg-red-500':!voucher_model.id}"
-                      class="text-xs rounded p-1 text-white ">
-                    {{ voucher_msg }}
-                </span>
-            </label>
-            <input
-                id="voucher-code"
-                v-model="voucher"
-                class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                name="voucher_code" type="text" @input="check_voucher_availability">
-        </div>
-        <div class="flex w-full mt-2 self-end sm:mb-2">
-            <input id="use_point" v-model="use_point" class="w-4 h-4"
-                   name="use_point" type="checkbox">
-            <div class="ml-2">
-                <label class="font-semibold leading-none" for="use_point">
-                    Use Point
-                </label>
-                <p id="helper-checkbox-text" class="text-sm font-normal">
-                    You can use upto {{ point.total }} point as credit.
-                </p>
-            </div>
-        </div>
-    </div>
-    <table v-show="subtotal > 0" class="divide-y divide-gray-300 w-full text-sm sm:text-base mt-4">
-        <thead class="bg-gray-50">
-        <tr>
-            <th class="sm:px-6 py-2 text-s text-gray-500">Laundry Type</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">Service Type</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">Amount</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">Action</th>
-        </tr>
-        </thead>
-        <tbody id="laundries" class="bg-white divide-y divide-gray-300">
-        <tr v-for="(cart_item, index) in cart" :key="index">
-            <td class="sm:px-6 py-4 text-center">
-                <input type="hidden" :name="`items[${index}][laundry_type_id]`" :value="cart_item.type.id">
-                {{ cart_item.type.name }}
-            </td>
-            <td class="sm:px-6 py-4 text-center">
-                <input type="hidden" :name="`items[${index}][service_id]`" :value="cart_item.service.id">
-                {{ cart_item.service.name }} ({{ cart_item.service.pivot.price }})
-            </td>
-            <td class="sm:px-6 py-4 text-center">
-                <input type="hidden" :name="`items[${index}][amount]`" :value="cart_item.amount">
-                {{ cart_item.amount }}
-            </td>
-            <td class="text-right" style="width: 40px">
-                <button class="bg-red-600 text-white py-1 px-2 rounded" type="button"
-                        @click="remove_item_from_cart(index)">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-        <tfoot class="bg-gray-50">
-        <tr>
-            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Subtotal</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">{{ subtotal }}</th>
-        </tr>
-        <tr v-if="voucher_model && subtotal > voucher_model.minimum">
-            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Voucher</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">-{{ voucher_model.discount }}</th>
-        </tr>
-        <tr v-if="use_point">
-            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Point</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">-{{ usable_point }}</th>
-        </tr>
-        <tr>
-            <th class="sm:px-6 py-2 text-s text-gray-500" colspan="3">Total</th>
-            <th class="sm:px-6 py-2 text-s text-gray-500">{{ total }}</th>
-        </tr>
-        </tfoot>
-    </table>
 </template>
-<script>
-export default {
-    props: ['categories', 'point'],
-    data() {
-        return {
-            cart: [],
-            input: {
-                type: '',
-                service: '',
-                amount: 1,
-            },
-            voucher: '',
-            voucher_msg: '',
-            voucher_model: {},
-            use_point: false,
-        }
-    },
-    computed: {
-        subtotal() {
-            let total = 0;
-            for (const cartElement of this.cart) {
-                total += cartElement.service.pivot.price * cartElement.amount;
-                // console.log(cartElement);
-            }
-            return total;
-        },
-        total() {
-            let temp_total = this.subtotal;
-            if (this.voucher_model && this.subtotal > this.voucher_model.minimum) {
-                temp_total -= this.voucher_model.discount;
-            }
-            if (this.use_point) {
-                temp_total -= this.usable_point
-            }
-            return temp_total;
-
-        },
-        usable_point() {
-            return Math.min(this.subtotal, this.point.total);
-        }
-    },
-    mounted() {
-        document.querySelector('#deadline-date').valueAsDate = new Date();
-        document.querySelector('#pickup-date').valueAsDate = new Date();
-    },
-    methods: {
-        add_to_cart() {
-            if (this.input.type === '' || this.input.service === '' || this.input.amount === 0) {
-                return;
-            }
-            let temp_cart = this.cart.find(e => this.input.type === e.type && this.input.service === e.service);
-            if (temp_cart) {
-                temp_cart.amount += this.input.amount;
-            } else {
-                let cart = {
-                    type: this.input.type,
-                    service: this.input.service,
-                    amount: this.input.amount
-                };
-                this.cart.push(cart);
-            }
-            this.input.type = '';
-            this.input.service = '';
-            this.input.amount = 1;
-        },
-        remove_item_from_cart(cart) {
-            this.cart.splice(cart, 1);
-        },
-        check_voucher_availability: _.debounce(function () {
-            axios.post('/check_voucher', {
-                voucher_code: this.voucher
-            })
-                .then(r => {
-                    if (r.data.id) {
-                        this.voucher_msg = 'Valid. Only applicable over ' + r.data.minimum ?? 0 + ' taka';
-                        this.voucher_model = r.data;
-                    } else {
-                        this.voucher_msg = 'Invalid Voucher';
-                    }
-                    console.log(r.data);
-                })
-                .catch(r => {
-                    console.log(r.data);
-                })
-        }, 500)
-    }
-}
-</script>

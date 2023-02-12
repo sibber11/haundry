@@ -30,16 +30,44 @@ class LaundryTypeFactory extends Factory
         return [
             'category_id' => Category::inRandomOrder()->first() ?? Category::factory(),
             'name' => $this->faker->randomElement($this->types),
+            'icon' => 'shirt'
         ];
     }
 
-    public function configure()
+//    public function configure()
+//    {
+//        dump($this->service_added);
+//        if (!$this->service_added) {
+//            return $this->afterCreating(function (LaundryType $laundryType) {
+//                $services = Service::inRandomOrder()->limit(random_int(1, 4))->get();
+//                $service_array = [];
+//                foreach ($services as $service) {
+//                    $service_array[$service->id] = ['price' => random_int(10, 100)];
+//                }
+//                $laundryType->services()->attach($service_array);
+//            });
+//        } else {
+//            return $this;
+//        }
+//    }
+
+    public function price(array $services = [])
     {
-        return $this->afterCreating(function (LaundryType $laundryType) {
+        if (empty($services)) {
             $services = Service::inRandomOrder()->limit(random_int(1, 4))->get();
+        } else {
+            $service_names = collect($services)->reduce(function ($carry, $item) {
+                $carry[] = $item;
+                return $carry;
+            }, []);
+            $services = Service::where('name', 'in', $service_names)->get();
+            dd($service_names, $services);
+        }
+        return $this->afterCreating(function (LaundryType $laundryType) use ($services) {
+
             $service_array = [];
             foreach ($services as $service) {
-                $service_array[$service->id] = ['price' => random_int(10, 100)];
+                $service_array[$service->id] = ['price' => $service['price'] ?? random_int(10, 100)];
             }
             $laundryType->services()->attach($service_array);
         });

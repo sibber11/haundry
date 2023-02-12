@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\LaundryType;
+use Database\Seeders\LaundryTypeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,7 +32,13 @@ class LaundryTypeTest extends TestCase
 
     public function test_laundry_types_has_services()
     {
-        $laundry = LaundryType::factory()->create();
+        $laundry = LaundryType::factory()->price()->create();
         $this->assertGreaterThan(0, $laundry->services()->count());
+    }
+
+    public function test_laundry_can_be_seeded()
+    {
+        $this->seed(LaundryTypeSeeder::class);
+        $this->assertDatabaseCount(LaundryType::class, 28);
     }
 }

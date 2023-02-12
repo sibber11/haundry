@@ -1,15 +1,12 @@
 @extends('layouts.customer')
 @php
-    $categories = \App\Models\Category::with('laundry_types')->get();
-    $customers = \App\Models\Customer::all()->keyBy('id');
+    $services = \App\Models\Service::with('laundry_type')->get();
 @endphp
 @section('content')
     {{--    {{$errors}}--}}
 
-    <form action="{{route('orders.store')}}" method="post" class="m-2">
+    <Customer-Order-Fields :services="{{$services ?? '[]'}}" route="{{route('save_cart')}}"
+                           :cart="{{json_encode(request()->session()->get('cart')) ?? []}}">
         @csrf
-        <Customer-Order-Fields :categories="{{$categories ?? '[]'}}"
-                               :point="{{auth()->user()->point}}"></Customer-Order-Fields>
-        <button class="w-full sm:w-auto leading-none text-gray-50 p-3 mt-4 border-0 bg-macaw-900 rounded">Order</button>
-    </form>
+    </Customer-Order-Fields>
 @endsection

@@ -41,6 +41,38 @@ class OrderController extends AppBaseController
         return $dataTable->render('admin.orders.index');
     }
 
+    /**
+     * Store a newly created Order in storage.
+     */
+    public function store(CreateOrderRequest $request)
+    {
+        $input = $request->validated();
+        /** @var  Order $order */
+        $input['deadline'] = DateSolver::solve($input, 'deadline');
+        $input['pickup'] = DateSolver::solve($input, 'pickup');
+        DB::beginTransaction();
+        $order = Order::create($input);
+        if (!$order->add_items($input['items'])) {
+            DB::rollBack();
+            Flash::success('Invalid items!');
+            return redirect()->route('admin.orders.create')->withInput();
+        }
+
+        if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
+            if (!$order->apply_voucher($request->input('voucher_code'))) {
+                DB::rollBack();
+                Flash::success('Invalid voucher!');
+                return redirect()->route('admin.orders.create')->withInput();
+            }
+        } else {
+            DB::commit();
+        }
+
+
+        Flash::success('Order saved successfully.');
+
+        return redirect(route('admin.orders.index'));
+    }
 
     /**
      * Show the form for creating a new Order.
@@ -63,35 +95,6 @@ class OrderController extends AppBaseController
             return 'Error!';
         }
         return view('admin.orders.create');
-    }
-
-    /**
-     * Store a newly created Order in storage.
-     */
-    public function store(CreateOrderRequest $request)
-    {
-        $input = $request->validated();
-        /** @var  Order $order */
-        $input['deadline'] = DateSolver::solve($input, 'deadline');
-        $input['pickup'] = DateSolver::solve($input, 'pickup');
-        DB::beginTransaction();
-        $order = Order::create($input);
-        $order->add_items($input['items']);
-
-        if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
-            if (!$order->apply_voucher($request->input('voucher_code'))) {
-                DB::rollBack();
-                Flash::success('Invalid voucher!');
-                return redirect()->route('admin.orders.create')->withInput();
-            }
-        } else {
-            DB::commit();
-        }
-
-
-        Flash::success('Order saved successfully.');
-
-        return redirect(route('admin.orders.index'));
     }
 
     /**
