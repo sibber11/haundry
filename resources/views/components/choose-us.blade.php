@@ -4,6 +4,6 @@
         <p class="text-justify">{{$slot}}</p>
     </div>
     <div class="flex items-center">
-        <i class="fas {{ $icon }} fa-4x"></i>
+        <i class="fas {{ $icon }} fa-3x"></i>
     </div>
 </div>

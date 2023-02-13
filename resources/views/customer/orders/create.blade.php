@@ -6,7 +6,9 @@
     {{--    {{$errors}}--}}
 
     <Customer-Order-Fields :services="{{$services ?? '[]'}}" route="{{route('save_cart')}}"
-                           :cart="{{json_encode(request()->session()->get('cart')) ?? []}}">
+                           :cart="{{json_encode(request()->session()->get('cart')) ?? []}}"
+                           class="mx-3"
+    >
         @csrf
     </Customer-Order-Fields>
 @endsection

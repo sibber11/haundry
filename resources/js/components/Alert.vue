@@ -1,6 +1,6 @@
 <template>
 
-    <div :class="alertClass" class="flex p-4 rounded mr-6">
+    <div :class="alertClass" class="flex p-4 rounded">
         <span
             class="hidden bg-green-50 bg-red-50 bg-blue-50 bg-yellow-50 text-green-500 text-red-500 text-blue-500 text-yellow-500">
             test

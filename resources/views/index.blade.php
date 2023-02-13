@@ -45,10 +45,6 @@
             </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-3 my-1.5">
-            <a href="{{route('referview')}}" id="refer"
-               class="text-center text-white p-2 bg-macaw-900 text-2xl shadow sm:leading-loose">
-                <div>Refer a Friend <br>&<br> Get 20% Off First Order.</div>
-            </a>
             <div class="flex flex-col w-full justify-between">
                 <div class="service-name">
                     <h2>Our Services</h2>
@@ -90,3 +86,12 @@
         @include('sections.contact')
     </div>
 @endsection
+{{--
+todo: add a section for the customer to know about the company
+todo: add a functinoal slider
+todo: add cart functionality
+todo: simplify profile page
+todo: disable voucher
+todo: add map coordinates to the address
+
+--}}

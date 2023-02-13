@@ -1,12 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/*@import url('http://fonts.cdnfonts.com/css/poppins');*/
 @layer base {
     html {
         font-family: Poppins, system-ui, sans-serif;
     }
 }
+
 .service {
     @apply rounded-full bg-macaw-100 w-20 h-20 mx-auto
 }
@@ -39,7 +39,7 @@
 }
 
 .active {
-    @apply border-macaw-900 border-2 rounded;
+    @apply text-macaw-900 font-bold underline;
 }
 
 .footer-link {

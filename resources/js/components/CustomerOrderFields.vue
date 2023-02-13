@@ -71,9 +71,13 @@ function submit() {
     }).then((response) => {
         if (response.data.status === 'success')
             location.href = response.data.redirect;
-        else
+        else {
             hasAlert.value = true;
-        //else show error to user using popup
+            //scroll to top
+            window.scrollTo(0, 0);
+        }
+
+
     }).catch((error) => {
         console.log(error);
     })
@@ -98,41 +102,42 @@ const hasAlert = ref(false);
 </script>
 
 <template>
-    <!--    {{ cart }}-->
-    <Alert v-if="hasAlert" class="mt-4" message="Your cart is empty!" type="warning" @close="hasAlert = false"></Alert>
-    <div class="flex justify-between items-center mr-4">
-        <h1 class="text-2xl font-bold my-4">Add Items To Cart</h1>
-        <span>
-            <span>Search: </span>
-            <input v-model="keyword"
-                   class="p-1 rounded px-2 shadow-sm"
-                   type="text">
-            <button
-                class="py-1 px-2 bg-white rounded m-1 mr-0 font-bold hover:bg-gray-300 shadow-sm"
-                type="button"
-                @click="keyword = ''"
-            >
-                Reset
+    <section>
+        <Alert v-if="hasAlert" class="mt-4" message="Your cart is empty!" type="warning"
+               @close="hasAlert = false"></Alert>
+        <div class="flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold my-4">Add Items To Cart</h1>
+            <div class="mb-3 sm:mb-0">
+                <span>Search: </span>
+                <input v-model="keyword"
+                       class="p-1 rounded px-2 shadow-sm"
+                       type="text">
+                <button
+                    class="py-1 px-2 bg-white rounded m-1 mr-0 font-bold hover:bg-gray-300 shadow-sm"
+                    type="button"
+                    @click="keyword = ''"
+                >
+                    Reset
+                </button>
+            </div>
+        </div>
+        <!--    4 buttons with same size-->
+        <div class="flex justify-between">
+            <button v-for="service in props.services"
+                    :class="{'bg-white': selected.id === service.id, 'bg-gray-400': selected.id !== service.id}"
+                    class="p-2 rounded w-40 rounded-b-none relative"
+                    type="button" @click="selected = service">
+                {{ service.name }}
+                <span
+                    class="bg-gray-700 absolute inline-block top-0 right-2 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded-full z-10">
+                    {{ getCount(service) }}
+                </span>
             </button>
-        </span>
-    </div>
-    <!--    4 buttons with same size-->
-    <div class="flex justify-between mr-4">
-        <button v-for="service in props.services"
-                :class="{'bg-white': selected.id === service.id, 'bg-gray-400': selected.id !== service.id}"
-                class="p-2 rounded w-40 rounded-b-none"
-                type="button" @click="selected = service">
-            {{ service.name }}
-            <span class="bg-purple-700 text-white py-1/2 px-1 rounded">
-                {{ getCount(service) }}
-            </span>
-        </button>
-    </div>
-    <div class="mr-4">
-        <table class="w-full bg-white mr-4">
+        </div>
+        <table class="w-full bg-white">
             <tr>
                 <th class="border-b">Icon</th>
-                <th class="border-b">Laundry</th>
+                <th class="border-b">Name</th>
                 <th class="border-b">Price</th>
                 <th class="border-b">Quantity</th>
             </tr>
@@ -161,21 +166,21 @@ const hasAlert = ref(false);
                 </td>
             </tr>
         </table>
-    </div>
-    <div class="bg-gray-50 p-4 mt-6 rounded shadow mr-4">
-        <div class="flex justify-around items-center w-full space-x-4">
-            <a class="w-full text-center mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
-               href="/"
-            >
-                Back
-            </a>
-            <button
-                class="w-full mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
-                type="button"
-                @click="submit"
-            >
-                Place Order
-            </button>
+        <div class="bg-gray-50 p-4 mt-6 rounded shadow">
+            <div class="flex justify-around items-center w-full space-x-4">
+                <a class="w-full text-center mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+                   href="/"
+                >
+                    Back
+                </a>
+                <button
+                    class="w-full mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+                    type="button"
+                    @click="submit"
+                >
+                    Place Order
+                </button>
+            </div>
         </div>
-    </div>
+    </section>
 </template>

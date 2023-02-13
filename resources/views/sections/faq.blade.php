@@ -1,28 +1,51 @@
-@extends('layouts.app')
+<section class="py-24 bg-white">
+    <div class="px-8 mx-auto max-w-7xl lg:px-16">
+        <h2 class="mb-4 text-xl font-bold md:text-3xl" id="faq">Frequently Asked Questions</h2>
+        <div class="grid grid-cols-1 gap-0 text-gray-600 md:grid-cols-2 md:gap-16">
+            <div>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">What services does <b>{{config('app.name')}}</b>
+                    offer?</h5>
+                <p>
+                    <b>{{config('app.name')}}</b> offers a variety of laundry and dry cleaning services, including
+                    ironing, wash,
+                    dry cleaning, and more.
+                </p>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">Do you offer pickup and delivery services?</h5>
+                <p>
+                    Yes, we offer convenient pickup and delivery services for all of our customers.
+                </p>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">How much do your services cost?</h5>
+                <p>
 
-@section('content')
-    FREQUENTLY ASKED QUESTIONS
-    We make doing your laundry simple. We can save your time, so you can enjoy doing the things you love. We can save you money on soap, water, heating and electricity. So you can enjoy even more of the things you love. Our prices are simple and affordable.
-    Your First Order!
-    What should I prepare for the first pickup?
-    We aim to collect your clothes, clean them to a professional standard and get them back to you all within 48 hours. If you’d prefer we went a little slower then that’s not a problem – just let us know when you want your clothes back.
+                    Our prices vary depending on the type of service you need. Please visit our pricing page or
+                    contact us directly for more information.
+                </p>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">What are your hours of operation?</h5>
+                <p>
+                    Our hours of operation are [insert hours].
+                </p>
+            </div>
+            <div>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">How do I schedule a pickup or delivery?</h5>
+                <p>
+                    You can schedule a pickup or delivery by visiting our booking page or by contacting us directly.
+                </p>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">How do I make a payment?</h5>
+                <p>
+                    We accept a variety of payment methods, including [insert payment methods].
+                </p>
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">How do I know if my clothes are cleaned to a high
+                    standard?</h5>
+                <p>
+                    We use state-of-the-art facilities and advanced cleaning techniques to ensure that your clothes
+                    are returned to you in pristine condition.
+                </p>
 
-    How long does cleaning take?
-    The following are service hours from the time of pick up (Applicable only from 8 am – 7 pm) needed to complete orders.
-
-    Wash and Fold – 48 Hrs
-
-    Wash and Iron-48 hrs
-
-    Dry Clean-48 hrs
-
-    Iron- 24 Hrs
-
-    Government & Public holidays will not be considered under the committed delivery time. If your laundry is ready before the selected time slot we will make a call and confirm your availability.
-
-    Can I add extra items to my order when you collect?
-    Yes, You can add extra item whn collect you order. Delivery Executive will add/delete item while collect order if you ask for to do so, other wise {{config('name')}} will not accept amy complains.
-
-    Which items should be dry cleaned and which should be laundered?
-    eLaundry team will inspect all item if needed customer select wrong service for the item then will inform you and change service accordingly.
-@endsection
+                <h5 class="mt-10 mb-3 font-semibold text-gray-900">How do I cancel or modify my order?</h5>
+                <p>
+                    You can cancel or modify your order by contacting us directly.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('index');
+    return view('new_index');
 })->name('home');
 Route::get('price-list', function () {
     return view('guest.full-price-list');

@@ -9,7 +9,7 @@
             {{session('status')}}
         </div>
     @endif
-    <div class="sm:mr-3">
+    <div class="sm:mx-3">
         <h3 class="font-bold text-2xl p-2 mb-2">Orders</h3>
         <table class="divide-y divide-gray-300 w-full text-sm sm:text-base">
             <thead class="bg-gray-100">

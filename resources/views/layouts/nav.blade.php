@@ -1,74 +1,33 @@
-<nav class="bg-white flex flex-col sm:flex-row justify-between p-2 sticky">
-    <div class="flex flex-row justify-between">
-        <ul class="">
-            <li class="p-4 nav-item text-lg flex flex-row gap-2 items-center">
-                <img src="{{asset('images/logo.png')}}" alt="" width="32" height="32">
-                <a class="nav-brand" href="{{url('/')}}">{{config('app.name')}}</a>
-            </li>
-        </ul>
-        <button class="sm:hidden p-2" type="button"
-                onclick="
-                document.getElementById('main-nav').classList.toggle('hidden');
-                document.getElementById('second-nav').classList.toggle('hidden');
-                ">
-            <i class="fa fa-bars"></i>
-        </button>
+<header class="w-full px-8 text-gray-700 bg-white">
+    <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+        <div class="relative flex flex-col md:flex-row">
+            <a href="{{route('home')}}"
+               class="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0">
+                <span class="mx-auto text-xl font-black leading-none text-gray-900 select-none">
+                    <b>{{config('app.name')}}</b><span
+                        class="text-tertiary">.</span>
+                </span>
+            </a>
+            <nav
+                class="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
+                <a href="{{route('home')}}"
+                   class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#features"
+                   class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Features</a>
+                <a href="#services" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Services</a>
+                <a href="#about-us" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
+            </nav>
+        </div>
+
+        <nav class="inline-flex items-center ml-0 sm:ml-5 space-x-6 lg:justify-end">
+            <a href="{{route('login')}}"
+               class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+                Sign in
+            </a>
+            <a href="{{route('register')}}"
+               class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-tertiary border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tertiary">
+                Sign up
+            </a>
+        </nav>
     </div>
-    <ul class="hidden sm:flex flex-col sm:flex-row gap-2 items-center"
-        id="main-nav">
-        <li class="nav-item highlight">
-            <a class="" href="{{route('orders.create')}}" @guest data-toggle="modal"
-               data-target="#order" @endguest>Order Now</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#services">Our Services</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#price">Price</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#about">About us</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#packages">Packages</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#choose">Why choose us?</a>
-        </li>
-        <li class="nav-item sm:hidden">
-            <a class="nav-link" href="#">How it works</a>
-        </li>
-    </ul>
-    <ul class="hidden inline-flex sm:flex items-center flex-row justify-between max-w-min"
-        id="second-nav">
-        @guest('customer')
-            <li class="p-1">
-                <a href="{{route('register')}}" class="">Register</a>
-            </li>
-            <li class="text-macaw-900 text-2xl font-light">/</li>
-            <li class="p-1">
-                <a href="{{route('login')}}" class="">Login</a>
-            </li>
-        @endguest
-        @auth
-            <li class="p-1">
-                <a href={{route('profile')}} class="nav-link"
-                   onclick="document.getElementById('profile').classList.toggle('hidden')">
-                    {{--                    <img src="" class="inline" alt="img">--}}
-                    <span class="whitespace-nowrap">{{auth('customer')->user()->name}}</span>
-                </a>
-            </li>
-            <li class="text-macaw-900 text-2xl font-light">/</li>
-            <li class="p-1">
-                {{--                <a href="#" class="bg-macaw-900 text-white p-2 rounded">Profile</a>--}}
-                <a href="#" class="whitespace-nowrap"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Sign out
-                </a>
-                <form id="logout-form" action="{{route('logout')}}" method="POST" class="hidden">
-                    @csrf
-                </form>
-            </li>
-        @endauth
-    </ul>
-</nav>
+</header>

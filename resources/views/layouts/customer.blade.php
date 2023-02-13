@@ -3,11 +3,11 @@
 @include("layouts.header")
 <body class="bg-gray-200">
 @include('layouts.customer_nav')
-<main id="app" class="mt-0 max-w-7xl mx-4 sm:mx-auto sm:flex">
-    <aside class="sm:w-60 sm:m-4">
-        @include('layouts.links', ['flex' => true])
-    </aside>
-    <section class="w-full">
+<main id="app" class="max-w-7xl sm:mx-auto sm:flex">
+
+    @include('layouts.links', ['flex' => true])
+
+    <section class="w-full md:mr-4">
         @yield('content')
     </section>
 </main>
