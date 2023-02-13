@@ -8,7 +8,7 @@ module.exports = {
         "./resources/views/sections/**/*.blade.php",
         "./resources/views/guest/**/*.blade.php",
         "resources/views/vendor/pagination/tailwind.blade.php",
-        "resources/js/components/CustomerOrderFields.vue"
+        "resources/js/components/*.vue"
     ],
     theme: {
         extend: {

@@ -3,7 +3,7 @@
 @include("layouts.header")
 <body class="bg-gray-200">
 @include('layouts.customer_nav')
-<main id="app" class="sm:flex mt-0 max-w-5xl mx-4 sm:mx-auto">
+<main id="app" class="mt-0 max-w-7xl mx-4 sm:mx-auto sm:flex">
     <aside class="sm:w-60 sm:m-4">
         @include('layouts.links', ['flex' => true])
     </aside>
@@ -12,6 +12,6 @@
     </section>
 </main>
 </body>
-<script defer src="{{mix('customer/js/app.js')}}"></script>
+
 </html>
 
