@@ -1,7 +1,7 @@
 @extends('layouts.customer')
 
 @section('content')
-    <div class="m-2">
+    <div class="mt-4">
         @if(session('status'))
             ola
         @endif
@@ -10,21 +10,21 @@
                 $customer = auth('customer')->user();
         @endphp
         <form method="POST" action="{{route('customer.update_profile')}}"
-              class="flex flex-col gap-2"
+              class="flex flex-col gap-2 bg-gray-100 m-3 p-3 rounded"
         >
             @method('patch')
             @csrf
             <div class="w-full flex flex-col mt-2">
                 <label for="name" class="font-semibold leading-none">Name:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     required="" name="name" type="text" value="{{$customer->name}}"
                     id="name">
             </div>
             <div class="w-full flex flex-col mt-2">
                 <label for="email" class="font-semibold leading-none">Email:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     name="email" type="email" value="{{$customer->email}}"
                     id="email">
             </div>
@@ -32,36 +32,36 @@
             <div class="w-full flex flex-col mt-2">
                 <label for="phone" class="font-semibold leading-none">Phone:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     required="" name="phone" type="text" value="{{$customer->phone}}"
                     id="phone">
             </div>
 
             <div class="w-full flex flex-col mt-2">
                 <label for="address" class="font-semibold leading-none">Address:</label>
-                <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
-                    required="" placeholder="add shop location here as example"
-                    name="address" type="text" value="{{$customer->address}}" id="address">
+                <textarea rows="3"
+                          class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
+                          required="" placeholder="add shop location here as example"
+                          name="address" id="address">{{$customer->address}}</textarea>
             </div>
 
             <div class="w-full flex flex-col mt-2">
                 <label for="password" class="font-semibold leading-none">Current Password:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     name="current_password" type="password" id="password">
             </div>
 
             <div class="w-full flex flex-col mt-2">
                 <label for="new_password" class="font-semibold leading-none">New Password:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     name="password" type="password" id="new_password">
             </div>
             <div class="w-full flex flex-col mt-2">
                 <label for="password_confirmation" class="font-semibold leading-none">Retype Password:</label>
                 <input
-                    class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                    class="leading-none text-gray-700 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 shadow rounded"
                     name="password_confirmation" type="password" value="" autocomplete="false"
                     id="password_confirmation">
             </div>
