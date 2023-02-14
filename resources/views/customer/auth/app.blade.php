@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {{--    <title>{{ config('app.name') }}</title>--}}
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>
+        @yield('title', config('app.name'))
+    </title>
 
-    {{--    <link href="{{ mix('customer/css/app.css') }}" rel="stylesheet">--}}
     @vite('resources/js/customer/app.js')
 
 </head>
@@ -22,7 +23,7 @@
                 <div class="block bg-white shadow-lg rounded-lg">
                     <div class="lg:flex lg:flex-wrap g-0">
                         <div class="lg:w-6/12 px-4 md:px-0">
-                            <div class="md:p-12 md:mx-6">
+                            <div class="md:p-12 md:mx-6 p-6">
                                 <a href="{{url('/')}}" class="text-center">
                                     <img
                                         class="mx-auto w-20"
@@ -42,10 +43,12 @@
                         >
                             <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                                 <h4 class="text-xl font-semibold mb-6">
-                                    We are more than just a company
+                                    Effortlessly Keep Your Clothes Fresh and Clean with
+                                    <b>{{config('app.name')}}</b>
                                 </h4>
                                 <p class="text-sm">
-                                    {{'about us'}}
+                                    Book your pickup today and experience the difference that
+                                    <b>{{config('app.name')}}</b> can make in your life.
                                 </p>
                             </div>
                         </div>

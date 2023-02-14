@@ -1,5 +1,7 @@
 @extends('customer.auth.app')
 
+@section('title', 'Register')
+
 @section('content')
     <form method="post" action="{{route('register')}}">
         @csrf
@@ -12,6 +14,7 @@
                 placeholder="Name"
                 name="name"
                 value="{{old('name')}}"
+                required
             />
 
             @error('name')
@@ -40,26 +43,27 @@
                 placeholder="Phone"
                 name="phone"
                 value="{{old('phone')}}"
+                required
             />
 
             @error('phone')
             <div class="text-sm text-red-600 mt-4">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-4">
-            <input
-                type="text"
-                class="@error('address') border-red-600 @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="address"
-                placeholder="Address"
-                name="address"
-                value="{{old('address')}}"
-            />
+        {{--        <div class="mb-4">--}}
+        {{--            <input--}}
+        {{--                type="text"--}}
+        {{--                class="@error('address') border-red-600 @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"--}}
+        {{--                id="address"--}}
+        {{--                placeholder="Address"--}}
+        {{--                name="address"--}}
+        {{--                value="{{old('address')}}"--}}
+        {{--            />--}}
 
-            @error('address')
-            <div class="text-sm text-red-600 mt-4">{{ $message }}</div>
-            @enderror
-        </div>
+        {{--            @error('address')--}}
+        {{--            <div class="text-sm text-red-600 mt-4">{{ $message }}</div>--}}
+        {{--            @enderror--}}
+        {{--        </div>--}}
         <div class="mb-4">
             <input
                 type="password"
@@ -67,6 +71,7 @@
                 id="password"
                 placeholder="Password"
                 name="password"
+                required
             />
             @error('password')
             <div class="text-sm text-red-600 mt-4">{{ $message }}</div>
@@ -79,6 +84,7 @@
                 id="password_confirmation"
                 placeholder="Confirm Password"
                 name="password_confirmation"
+                required
             />
             @error('password_confirmation')
             <div class="text-sm text-red-600 mt-4">{{ $message }}</div>
