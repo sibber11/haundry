@@ -123,13 +123,16 @@ const hasAlert = ref(false);
         </div>
         <!--    4 buttons with same size-->
         <div class="flex justify-between">
-            <button v-for="service in props.services"
-                    :class="{'bg-white': selected.id === service.id, 'bg-gray-400': selected.id !== service.id}"
-                    class="p-2 rounded w-40 rounded-b-none relative"
+            <button v-for="(service, index) in services"
+                    :class="{'bg-white text-gray-900': selected.id === service.id,
+                    'bg-gray-900 text-white': selected.id !== service.id,
+                    'border-r border-white' : index !== services.length-1
+            }"
+                    class="p-2 text-sm font-medium w-40 relative sm:border-0 rounded-t"
                     type="button" @click="selected = service">
                 {{ service.name }}
                 <span
-                    class="bg-gray-700 absolute inline-block top-0 right-2 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded-full z-10">
+                    class="bg-gray-700 absolute inline-block top-0 right-3 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded-full z-10">
                     {{ getCount(service) }}
                 </span>
             </button>
@@ -142,10 +145,12 @@ const hasAlert = ref(false);
                 <th class="border-b">Quantity</th>
             </tr>
             <tr v-for="laundry in list" class="odd:bg-blue-100">
-                <td><i :class="'fa-'+laundry.icon" class="fa px-3"></i></td>
+                <td class="py-4 text-center w-12">
+                    <i :class="'fa-'+laundry.icon" class="fa"></i>
+                </td>
                 <td>{{ laundry.name }}</td>
-                <td>{{ getPrice(laundry) }}</td>
-                <td class="text-right">
+                <td class="text-center">{{ getPrice(laundry) }}</td>
+                <td class="text-right w-32">
                     <button class="p-2 py-1" type="button" @click="removeFromCart(laundry)">
                         <i class="fas fa-minus"></i>
                     </button>
