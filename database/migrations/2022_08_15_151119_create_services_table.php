@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->text('name');
         });
 
-        DB::table('services')->insert([['name' => 'wash'], ['name'=>'iron'], ['name'=>'dry wash'], ['name'=>'wash iron']]);
+        DB::table('services')->insert([['name' => 'wash & fold'], ['name' => 'iron'], ['name' => 'dry clean'], ['name' => 'wash & iron']]);
 
         Schema::create('laundry_type_service', function (Blueprint $table) {
             $table->foreignId('laundry_type_id');
