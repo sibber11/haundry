@@ -2,18 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->seed();
-    }
 
     /**
      * A basic feature test example.
@@ -22,6 +17,7 @@ class AuthTest extends TestCase
      */
     public function test_user_can_login_using_email()
     {
+        Customer::factory()->create();
         $user = \App\Models\Customer::first();
         $this->withoutExceptionHandling();
         $response = $this->post(route('login'), [
@@ -33,6 +29,7 @@ class AuthTest extends TestCase
 
     public function test_user_can_login_using_phone()
     {
+        Customer::factory()->create();
         $user = \App\Models\Customer::first();
         $response = $this->post(route('login'), [
             'email_or_phone' => $user->phone,
