@@ -17,7 +17,7 @@
             </div>
         </div>
     @endif
-    @if($errors->count)
+    @if($errors->count())
         @push('scripts')
             <script defer>
                 window.onload = () => {
