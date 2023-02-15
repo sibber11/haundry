@@ -153,10 +153,17 @@ class Order extends Model
         $services = Service::all();
         foreach ($input as $laundry) {
             try {
+                /** @var LaundryType $laundry_type */
+                $laundry_type = $laundry_types->find($laundry['id']);
+                /** @var Service $service */
+                $service = $services->find($laundry['service_id']);
+                $price = $laundry_type->price($service);
                 $laundries[] = Laundry::make([
-                    'laundry_type_id' => $laundry_types->find($laundry['id'])->id,
-                    'service_id' => $services->find($laundry['service_id'])->id,
-                    'amount' => $laundry['amount']
+                    'laundry_type_id' => $laundry_type->id,
+                    'service_id' => $service->id,
+                    'amount' => $laundry['amount'],
+                    'price' => $price,
+                    'subtotal' => $price * $laundry['amount']
                 ]);
             } catch (\Exception $e) {
                 //dump($e->getMessage());

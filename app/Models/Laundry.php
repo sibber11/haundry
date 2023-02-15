@@ -15,23 +15,13 @@ class Laundry extends Model
         'order_id',
         'laundry_type_id',
         'service_id',
-        'amount'
+        'amount',
+        'price',
+        'subtotal'
     ];
 
     protected $casts = [
     ];
-
-    // public static $rules = [
-    //     'order_id' => 'required',
-    //     'laundry_type_id' => 'required',
-    //     'service_id' => 'required|string',
-    //     'amount' => 'required|numeric'
-    // ];
-
-    public function getPriceAttribute()
-    {
-        return $this->laundry_type->services()->find($this->service_id)?->pivot->price;
-    }
 
     public function laundry_type()
     {

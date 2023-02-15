@@ -19,7 +19,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load('laundries');
+        $order->load(['laundries.laundry_type', 'laundries.service']);
         $order->laundries->append('price');
         return view('customer.orders.show', compact('order'));
     }

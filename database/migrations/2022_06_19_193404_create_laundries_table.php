@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\Service::class);
             $table->foreignIdFor(\App\Models\Package::class)->nullable();
             $table->integer('amount');
+            $table->integer('price');
+            $table->integer('subtotal');
         });
     }
 

@@ -4,7 +4,7 @@
     <section class="m-3">
         <div class="font-bold text-2xl">Order #{{$order->id}}</div>
         <div class="text-gray-600">{{$order->created_at}}</div>
-        <div class="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6 rounded shadow">
+        <div class="flex flex-col px-4 py-6 mt-4 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6 rounded shadow">
             <h3 class="text-lg  font-semibold leading-5 text-gray-800">Summary</h3>
             <div
                 class="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
@@ -69,7 +69,7 @@
                                         </span>
                                 {{ $laundry->amount }}</p>
                             <p class="text-base  xl:text-md font-semibold leading-6 text-gray-800">
-                                ${{ $laundry->price * $laundry->amount }}
+                                ${{ $laundry->subtotal }}
                             </p>
                         </div>
                     </div>

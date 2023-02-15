@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\LaundryType;
 use App\Models\Order;
-use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,13 +19,17 @@ class LaundryFactory extends Factory
     public function definition()
     {
         $order = Order::inRandomOrder()->first() ?? Order::factory();
-        $laundry_type = LaundryType::inRandomOrder()->first() ?? LaundryType::factory();
-        $service = Service::inRandomOrder()->first() ?? Service::factory();
+        $laundry_type = LaundryType::inRandomOrder()->first() ?? LaundryType::factory()->price();
+        $service = $laundry_type->services()->inRandomOrder()->first();
+        $price = $laundry_type->price($service);
+        $amount = $this->faker->numberBetween(0, 10);
         return [
             'order_id' => $order,
             'laundry_type_id' => $laundry_type,
             'service_id' => $service,
-            'amount' => $this->faker->numberBetween(0,10)
+            'amount' => $amount,
+            'price' => $price,
+            'subtotal' => $price * $amount
         ];
     }
 }

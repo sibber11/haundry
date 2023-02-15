@@ -18,22 +18,7 @@
                     <td>{{ $laundry->laundry_type->name }}</td>
                     <td>{{ $laundry->service->name}}({{$laundry->price}})</td>
                     <td>{{ $laundry->amount }}</td>
-                    <td>{{ $laundry->price * $laundry->amount }}</td>
-                    {{-- <td  style="width: 120px">
-                        {!! Form::open(['route' => ['admin.laundries.destroy', $laundry->id], 'method' => 'delete']) !!}
-                        <div class='btn-group'>
-                            <a href="{{ route('admin.laundries.show', [$laundry->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
-                            <a href="{{ route('admin.laundries.edit', [$laundry->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-edit"></i>
-                            </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                        </div>
-                        {!! Form::close() !!}
-                    </td> --}}
+                    <td>{{ $laundry->subtotal }}</td>
                 </tr>
             @endforeach
             </tbody>
