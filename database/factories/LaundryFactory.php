@@ -19,7 +19,7 @@ class LaundryFactory extends Factory
     public function definition()
     {
         $order = Order::inRandomOrder()->first() ?? Order::factory();
-        $laundry_type = LaundryType::inRandomOrder()->first() ?? LaundryType::factory()->price();
+        $laundry_type = LaundryType::inRandomOrder()->first() ?? LaundryType::factory()->services();
         $service = $laundry_type->services()->inRandomOrder()->first();
         $price = $laundry_type->price($service);
         $amount = $this->faker->numberBetween(0, 10);

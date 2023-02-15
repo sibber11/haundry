@@ -32,7 +32,7 @@ class LaundryTypeTest extends TestCase
 
     public function test_laundry_types_has_services()
     {
-        $laundry = LaundryType::factory()->price()->create();
+        $laundry = LaundryType::factory()->services()->create();
         $this->assertGreaterThan(0, $laundry->services()->count());
     }
 
@@ -40,5 +40,7 @@ class LaundryTypeTest extends TestCase
     {
         $this->seed(LaundryTypeSeeder::class);
         $this->assertDatabaseCount(LaundryType::class, 28);
+        $service = LaundryType::with('services')->first()->services()->first();
+        $this->assertSame($service->name, 'Wash & fold');
     }
 }

@@ -9,7 +9,9 @@ use App\Models\LaundryType;
 use App\Models\Order;
 use App\Models\Package;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertArrayHasKey;
 
 class OrderTest extends TestCase
 {
@@ -20,7 +22,7 @@ class OrderTest extends TestCase
         $this->withoutExceptionHandling();
         $this->auth_as_admin();
         $customer = Customer::factory()->create();
-        $laundry_type = LaundryType::factory()->price()->create();
+        $laundry_type = LaundryType::factory()->services()->create();
         $response = $this->post(route('admin.orders.store', [
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
@@ -50,8 +52,8 @@ class OrderTest extends TestCase
          * @var Customer $customer
          */
 //        $customer = Customer::factory()->create();
-        $laundry_type = LaundryType::factory()->price()->create();
-        $laundry_type1 = LaundryType::factory()->price()->create();
+        $laundry_type = LaundryType::factory()->services()->create();
+        $laundry_type1 = LaundryType::factory()->services()->create();
         $response = $this->post(route('save_cart'), [
             'cart' => [
                 [
@@ -89,7 +91,7 @@ class OrderTest extends TestCase
          */
         $customer = Customer::factory()->create();
         $voucher = $customer->generateVoucher(20, 100, 0, false, true);
-        $laundry_type = LaundryType::factory()->price()->create();
+        $laundry_type = LaundryType::factory()->services()->create();
         $response = $this->post(route('admin.orders.store'), [
             'customer_id' => $customer->id,
             'deadline_date' => '10/05/2022',
@@ -118,7 +120,7 @@ class OrderTest extends TestCase
         /** @var Customer $customer */
         $customer = auth()->user();
         $customer->purchase($package = Package::factory()->create(['points' => 10]));
-        $laundry_type = LaundryType::factory()->price()->create();
+        $laundry_type = LaundryType::factory()->services()->create();
         $response = $this->post(route('save_cart'), [
             'cart' => [
                 [
@@ -136,6 +138,31 @@ class OrderTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount(Order::class, 1);
         $this->assertDatabaseCount(Laundry::class, 1);
+    }
+
+    public function test_price_and_subtotal_added()
+    {
+        Event::fake();
+        $this->withoutExceptionHandling();
+        $this->auth_as_customer();
+        /** @var Customer $customer */
+        $customer = auth()->user();
+        $laundry_type = LaundryType::factory()->services()->create();
+        $response = $this->post(route('save_cart'), [
+            'cart' => [
+                [
+                    'id' => $laundry_type->id,
+                    'service_id' => $laundry_type->services->first()->id,
+                    'amount' => 3
+                ],
+            ],
+        ]);
+
+        $response = $this->post(route('orders.store'));
+        $this->assertDatabaseCount(Laundry::class, 1);
+        $laundry = Laundry::first();
+        assertArrayHasKey('price', $laundry->toArray());
+        assertArrayHasKey('subtotal', $laundry->toArray());
     }
 }
 
