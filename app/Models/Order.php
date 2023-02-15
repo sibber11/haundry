@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -86,36 +88,36 @@ class Order extends Model
         $query->whereIn('status', ['delivered', 'completed']);
     }
 
-    public function update_status()
+    public function updateStatus()
     {
         switch ($this->status) {
             case 'placed':
                 break;
             case 'confirmed':
-                $this->change_status('onpickup');
+                $this->changeStatus('onpickup');
                 break;
             case 'onpickup':
-                $this->change_status('picked');
+                $this->changeStatus('picked');
                 break;
             case 'picked':
-                $this->change_status('onoperation');
+                $this->changeStatus('onoperation');
                 break;
             case 'onoperation':
-                $this->change_status('operated');
+                $this->changeStatus('operated');
                 break;
             case 'operated':
-                $this->change_status('ondelivery');
+                $this->changeStatus('ondelivery');
                 break;
             case 'ondelivery':
-                $this->change_status('delivered');
+                $this->changeStatus('delivered');
                 break;
             case 'delevered':
-                $this->change_status('completed');
+                $this->changeStatus('completed');
                 break;
         }
     }
 
-    public function change_status(string|int $status)
+    public function changeStatus(string|int $status)
     {
         if (is_integer($status)) {
             $status = $this->status[$status];
@@ -126,22 +128,22 @@ class Order extends Model
         $this->save();
     }
 
-    public function rollback_status()
+    public function rollbackStatus()
     {
         switch ($this->status) {
             case 'onpickup':
-                $this->change_status('confirmed');
+                $this->changeStatus('confirmed');
                 break;
             case 'onoperation':
-                $this->change_status('picked');
+                $this->changeStatus('picked');
                 break;
             case 'ondelivery':
-                $this->change_status('operated');
+                $this->changeStatus('operated');
                 break;
         }
     }
 
-    public function add_items(array $input): bool
+    public function addItems(array $input): bool
     {
         //todo: add price to the order
 
@@ -157,21 +159,21 @@ class Order extends Model
                     'amount' => $laundry['amount']
                 ]);
             } catch (\Exception $e) {
-                dump($e->getMessage());
+                //dump($e->getMessage());
                 return false;
             }
         }
         $this->laundries()->saveMany($laundries);
-        $this->calc_sub_total();
+        $this->calcSubTotal();
         return true;
     }
 
-    public function laundries()
+    public function laundries(): HasMany
     {
         return $this->hasMany(Laundry::class);
     }
 
-    public function calc_sub_total()
+    public function calcSubTotal()
     {
         $sub_total = 0;
         $total = 0;
@@ -187,20 +189,22 @@ class Order extends Model
         $this->save();
     }
 
-    public function add_item(LaundryType $laundryType, Service|int $service, int $amount): void
+    public function addItem(LaundryType $laundryType, Service|int $service, int $amount): void
     {
         if (is_integer($service)) {
             $service = Service::findOrFail($service);
         }
-        $laundry = $this->laundries()->save(Laundry::make([
+        $this->laundries()->save(Laundry::make([
             'laundry_type_id' => $laundryType->id,
             'service_id' => $service->id,
-            'amount' => $amount
+            'amount' => $amount,
+            'price' => $laundryType->price($service),
+            'sub_total' => $amount * $laundryType->price($service)
         ]));
         $this->save();
     }
 
-    public function apply_voucher(Voucher|string $voucher): bool
+    public function applyVoucher(Voucher|string $voucher): bool
     {
         if (is_string($voucher)) {
             $voucher = Voucher::whereCode($voucher)->first();
@@ -216,11 +220,11 @@ class Order extends Model
         if ($voucher->minimum != null && $this->sub_total < $voucher->minimum)
             return false;
 //        dd("voucher is good");
-        $this->applied_voucher()->associate($voucher);
+        $this->appliedVoucher()->associate($voucher);
         if ($voucher->is_percent) {
-            $actual_discount = min([$this->sub_total - $this->calculate_discount($voucher), $voucher->maximum]);
+            $actual_discount = min([$this->sub_total - $this->calcDiscount($voucher), $voucher->maximum]);
         } else {
-            $actual_discount = $this->sub_total - $this->calculate_discount($voucher);
+            $actual_discount = $this->sub_total - $this->calcDiscount($voucher);
         }
         $this->total = $actual_discount;
         $this->save();
@@ -228,16 +232,12 @@ class Order extends Model
         return true;
     }
 
-    public function applied_voucher()
+    public function appliedVoucher(): BelongsTo
     {
         return $this->belongsTo(Voucher::class, 'voucher_id');
     }
 
-    /**
-     * @param Model|object|\Illuminate\Database\Eloquent\Builder|string|Voucher|null $voucher
-     * @return void
-     */
-    public function calculate_discount(Voucher $voucher): int
+    public function calcDiscount(Voucher $voucher): int
     {
         if ($voucher->is_percent) {
             $discount = $this->total * ($voucher->discount / 100);
@@ -249,7 +249,7 @@ class Order extends Model
             return $voucher->discount;
     }
 
-    public function use_point()
+    public function usePoint()
     {
         $user_point = auth()->user()->point;
         if ($user_point->total <= 0)
@@ -268,7 +268,7 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function missions()
+    public function missions(): BelongsToMany
     {
         return $this->belongsToMany(Mission::class);
     }

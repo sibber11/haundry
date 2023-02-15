@@ -19,23 +19,6 @@ class OrderController extends AppBaseController
     /**
      * Display a listing of the Order.
      */
-    /*public function index(Request $request)
-    {
-        $request->validate([
-            'filter' => 'nullable|string|in:pickable,operable,deliverable,running,new'
-        ]);
-        /** @var  Order $orders *//*
-        $orders = Order::when($request->input('filter') == 'new', fn($q) => $q->new())
-            ->when($request->input('filter') == 'pickable', fn($q) => $q->pickable())
-            ->when($request->input('filter') == 'operable', fn($q) => $q->operable())
-            ->when($request->input('filter') == 'deliverable', fn($q) => $q->deliverable())
-            ->when($request->input('filter') == 'running', fn($q) => $q->running())
-            ->orderBy('id', 'desc')
-            ->paginate(10)->withQueryString();
-
-        return view('admin.orders.index')
-            ->with('orders', $orders);
-    }*/
     public function index(OrderDataTable $dataTable)
     {
         return $dataTable->render('admin.orders.index');
@@ -52,14 +35,14 @@ class OrderController extends AppBaseController
         $input['pickup'] = DateSolver::solve($input, 'pickup');
         DB::beginTransaction();
         $order = Order::create($input);
-        if (!$order->add_items($input['items'])) {
+        if (!$order->addItems($input['items'])) {
             DB::rollBack();
             Flash::success('Invalid items!');
             return redirect()->route('admin.orders.create')->withInput();
         }
 
         if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
-            if (!$order->apply_voucher($request->input('voucher_code'))) {
+            if (!$order->applyVoucher($request->input('voucher_code'))) {
                 DB::rollBack();
                 Flash::success('Invalid voucher!');
                 return redirect()->route('admin.orders.create')->withInput();

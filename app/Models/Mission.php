@@ -72,7 +72,7 @@ class Mission extends Model
     public function complete()
     {
         /** @var Order $order */
-        $this->orders->each(fn($order) => $order->update_status());
+        $this->orders->each(fn($order) => $order->updateStatus());
         $this->update([
             'status' => 'completed'
         ]);
@@ -83,7 +83,7 @@ class Mission extends Model
         $order_collection = is_array($orders) ? Order::findMany($orders) : $orders;
         $this->orders()->attach($order_collection);
         /** @var Order $order */
-        $order_collection->each(fn($order) => $order->update_status());
+        $order_collection->each(fn($order) => $order->updateStatus());
     }
 
     /*

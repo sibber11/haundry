@@ -37,16 +37,16 @@ class OrderController extends Controller
         $order = Order::make($input);
         DB::beginTransaction();
         auth()->user()->orders()->save($order);
-        if (!$order->add_items($input['items'])) {
+        if (!$order->addItems($input['items'])) {
             DB::rollBack();
             Flash::error('Invalid items!');
             return redirect()->route('orders.create')->withInput();
         };
         if ($request->has('use_point')) {
-            $order->use_point();
+            $order->usePoint();
         }
         if ($request->has('voucher_code') && $request->input('voucher_code') != '') {
-            if ($order->apply_voucher($request->input('voucher_code'))) {
+            if ($order->applyVoucher($request->input('voucher_code'))) {
                 DB::commit();
             } else {
                 DB::rollBack();

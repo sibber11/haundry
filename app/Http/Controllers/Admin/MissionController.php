@@ -188,7 +188,7 @@ class MissionController extends AppBaseController
             Flash::error('Order not found');
             return back();
         }
-        $order->update_status();
+        $order->updateStatus();
         $order->update([
             'paid' => true
         ]);
