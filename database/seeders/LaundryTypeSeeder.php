@@ -20,89 +20,197 @@ class LaundryTypeSeeder extends Seeder
             'icon' => 'shirt',
             'services' => [
                 'iron' => 12,
-                'wash' => 12,
+                'wash & fold' => 25,
             ]
         ],
         'pant' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         't-shirt' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'panjabi' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'pajama' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'kamij' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'selowar' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'orna' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'fotua' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'jubba' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 20,
+                'wash & fold' => 25,
+            ]
         ],
         'epron' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'balis o kushum cover' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'sweter' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 30,
+                'wash & fold' => 25,
+            ]
         ],
         'sofa cover' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 30,
+                'wash & fold' => 25,
+            ]
         ],
         'borka' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 40,
+                'wash & fold' => 25,
+            ]
         ],
         'shal' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 45,
+                'wash & fold' => 25,
+            ]
         ],
         'jacket' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 40,
+                'wash & fold' => 25,
+            ]
         ],
-        'bet cador' => [
+        'bed cador' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 45,
+                'wash & fold' => 25,
+            ]
         ],
-        'suti shari' => [
+        'shuti shari' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 60,
+                'wash & fold' => 25,
+            ]
         ],
         'silk shari' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 80,
+                'wash & fold' => 25,
+            ]
         ],
         'jorjet shari' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 80,
+                'wash & fold' => 25,
+            ]
         ],
         'jamdani' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 80,
+                'wash & fold' => 25,
+            ]
         ],
         'blouse' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'coat' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 100,
+                'wash & fold' => 25,
+            ]
         ],
-        'coat(w hanger and poly)' => [
+        'coat(hanger, poly)' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 120,
+                'wash & fold' => 25,
+            ]
         ],
         'long kamij' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 12,
+                'wash & fold' => 25,
+            ]
         ],
         'silk porda, kuci' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 8,
+                'wash & fold' => 25,
+            ]
         ],
         'suti porda, kuci' => [
             'icon' => 'shirt',
+            'services' => [
+                'iron' => 7,
+                'wash & fold' => 25,
+            ]
         ],
     ];
 
@@ -114,7 +222,7 @@ class LaundryTypeSeeder extends Seeder
     public function run()
     {
         foreach ($this->types as $type => $array) {
-            LaundryType::factory()->price($array->services ?? [])->create([
+            LaundryType::factory()->services($array['services'] ?? [])->create([
                 'name' => $type,
                 'icon' => $array['icon'],
             ]);
