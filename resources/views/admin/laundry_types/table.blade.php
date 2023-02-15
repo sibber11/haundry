@@ -13,13 +13,13 @@
             @foreach($laundryTypes as $laundryType)
                 <tr>
                     <td>{{ $laundryType->name }}</td>
-                    <td>{{ $laundryType->category->name }}</td>
+                    <td>{{ $laundryType->category?->name }}</td>
                     <td>
                         @foreach ($laundryType->services as $service)
                             <span class="text-capitalize">{{$service->name}}</span> : {{$service->pivot->price}},
                         @endforeach
                     </td>
-                    <td  style="width: 120px">
+                    <td style="width: 120px">
                         {!! Form::open(['route' => ['admin.laundryTypes.destroy', $laundryType->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             <a href="{{ route('admin.laundryTypes.show', [$laundryType->id]) }}"

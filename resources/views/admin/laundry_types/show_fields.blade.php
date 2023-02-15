@@ -7,7 +7,7 @@
 <!-- Category Field -->
 <div class="col-sm-12">
     {!! Form::label('category', 'Category:') !!}
-    <p>{{ $laundryType->category->name }}</p>
+    <p>{{ $laundryType->category?->name }}</p>
 </div>
 
 <!-- Service Price Field -->

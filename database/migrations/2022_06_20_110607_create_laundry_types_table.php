@@ -14,12 +14,9 @@ return new class extends Migration {
     {
         Schema::create('laundry_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable();
             $table->string('name');
             $table->string('icon')->nullable();
-            // $table->integer('wash_price')->nullable();
-            // $table->integer('dry_wash_price')->nullable();
-            // $table->integer('iron_price')->nullable();
         });
     }
 
