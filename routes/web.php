@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('new_index');
 })->name('home');
+Route::get('contact', function () {
+    return view('contact');
+})->name('contact');
 Route::get('price-list', function () {
     return view('guest.full-price-list');
 })->name('price-list');

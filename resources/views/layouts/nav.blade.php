@@ -14,20 +14,41 @@
                    class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
                 <a href="#features"
                    class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Features</a>
-                <a href="#services" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Services</a>
-                <a href="#about-us" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
+                <a href="#services"
+                   class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Services</a>
+                <a href="#pricing"
+                   class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
+                <a href="#about-us"
+                   class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
+                <a href="{{route('contact')}}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Contact</a>
             </nav>
         </div>
+        @auth()
+            <nav class="inline-flex items-center ml-0 sm:ml-5 space-x-6 lg:justify-end">
+                <a href="{{route('profile')}}"
+                   class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+                    Profile
+                </a>
+                <form action="{{route('logout')}}" method="post">
+                    @csrf
+                    <button type="submit"
+                            class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-tertiary border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tertiary">
+                        Sign out
+                    </button>
+                </form>
+            </nav>
+        @else
+            <nav class="inline-flex items-center ml-0 sm:ml-5 space-x-6 lg:justify-end">
+                <a href="{{route('login')}}"
+                   class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+                    Sign in
+                </a>
+                <a href="{{route('register')}}"
+                   class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-tertiary border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tertiary">
+                    Sign up
+                </a>
+            </nav>
+        @endguest
 
-        <nav class="inline-flex items-center ml-0 sm:ml-5 space-x-6 lg:justify-end">
-            <a href="{{route('login')}}"
-               class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
-                Sign in
-            </a>
-            <a href="{{route('register')}}"
-               class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-tertiary border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tertiary">
-                Sign up
-            </a>
-        </nav>
     </div>
 </header>
