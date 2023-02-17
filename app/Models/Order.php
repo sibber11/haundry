@@ -145,8 +145,6 @@ class Order extends Model
 
     public function addItems(array $input): bool
     {
-        //todo: add price to the order
-
         //fetch all laundry types from the database that matches the ids in the input
         $laundry_types = LaundryType::findMany(array_column($input, 'id'));
         $laundries = [];
@@ -166,7 +164,6 @@ class Order extends Model
                     'subtotal' => $price * $laundry['amount']
                 ]);
             } catch (\Exception $e) {
-                //dump($e->getMessage());
                 return false;
             }
         }
@@ -226,7 +223,6 @@ class Order extends Model
 
         if ($voucher->minimum != null && $this->sub_total < $voucher->minimum)
             return false;
-//        dd("voucher is good");
         $this->appliedVoucher()->associate($voucher);
         if ($voucher->is_percent) {
             $actual_discount = min([$this->sub_total - $this->calcDiscount($voucher), $voucher->maximum]);
@@ -267,7 +263,6 @@ class Order extends Model
         $this->point_used = $usable_point;
         $user_point->save();
         $this->save();
-//        dump($usable_point, $user_point->total, $this->total);
     }
 
     public function customer(): BelongsTo
