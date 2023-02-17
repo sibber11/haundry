@@ -2,13 +2,16 @@
     <!-- Name Field -->
     <div class="form-group col-sm-6">
         <label for="name">Name:</label>
-        <input class="form-control" required="" name="name" type="text" id="name" v-model="input.name">
+        <input id="name" v-model="input.name" class="form-control" name="name" placeholder="Enter a name..." required
+               type="text"
+        >
     </div>
     <!-- Category Field -->
     <div class="form-group col-sm-6">
         <label for="category_id">Category:</label>
         <select v-model="input.category"
-                id="category_id" class="form-control" name="category_id" required="">
+                id="category_id" class="form-control" name="category_id" required>
+            <option value="">Select a Category</option>
             <option :value="category.id" v-for="category in categories">{{ category.name }}</option>
         </select>
     </div>
@@ -18,8 +21,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" style="min-width: 8rem;">{{ service.name }}</span>
             </div>
-            <input type="number" class="form-control" min="0" v-model="service.price"
-                   :disabled="!service.enabled" :name="price_namer(service.id)" :required="service.enabled">
+            <input v-model="service.price" :class="{'disabled':!service.enabled}" :disabled="!service.enabled"
+                   :name="price_namer(service.id)"
+                   :placeholder="service.enabled?'Enter a value...':'Disabled'"
+                   :required="service.enabled"
+                   class="form-control"
+                   min="0"
+                   type="number">
             <div class="input-group-append">
                 <div class="input-group-text">
                     <input type="checkbox" id="" v-model="service.enabled">
@@ -31,15 +39,15 @@
 
 <script>
 export default {
-    name: "LaundryTypeCreate",
+    name: "LaundryTypeFields",
     props: ['categories', 'services', 'model'],
     mounted() {
-        if (this.model) {
-            // console.log(this.model.services)
-            for (const m of this.model.services) {
-                this.input.services[m.id].enabled = true;
-                this.input.services[m.id].price = m.pivot.price;
-                console.log(m)
+        if (this.model.services) {
+            for (const service of this.model.services) {
+                const serviceId = this.input.services.findIndex(($item) => $item.id === service.id);
+                this.input.services[serviceId].enabled = true;
+                this.input.services[serviceId].price = service.pivot.price;
+                console.log(service)
             }
 
         }
@@ -60,7 +68,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

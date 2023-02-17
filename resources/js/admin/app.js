@@ -1,37 +1,27 @@
-// /**
-//  * First we will load all of this project's JavaScript dependencies which
-//  * includes Vue and other libraries. It is a great starting point when
-//  * building robust, powerful web applications using Vue and Laravel.
-//  */
-//
-//
-require('../bootstrap');
-// require('admin-lte');
-//
-window.Vue = require('vue');
+import axios from 'axios';
+import {createApp} from 'vue/dist/vue.esm-bundler.js';
+import LaundryTypeFields from "@/components/LaundryTypeFields.vue";
+import AdminOrderFields from "@/components/AdminOrderFields.vue";
+import Multiselect from 'vue-multiselect'
 
-const app = Vue.createApp({});
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-const files = require.context('./', true, /.vue$/i);
-files.keys().map(function (key) {
-    app.component(key.split('/').pop().split('.')[0], files(key).default);
-});
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.withCredentials = true;
+
+const app = createApp({});
+
+app.component('AdminOrderFields', AdminOrderFields);
+app.component('LaundryTypeFields', LaundryTypeFields);
+app.component('multiselect', Multiselect)
 
 app.mount('#app');
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-    apiKey: process.env.FIREBASE_API_KEY,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID
+    authDomain: import.meta.env.FIREBASE_AUTH_DOMAIN,
+    storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
+    apiKey: import.meta.env.FIREBASE_API_KEY,
+    projectId: import.meta.env.FIREBASE_PROJECT_ID,
+    messagingSenderId: import.meta.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.FIREBASE_APP_ID
 };
 // Initialize Firebase
 

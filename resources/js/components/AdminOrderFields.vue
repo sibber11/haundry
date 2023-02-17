@@ -3,7 +3,15 @@
         <!-- Customer Name Field -->
         <div class="form-group col-sm-6">
             <label for="customer_id">Customer Name:</label>
-            <Select2 id="customer_id" :settings="option_customer" name="customer_id" required="required"></Select2>
+            <multiselect id="customer_id"
+                         v-model="input.customer"
+                         :loading="isLoading"
+                         :options="customers"
+                         label="name"
+                         required="required"
+                         track-by="id"
+                         @search-change="getCustomers">
+            </multiselect>
         </div>
         <div class="form-group col-sm-6">
             <label for="voucher_code">Voucher Code:</label>
@@ -32,9 +40,14 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-4"><label for="laundry_type_id">Laundry Type:</label>
-            <Select2 id="laundry_type_id" v-model="input.laundry_type" :options="categories"
-                     :settings="{theme:'bootstrap4'}"
-                     @select="laundry_selected($event)"></Select2>
+            <multiselect id="laundry_type_id" v-model="input.laundry_type" :options="categories"
+                         :settings="{theme:'bootstrap4'}" group-label="name"
+                         group-values="children"
+                         label="name"
+                         track-by="name"
+                         @select="laundry_selected">
+
+            </multiselect>
         </div>
         <!-- Service Type Field -->
         <div class="form-group col-sm-4">
@@ -42,12 +55,12 @@
             <select id="service_type" v-model="input.service" :disabled="input.type === ''"
                     class="form-control">
                 <option disabled value="">Select Service...</option>
-                <option v-for="item in input.type.services" :value="item">{{ item.name }}({{
-                        item.pivot.price
-                    }})
+                <option v-for="item in input.type.services" :value="item">
+                    {{ item.name }}({{ item.pivot.price }})
                 </option>
             </select>
-        </div><!-- Amount Field -->
+        </div>
+        <!-- Amount Field -->
         <div class="form-group col-sm-3">
             <label for="amount">Amount</label>
             <input id="amount" v-model="input.amount" class="form-control" min="0" type="number">
@@ -69,7 +82,7 @@
         <tbody id="laundries">
         <tr v-for="(cart_item, index) in cart" :key="index">
             <td>
-                <input type="hidden" :name="`items[${index}][laundry_type_id]`" :value="cart_item.type.id">
+                <input :name="`items[${index}][id]`" :value="cart_item.type.id" type="hidden">
                 {{ cart_item.type.name }}
             </td>
             <td>
@@ -94,14 +107,12 @@
         </tr>
         </tfoot>
     </table>
+    <input v-model="input.customer.id" name="customer_id" type="hidden">
 </template>
 <script>
-import Select2 from 'vue3-select2-component';
+import axios from "axios";
 
 export default {
-    components: {
-        Select2
-    },
     name: 'AdminOrderCreate',
     props: ['model', 'categories', 'initialCart'],
     data() {
@@ -111,26 +122,11 @@ export default {
                 type: '',
                 laundry_type: '',
                 service: '',
-                amount: 1
+                amount: 1,
+                customer: {}
             },
-            option_customer: {
-                ajax: {
-                    delay: 250,
-                    data: function (param) {
-                        return {
-                            q: param.term,
-                            type: 'customer'
-                        }
-                    },
-                    processResults: function (data) {
-                        // Transforms the top-level key of the response object from 'items' to 'results'
-                        return {
-                            results: data.data
-                        };
-                    },
-                },
-                theme: 'bootstrap4'
-            },
+            customers: [],
+            isLoading: false
         }
     },
     computed: {
@@ -148,6 +144,17 @@ export default {
         document.querySelector('#pickup-date').valueAsDate = new Date();
     },
     methods: {
+        getCustomers(q) {
+            if (q === "") {
+                return
+            }
+            this.isLoading = true;
+            axios.get('', {params: {q: q, type: 'customer'}})
+                .then(r => {
+                    this.customers = r.data.data;
+                    this.isLoading = false;
+                })
+        },
         add_to_cart() {
             if (this.input.type === '' || this.input.service === '' || this.input.amount === 0) {
                 return;

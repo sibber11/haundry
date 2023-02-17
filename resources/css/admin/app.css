@@ -1,4 +1,4 @@
 /*@import "admin-lte";*/
 /*@import "font-awesome";*/
-@import "../../../node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css";
 /*@import url('http://fonts.cdnfonts.com/css/poppins');*/
+@import "vue-multiselect/dist/vue3-multiselect.css";
