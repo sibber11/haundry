@@ -2,17 +2,92 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\LaundryType;
 use Illuminate\Database\Seeder;
 
 class LaundryTypeSeeder extends Seeder
 {
     private array $inputs = [
-        'men' => ['shirt'],
-        'women' => ['saree'],
-        'child' => ['pant'],
-        'household' => ['blanket'],
-        'shirt'
+        'men' => [
+            "Shirt(Half/Full)",
+            "T-Shirt/Fatua",
+            "Pant(Half/Full)",
+            "Pajama/Trouser",
+            "Panjabi",
+            "Jubba",
+            "Ihram",
+            "Mafler",
+            "Wais Coat",
+            "Suit Jacket",
+            "Suit Trouser",
+            "Koti",
+            "Sweater",
+            "Ties",
+            "Cloat/Blazer - Non Leather",
+            "Coat/Blazer - Leather",
+            "Lungi",
+            "Sherwani",
+            "Hoodie",
+            "Jacket (Non Leather)",
+            "Leather Jacket",
+            "Overcoat",
+            "Sleeping Suit",
+            "Underwear/Under Shirt",
+            "Socks",
+        ],
+        'women' => [
+            "Sharee (Cotton)",
+            "Sharee (Silk/Jamdani/Katan)",
+            "Sharee (Party)",
+            "Salwar",
+            "Kameez",
+            "Dopatta/Orna",
+            "Three Piece",
+            "Blouse",
+            "Burkha",
+            "Ladies Shirt/Tops",
+            "Ladies Pant",
+            "Lehenga Suit",
+            "Gown",
+            "Skirt",
+            "Night Dress/Maxi",
+            "Hijab/Scarf",
+            "Frock",
+            "Petticoat",
+            "Shwal - Non Woolen",
+            "Shwal - Woolen",
+            "Sweater/Cardigan",
+            "Inner Wear"
+        ],
+        'child' => [
+            "Top Wear",
+            "Bottom Wear",
+            "Winter Wear",
+            "Coat",
+            "Jacket",
+            "Dopatta/Orna"
+        ],
+        'household' => [
+            "Bedsheet",
+            "Bed Cover",
+            "Pillow Cover",
+            "Curtain (per fold/ring)",
+            "Prayer Mat",
+            "Apron",
+            "Carpet (each SFT)",
+            "Towel",
+            "Mosquito Net",
+            "Table Cover",
+            "Sofa Cover",
+            "Chair/Cushion Cover",
+            "Pillow Cover",
+            "Doll",
+            "Katha",
+            "Blanket (Single)",
+            "Blanket (Double)",
+            "Blanket/Katha Cover"
+        ]
     ];
     private int $default = 10;
     private array $types = [
@@ -221,11 +296,20 @@ class LaundryTypeSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->types as $type => $array) {
-            LaundryType::factory()->services($array['services'] ?? [])->create([
-                'name' => $type,
-                'icon' => $array['icon'],
-            ]);
+        foreach ($this->inputs as $category => $items) {
+            $category_id = Category::where('name', $category)->first()->id;
+            foreach ($items as $item => $array) {
+                if (is_string($array)) {
+                    $name = $array;
+                } else {
+                    $name = $item;
+                }
+                LaundryType::factory()->services($array['services'] ?? [])->create([
+                    'name' => $name,
+                    'icon' => $array['icon'] ?? 'shirt',
+                    'category_id' => $category_id,
+                ]);
+            }
         }
         //LaundryType::factory()->count(20)->create();
     }
