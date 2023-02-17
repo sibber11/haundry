@@ -3,7 +3,7 @@
 @include("layouts.header")
 <body class="bg-gray-200">
 @include('layouts.customer_nav')
-<main id="app" class="max-w-7xl sm:mx-auto sm:flex">
+<main id="app" class="max-w-7xl md:mx-auto md:flex">
 
     @include('layouts.links', ['flex' => true])
 

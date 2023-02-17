@@ -17,10 +17,10 @@
 
 <body>
 <section class="h-full gradient-form bg-gray-200 md:h-screen">
-    <div class="container py-12 px-6 h-full mx-auto">
+    <div class="container sm:py-12 sm:px-6 h-full mx-auto">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
             <div class="xl:w-10/12">
-                <div class="block bg-white shadow-lg rounded-lg">
+                <div class="block bg-white sm:shadow-lg sm:rounded-lg">
                     <div class="lg:flex lg:flex-wrap g-0">
                         <div class="lg:w-6/12 px-4 md:px-0">
                             <div class="md:p-12 md:mx-6 p-6">

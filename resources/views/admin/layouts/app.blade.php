@@ -18,7 +18,7 @@
     @endif
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
-    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet">
+    @vite('resources/css/admin/app.css')
     @stack('third_party_stylesheets')
 
     @stack('page_css')
@@ -60,7 +60,7 @@
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/adminlte/js/adminlte.min.js')}}"></script>
 @endif
-<script src="{{ mix('admin/js/app.js') }}"></script>
+@vite('resources/js/admin/app.js')
 <script>
     let fcmToken = "{{route('fcmToken')}}";
 </script>

@@ -1,9 +1,6 @@
-<aside class="hidden md:block sm:w-60 sm:m-4 bg-white sm:bg-gray-100 sm:rounded -mt-3 pt-3 px-4 pb-4"
+<aside class="hidden md:block md:w-60 md:m-4 bg-white md:bg-gray-100 md:rounded -mt-3 pt-3 px-4 pb-4"
        id="main-nav">
-    <ul class="border-t border-gray-200 sm:border-0"
-
-
-    >
+    <ul class="border-t border-gray-200 md:border-0">
         <li class="nav-item highlight mt-3 mx-2">
             <a @class(['block' => $flex]) href="{{route('orders.create')}}">Order Now</a>
         </li>
@@ -21,6 +18,15 @@
         {{--    </li>--}}
         <li @class(['nav-item my-1', 'active' => Request::routeIs('referview')])>
             <a @class(['block' => $flex, 'nav-link']) href="{{route('referview')}}">Refer</a>
+        </li>
+        <li class="nav-item my-1 md:hidden">
+            <form action="{{route('logout')}}" method="post">
+                @csrf
+                <button type="submit"
+                        class="block w-full text-left text-red-500 hover:text-red-600 font-bold">
+                    Sign out
+                </button>
+            </form>
         </li>
         {{--    <li @class(['nav-item my-1', 'active' => Request::routeIs('pacakges')])>--}}
         {{--        <a @class(['block' => $flex, 'nav-link']) href="{{route('packages')}}">Packages</a>--}}

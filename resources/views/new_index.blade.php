@@ -3,7 +3,7 @@
 @section('content')
     @if(session()->has('flash_notification'))
         <div
-            class="mx-2 sm:mx-6 md:mx-8  flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            class="mx-2 sm:mx-6 md:mx-8 flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
             role="alert">
             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,8 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Success alert!</span> {{session('flash_notification')->first()->message}}
+                <span
+                    class="font-medium">Feedback was submitted successfully!</span> {{session('flash_notification')->first()->message}}
             </div>
         </div>
     @endif
@@ -29,7 +30,7 @@
             </script>
         @endpush
     @endif
-    <section class="px-2 pt-8 sm:pt-32 bg-white md:px-0">
+    <section class="px-2 pt-8 sm:pt-32 bg-white md:px-0 mb-8 sm:mb-16">
         <div class="container items-center max-w-6xl px-5 mx-auto space-y-6 text-center">
             <h1 class="text-4xl font-extrabold tracking-tight text-left text-gray-900 sm:text-5xl md:text-6xl md:text-center">
             <span class="block">
@@ -70,6 +71,8 @@
     @include('sections.services')
 
     @include('sections.features')
+
+    @include('sections.pricing')
 
     @include('sections.reviews')
 

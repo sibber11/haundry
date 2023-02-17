@@ -8,7 +8,7 @@
                     <span class="text-tertiary">.</span>
                 </span>
             </a>
-            <button class="sm:hidden p-2" type="button"
+            <button class="md:hidden p-2" type="button"
                     onclick="
                 document.getElementById('main-nav').classList.toggle('hidden');
                 ">
