@@ -103,14 +103,14 @@
                                 @csrf
                                 @method('patch')
                                 <button @disabled($call->called) class="btn btn-primary">
-                                    <i class="fas fa-checked"></i>
+                                    <i class="fas fa-check"></i>
                                 </button>
                             </form>
                             <form action="{{route('admin.requestCall.destroy', $call)}}" class="d-inline" method="post">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-danger">
-                                    <i class="fas fa-alt-trash"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
                         </td>
