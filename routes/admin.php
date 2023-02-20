@@ -25,16 +25,6 @@ Route::group(['prefix' => 'admin'], function () {
             'edit' => 'admin.orders.edit'
         ]);
     Route::post('orders/update_status', [\App\Http\Controllers\Admin\OrderController::class, 'update_status'])->name('admin.orders.update_status');
-    Route::resource('laundry-types', App\Http\Controllers\Admin\LaundryTypeController::class)
-        ->names([
-            'index' => 'admin.laundryTypes.index',
-            'store' => 'admin.laundryTypes.store',
-            'show' => 'admin.laundryTypes.show',
-            'update' => 'admin.laundryTypes.update',
-            'destroy' => 'admin.laundryTypes.destroy',
-            'create' => 'admin.laundryTypes.create',
-            'edit' => 'admin.laundryTypes.edit'
-        ]);
 
     Route::patch('markdone/{call}', [\App\Http\Controllers\Admin\RequestCallController::class, 'markdone'])->name('admin.markdone');
     Route::delete('request_call/{call}', [\App\Http\Controllers\Admin\RequestCallController::class, 'destroy'])->name('admin.requestCall.destroy');
