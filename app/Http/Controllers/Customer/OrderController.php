@@ -56,9 +56,9 @@ class OrderController extends Controller
         } else {
             DB::commit();
         }
+        session()->forget('cart');
         OrderPlaced::dispatch($order);
-        Flash::success($order->toJson());
-        Flash::success('Order saved successfully.');
+        Flash::success('Order placed successfully.');
         return redirect()->route('orders.index')->with('status', "Your Order has been Placed.");
     }
 

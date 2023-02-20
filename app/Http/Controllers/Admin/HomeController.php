@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateAdminProfileRequest;
 use App\Models\User;
-use App\Notifications\PushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
 use Kutia\Larafirebase\Facades\Larafirebase;
 use Laracasts\Flash\Flash;
 
@@ -86,22 +84,24 @@ class HomeController extends Controller
         try {
             $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
-            Notification::send(null, new PushNotification($request->title, $request->message, $fcmTokens));
+            //Notification::send(null, new PushNotification($request->title, $request->message, $fcmTokens));
 
             /* or */
 
-            auth()->user()->notify(new PushNotification($request->title, $request->message, $fcmTokens));
+            //auth()->user()->notify(new PushNotification($request->title, $request->message, $fcmTokens));
 
             /* or */
 
             Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);
-            return redirect()->back()->with('success', 'Notification Sent Successfully!!');
+            Flash::success('Notification sent successfully.');
+            return 'success';
 
         } catch (\Exception $e) {
             report($e);
-            return redirect()->back()->with('error', 'Something goes wrong while sending notification.');
+            Flash::error('Something went wrong. Please try again later.');
+            return 'error';
         }
     }
 }
