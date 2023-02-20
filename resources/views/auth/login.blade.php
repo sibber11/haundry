@@ -16,8 +16,6 @@
           integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet">
-
 </head>
 
 <body class="hold-transition login-page">
@@ -88,7 +86,6 @@
 </div>
 <!-- /.login-box -->
 
-{{--<script src="{{ mix('admin/js/app.js') }}"></script>--}}
 <script>
     function togglePassword() {
         var x = document.getElementById("password");
