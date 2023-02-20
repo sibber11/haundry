@@ -16,8 +16,6 @@
         <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
         <link rel="stylesheet" href="{{asset('vendor/adminlte/css/adminlte.min.css')}}">
     @endif
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
     @vite('resources/css/admin/app.css')
     @stack('third_party_stylesheets')
 
@@ -61,9 +59,12 @@
     <script src="{{asset('vendor/adminlte/js/adminlte.min.js')}}"></script>
 @endif
 @vite('resources/js/admin/app.js')
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
 <script>
     let fcmToken = "{{route('fcmToken')}}";
 </script>
+@vite('resources/js/admin/firebase.js')
 <script>
     // Echo.private('admin')
     //     .listen('CallRequested', (e) => {

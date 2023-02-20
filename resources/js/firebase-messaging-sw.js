@@ -2,10 +2,10 @@ importScripts('https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js');
 
 firebase.initializeApp({
-    apiKey: process.env.FIREBASE_API_KEY,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID
+    apiKey: "AIzaSyBBdDNLfI5aJBmORnuJUaLFKgy4DqgAwlU",
+    projectId: "washersinn-60974",
+    messagingSenderId: "965325849062",
+    appId: "1:965325849062:web:f66ea1bc6522dac8f31627"
 });
 
 const messaging = firebase.messaging();
