@@ -65,14 +65,22 @@
         {{--            @enderror--}}
         {{--        </div>--}}
         <div class="mb-4">
-            <input
-                type="password"
-                class="@error('password') border-red-600 @enderror block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="password"
-                placeholder="Password"
-                name="password"
-                required
-            />
+            <div class="flex">
+                <input
+                    type="password"
+                    class="@error('password') border-red-600 @enderror block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-r-0 border-solid border-gray-300 rounded rounded-r-none transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="password"
+                    placeholder="Password"
+                    name="password"
+                    required
+                />
+                <button
+                    type="button"
+                    onclick="togglePassword()"
+                    class="block px-3 py-1.5 border border-solid border-l-0 border-gray-300 rounded m-0 rounded-l-none">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
             @error('password')
             <div class="text-sm text-red-600 mt-4">{{ $message }}</div>
             @enderror
