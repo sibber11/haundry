@@ -108,9 +108,10 @@ const hasAlert = ref(false);
         <div class="flex flex-col sm:flex-row justify-between items-center">
             <h1 class="text-2xl font-bold my-4">Add Items To Cart</h1>
             <div class="mb-3 sm:mb-0">
-                <span>Search: </span>
+                <!--                <span>Search: </span>-->
                 <input v-model="keyword"
-                       class="p-1 rounded px-2 shadow-sm"
+                       class="p-1 rounded px-3 shadow-sm"
+                       placeholder="Search..."
                        type="text">
                 <button
                     class="py-1 px-2 bg-white rounded m-1 mr-0 font-bold hover:bg-gray-300 shadow-sm"

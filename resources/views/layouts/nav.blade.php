@@ -14,13 +14,14 @@
                    class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
                 <a href="#features"
                    class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Features</a>
+                <a href="#pricing"
+                   class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
                 <a href="#services"
                    class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Services</a>
-                <a href="#pricing"
-                   class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
                 <a href="#about-us"
                    class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">About</a>
-                <a href="{{route('contact')}}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Contact</a>
+                <a href="{{route('contact')}}"
+                   class="hidden sm:block mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Contact</a>
             </nav>
         </div>
         @auth()
