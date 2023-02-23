@@ -10,6 +10,7 @@
     <section class="w-full md:mr-4">
         @yield('content')
     </section>
+    <back-to-top class="hidden sm:block"></back-to-top>
 </main>
 </body>
 

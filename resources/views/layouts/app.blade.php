@@ -6,6 +6,7 @@
 @include('layouts.nav')
 <main id="app">
     @yield('content')
+    <back-to-top></back-to-top>
 </main>
 @include('layouts.footer')
 </body>
