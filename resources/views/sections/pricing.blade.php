@@ -10,6 +10,9 @@
             Cheapest Laundry and Dry Cleaning Services in Town
         </h2>
         @foreach($categories as $category)
+            @if($category->laundry_types->count() == 0)
+                @continue
+            @endif
             <h3 class="text-2xl text-gray-600 md:pr-16 text-center py-8 border-b-2 border-gray-300 underline">
                 {{$category->name}} Category
             </h3>
