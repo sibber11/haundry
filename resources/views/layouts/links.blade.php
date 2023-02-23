@@ -1,6 +1,7 @@
-<aside class="hidden md:block md:w-60 md:m-4 bg-white md:bg-gray-100 md:rounded -mt-3 pt-3 px-4 pb-4"
-       id="main-nav">
-    <ul class="border-t border-gray-200 md:border-0">
+<aside
+    class="hidden md:block md:w-60 md:mx-4 md:mt-4 bg-white md:bg-gray-100 md:rounded -mt-3 px-4 pb-4"
+    id="main-nav">
+    <ul class="border-t border-gray-200 md:border-0 sticky top-0 pt-3">
         <li class="nav-item highlight mt-3 mx-2">
             <a @class(['block' => $flex]) href="{{route('orders.create')}}">Order Now</a>
         </li>
