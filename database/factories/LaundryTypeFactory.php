@@ -51,22 +51,14 @@ class LaundryTypeFactory extends Factory
 //        }
 //    }
 
-    public function services(array $services = [])
+    public function services(array $services_array = [])
     {
-        if (empty($services)) {
-            $services = Service::inRandomOrder()->limit(random_int(1, 4))->get();
-        } else {
-            $service_names = collect($services)->reduce(function ($carry, $price, $service_name) {
-                $carry[] = $service_name;
-                return $carry;
-            }, []);
-            $services = Service::whereIn('name', $service_names)->get();
-        }
-        return $this->afterCreating(function (LaundryType $laundryType) use ($services) {
+        return $this->afterCreating(function (LaundryType $laundryType) use ($services_array) {
+            $all_services = Service::all();
 
-            $service_array = [];
-            foreach ($services as $service) {
-                $service_array[$service->id] = ['price' => $service['price'] ?? random_int(1, 20) * 5];
+            foreach ($services_array as $service => $price) {
+                $service_id = $all_services->where('name', $service)->first()->id;
+                $service_array[$service_id] = ['price' => $price];
             }
             $laundryType->services()->attach($service_array);
         });

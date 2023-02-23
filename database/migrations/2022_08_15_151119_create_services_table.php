@@ -17,7 +17,12 @@ return new class extends Migration {
             $table->text('name');
         });
 
-        DB::table('services')->insert([['name' => 'wash & fold'], ['name' => 'iron'], ['name' => 'dry clean'], ['name' => 'wash & iron']]);
+        DB::table('services')->insert([
+            ['name' => 'iron'],
+            ['name' => 'wash & iron'],
+            ['name' => 'dry clean'],
+            ['name' => 'wash & fold'],
+        ]);
 
         Schema::create('laundry_type_service', function (Blueprint $table) {
             $table->foreignId('laundry_type_id');

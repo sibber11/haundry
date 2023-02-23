@@ -10,57 +10,297 @@ class LaundryTypeSeeder extends Seeder
 {
     private array $inputs = [
         'men' => [
-            "Shirt(Half/Full)",
-            "T-Shirt/Fatua",
-            "Pant(Half/Full)",
-            "Pajama/Trouser",
-            "Panjabi",
-            "Jubba",
-            "Ihram",
-            "Mafler",
-            "Wais Coat",
-            "Suit Jacket",
-            "Suit Trouser",
-            "Koti",
-            "Sweater",
-            "Ties",
-            "Cloat/Blazer - Non Leather",
-            "Coat/Blazer - Leather",
-            "Lungi",
-            "Sherwani",
-            "Hoodie",
-            "Jacket (Non Leather)",
-            "Leather Jacket",
-            "Overcoat",
-            "Sleeping Suit",
-            "Underwear/Under Shirt",
-            "Socks",
+            "Shirt(Half/Full)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "T-Shirt/Fatua" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Pant(Half/Full)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Pajama/Trouser" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Panjabi" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Jubba" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                ]
+            ],
+            "Ihram" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Mafler" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            //"Waist Coat",
+            //"Suit Jacket",
+            //"Suit Trouser",
+            "Koti" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                ]
+            ],
+            "Sweater" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                ]
+            ],
+            "Ties" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Cloat/Blazer - Non Leather" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 80,
+                ]
+            ],
+            "Coat/Blazer - Leather" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'wash & iron' => 200,
+                    'dry clean' => 250,
+                ]
+            ],
+            "Lungi" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Sherwani" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                ]
+            ],
+            "Hoodie" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 30,
+                ]
+            ],
+            "Jacket (Non Leather)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 40,
+                    'wash & iron' => 130,
+                    'dry clean' => 150,
+                ]
+            ],
+            "Leather Jacket" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'dry clean' => 300,
+                ]
+            ],
+            "Overcoat" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 80,
+                    'wash & iron' => 220,
+                    'dry clean' => 300,
+                ]
+            ],
+            "Sleeping Suit" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                    'wash & iron' => 100,
+                    'dry clean' => 140,
+                ]
+            ],
+            "Underwear/Under Shirt" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Socks" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
         ],
         'women' => [
-            "Sharee (Cotton)",
-            "Sharee (Silk/Jamdani/Katan)",
-            "Sharee (Party)",
-            "Salwar",
-            "Kameez",
-            "Dopatta/Orna",
-            "Three Piece",
-            "Blouse",
-            "Burkha",
-            "Ladies Shirt/Tops",
-            "Ladies Pant",
-            "Lehenga Suit",
-            "Gown",
-            "Skirt",
-            "Night Dress/Maxi",
-            "Hijab/Scarf",
-            "Frock",
-            "Petticoat",
-            "Shwal - Non Woolen",
-            "Shwal - Woolen",
-            "Sweater/Cardigan",
-            "Inner Wear"
+            "Sharee (Cotton)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 50,
+                ]
+            ],
+            "Sharee (Silk/Jamdani/Katan)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 60,
+                ]
+            ],
+            "Sharee (Party)" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 80,
+                ]
+            ],
+            "Salwar" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Kameez" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Dopatta/Orna" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Three Piece" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 30,
+                ]
+            ],
+            "Blouse" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                ]
+            ],
+            "Burkha" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 30,
+                ]
+            ],
+            "Ladies Shirt/Tops" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
+            "Ladies Pant" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
+            "Lehenga Suit" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 150,
+                    'dry clean' => 300,
+                ]
+            ],
+            "Gown" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 30,
+                    'wash & iron' => 120,
+                ]
+            ],
+            "Skirt" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
+            "Night Dress/Maxi" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                    'wash & iron' => 60,
+                ]
+            ],
+            "Hijab/Scarf" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
+            "Frock" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                    'wash & iron' => 60,
+                ]
+            ],
+            "Petticoat" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
+            "Shwal - Non Woolen" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                    'wash & iron' => 100,
+                ]
+            ],
+            "Shwal - Woolen" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 20,
+                    'wash & iron' => 120,
+                ]
+            ],
+            "Sweater/Cardigan" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 30,
+                    'wash & iron' => 60,
+                ]
+            ],
+            "Inner Wear" => [
+                'icon' => 'shirt',
+                'services' => [
+                    'iron' => 10,
+                    'wash & iron' => 40,
+                ]
+            ],
         ],
-        'child' => [
+        /*'child' => [
             "Top Wear",
             "Bottom Wear",
             "Winter Wear",
@@ -87,7 +327,7 @@ class LaundryTypeSeeder extends Seeder
             "Blanket (Single)",
             "Blanket (Double)",
             "Blanket/Katha Cover"
-        ]
+        ]*/
     ];
     private int $default = 10;
     private array $types = [

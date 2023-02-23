@@ -39,8 +39,8 @@ class LaundryTypeTest extends TestCase
     public function test_laundry_can_be_seeded()
     {
         $this->seed(LaundryTypeSeeder::class);
-        $this->assertDatabaseCount(LaundryType::class, 28);
+        $this->assertDatabaseCount(LaundryType::class, 44);
         $service = LaundryType::with('services')->first()->services()->first();
-        $this->assertSame($service->name, 'Wash & fold');
+        $this->assertSame($service->name, 'iron');
     }
 }
