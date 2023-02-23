@@ -1,5 +1,5 @@
 <section class="flex items-center justify-center py-20 bg-white min-w-screen">
-    <div class="px-16 bg-white">
+    <div class="px-6 sm:px-16 bg-white">
         <div class="container flex flex-col items-start mx-auto lg:items-center">
             <p class="relative flex items-start justify-start w-full text-lg font-bold tracking-wider text-purple-500 uppercase lg:justify-center lg:items-center"
                data-primary="purple-500">Don't just take our word for it</p>
