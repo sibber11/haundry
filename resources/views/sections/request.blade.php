@@ -17,7 +17,7 @@
 
             <div class="w-full mt-16 md:mt-0 md:w-2/5">
                 <form action="{{route('request_call')}}" method="post"
-                      class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-sky-50 border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                      class="relative h-auto p-8 py-10 overflow-hidden bg-sky-50 border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
                     @csrf
                     <h3 class="mb-6 text-2xl font-medium text-center">Request a call now</h3>
                     @error('name')
