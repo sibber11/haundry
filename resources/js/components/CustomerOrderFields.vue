@@ -124,19 +124,22 @@ const hasAlert = ref(false);
         </div>
         <!--    4 buttons with same size-->
         <div class="flex justify-between">
-            <button v-for="(service, index) in services"
+            <template v-for="(service, index) in services">
+                <button
+                    v-if="service.laundry_type.length > 0"
                     :class="{'bg-white text-gray-900': selected.id === service.id,
                     'bg-gray-900 text-white': selected.id !== service.id,
                     'border-r border-white' : index !== services.length-1
             }"
                     class="p-2 text-sm font-medium w-40 relative sm:border-0 rounded-t"
                     type="button" @click="selected = service">
-                {{ service.name }}
-                <span
-                    class="bg-gray-700 absolute inline-block top-0 right-3 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded-full z-10">
+                    {{ service.name }}
+                    <span
+                        class="bg-gray-700 absolute inline-block top-0 right-3 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded-full z-10">
                     {{ getCount(service) }}
                 </span>
-            </button>
+                </button>
+            </template>
         </div>
         <table class="w-full bg-white">
             <tr>
@@ -145,7 +148,7 @@ const hasAlert = ref(false);
                 <th class="border-b">Price</th>
                 <th class="border-b">Quantity</th>
             </tr>
-            <tr v-for="laundry in list" class="odd:bg-blue-100">
+            <tr v-for="laundry in list" class="odd:bg-blue-100 bg-gray-50">
                 <td class="py-4 text-center w-12">
                     <i :class="'fa-'+laundry.icon" class="fa"></i>
                 </td>
@@ -172,15 +175,16 @@ const hasAlert = ref(false);
                 </td>
             </tr>
         </table>
-        <div class="bg-gray-50 p-4 mt-6 rounded shadow">
+        <div
+            class="bg-white p-4 mt-6 -mx-3 md:mx-0 md:rounded shadow sticky bottom-0 sm:static border-t">
             <div class="flex justify-around items-center w-full space-x-4">
-                <a class="w-full text-center mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+                <a class="w-full text-center md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
                    href="/"
                 >
                     Back
                 </a>
                 <button
-                    class="w-full mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
+                    class="w-full md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium text-base font-medium leading-4 text-gray-800"
                     type="button"
                     @click="submit"
                 >
