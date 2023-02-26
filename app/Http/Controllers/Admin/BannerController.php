@@ -29,7 +29,7 @@ class BannerController extends AppBaseController
     {
         $input = $request->all();
 //        dd($request->file('image')->store('banners'));
-        $input['image'] = $request->file('image')->store('banners');
+        $input['image'] = $request->file('image')->store('images');
 
         /** @var Banner $banner */
         $banner = Banner::create($input);

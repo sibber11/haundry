@@ -11,7 +11,7 @@
 
         <template v-for="(image, index) in images">
             <figure v-show="currentIndex === index + 1" class="h-96">
-                <img :src="'/'+image.image" alt="Image"
+                <img :src="'/storage/'+image.image" alt="Image"
                      class="absolute inset-0 z-10 h-full w-full object-cover"/>
                 <figcaption v-show="image.caption"
                             class="absolute inset-x-0 bottom-1 z-20 w-96 mx-auto p-4 font-light text-sm text-center tracking-widest leading-snug bg-gray-300 bg-opacity-25">
@@ -62,7 +62,6 @@ export default {
     },
     methods: {
         next() {
-            console.log(this.currentIndex, this.images.length)
             if (this.currentIndex < this.images.length) {
                 this.currentIndex++;
             } else {

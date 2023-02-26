@@ -13,7 +13,8 @@
             @foreach($banners as $banner)
                 <tr>
                     <td>
-                        <img src="{{ asset($banner->image) }}" alt="image" style="max-width: 100%; max-height: 200px;">
+                        <img src="{{ Storage::url($banner->image) }}" alt="image"
+                             style="max-width: 100%; max-height: 200px;">
                     </td>
                     <td>{{$banner->caption}}</td>
                     <td>

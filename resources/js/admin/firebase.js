@@ -22,7 +22,7 @@ function initFirebaseMessagingRegistration() {
             _method: "PATCH",
             token
         }).then(({data}) => {
-            console.log(data)
+            //console.log(data)
         }).catch(({response: {data}}) => {
             console.error(data)
         })

@@ -22,7 +22,7 @@ class SettingsController extends Controller
         ]);
         $settings = Settings::first();
         if ($request->hasFile('logo')) {
-            $settings->logo = $request->file('logo')->store('banners');
+            $settings->logo = $request->file('logo')->store('images');
         }
         $settings->about_top = $request->input('about_top');
         $settings->about_bot = $request->input('about_bot');
